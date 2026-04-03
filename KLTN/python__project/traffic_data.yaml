@@ -1,0 +1,7 @@
+path: D:/Khóa luận tốt nghiệp/KLTN/datasets/train_bien_so
+
+train: train/images
+val: valid/images
+
+nc: 8
+names: ['xe buyt', 'xe container', 'xe cuu hoa', 'xe dap', 'xe hoi', 'xe may', 'xe tai', 'xe van']

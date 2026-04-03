@@ -1,0 +1,1 @@
+D:/Khóa luận tốt nghiệp/KLTN/python__project/runs/detect/LPR_Project/model_bien_so/weights/lpr_model.pt

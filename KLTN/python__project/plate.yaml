@@ -1,0 +1,8 @@
+
+path: D:/Khóa luận tốt nghiệp/KLTN/datasets/train_bien_so
+
+train: train/images
+val: valid/images
+
+nc: 1
+names: ['bien_so']

@@ -1,0 +1,9 @@
+path: D:\Khóa luận tốt nghiệp\KLTN\DATA_DATN\DATA
+train: TRAIN/image
+val: TEST/image
+
+# Số lượng lớp
+nc: 3
+
+# Tên của các lớp
+names: ['xe_may', 'o_to', 'nguoi_di_bo']
