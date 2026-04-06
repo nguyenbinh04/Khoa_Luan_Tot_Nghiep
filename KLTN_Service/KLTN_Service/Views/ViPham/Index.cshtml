@@ -1,0 +1,158 @@
+﻿@model IEnumerable<KLTN_Service.Models.LichSuViPham>
+
+@{
+    ViewData["Title"] = "Quản lý vi phạm";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-danger fw-bold m-0"><i class="bi bi-exclamation-triangle-fill"></i> DANH SÁCH XE VI PHẠM</h2>
+        <span class="badge bg-secondary">Tổng số: @Model.Count() vụ việc</span>
+    </div>
+
+    <div class="card shadow border-0">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center" id="violationTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Biển Số</th>
+                            <th>Lỗi Vi Phạm</th>
+                            <th>Thời Gian</th>
+                            <th>Trạng Thái</th>
+                            <th style="width: 180px;">Ảnh Bằng Chứng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold text-muted">#@item.Id</td>
+                                <td><span class="badge bg-primary px-3 py-2 fs-6">@item.BienSo</span></td>
+                                <td class="text-danger fw-bold">@item.LoaiViPham</td>
+                                <td>@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                <td>
+                                    <span class="badge rounded-pill @(item.TrangThaiXuLy == "Chưa xử lý" ? "bg-warning text-dark" : "bg-success")">
+                                        @item.TrangThaiXuLy
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="position-relative d-inline-block shadow-sm rounded overflow-hidden"
+                                         style="cursor: pointer; transition: transform 0.2s;"
+                                         onmouseover="this.style.transform='scale(1.05)'"
+                                         onmouseout="this.style.transform='scale(1)'"
+                                         onclick="showViolationDetail('@item.DuongDanAnh', '@item.DuongDanAnhBienSo', '@item.BienSo', '@item.LoaiViPham', '@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")')">
+
+                                        <img src="/images/vi_pham/@item.DuongDanAnh" class="img-fluid" style="width: 150px; height: 85px; object-fit: cover;" />
+
+                                        @if (!string.IsNullOrEmpty(item.DuongDanAnhBienSo))
+                                        {
+                                            <div style="position: absolute; bottom: 0; right: 0; background: rgba(220, 53, 69, 0.8); padding: 2px;">
+                                                <img src="/images/plates/@item.DuongDanAnhBienSo"
+                                                     style="width: 50px; height: auto; border: 1px solid white;" />
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="violationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="bi bi-camera-fill me-2"></i> TRÍCH XUẤT HÌNH ẢNH VI PHẠM</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row g-4">
+                    <div class="col-md-8">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white fw-bold"><i class="bi bi-image"></i> Hình ảnh toàn cảnh</div>
+                            <div class="card-body p-2 text-center bg-dark rounded-bottom">
+                                <img id="modalFullImg" src="" class="img-fluid rounded" style="max-height: 550px;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white fw-bold"><i class="bi bi-search"></i> Cận cảnh biển số</div>
+                            <div class="card-body p-3 text-center">
+                                <div id="plateContainer" class="p-2 border border-danger border-2 rounded bg-white">
+                                    <img id="modalPlateImg" src="" class="img-fluid" style="max-width: 100%;" />
+                                </div>
+                                <div id="noPlateMsg" class="text-muted small mt-2 d-none">Không có ảnh biển số cận cảnh</div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h6 class="text-muted small text-uppercase border-bottom pb-2 mb-3">Thông tin chi tiết</h6>
+                                <p class="mb-2"><strong>Biển số:</strong> <span id="modalBienSo" class="badge bg-primary fs-6"></span></p>
+                                <p class="mb-2"><strong>Hành vi:</strong> <span id="modalLoi" class="text-danger fw-bold"></span></p>
+                                <p class="mb-0"><strong>Thời điểm:</strong> <br /><span id="modalTime" class="text-muted"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-danger" onclick="window.print()"><i class="bi bi-printer me-2"></i> In biên bản</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#violationTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+                },
+                "order": [[ 0, "desc" ]],
+                "columnDefs": [{ "orderable": false, "targets": 5 }] // Tắt sắp xếp cho cột ảnh
+            });
+        });
+
+        function showViolationDetail(fullImg, plateImg, bienSo, loi, thoiGian) {
+            // Hiển thị ảnh toàn cảnh
+            document.getElementById('modalFullImg').src = "/images/vi_pham/" + fullImg;
+
+            const plateImgTag = document.getElementById('modalPlateImg');
+            const plateContainer = document.getElementById('plateContainer');
+            const noPlateMsg = document.getElementById('noPlateMsg');
+
+            // Kiểm tra và hiển thị ảnh biển số
+            if (plateImg && plateImg.trim() !== '' && plateImg !== 'null') {
+                plateImgTag.src = "/images/plates/" + plateImg;
+                plateContainer.classList.remove('d-none');
+                noPlateMsg.classList.add('d-none');
+            } else {
+                plateContainer.classList.add('d-none');
+                noPlateMsg.classList.remove('d-none');
+            }
+
+            document.getElementById('modalBienSo').innerText = bienSo;
+            document.getElementById('modalLoi').innerText = loi;
+            document.getElementById('modalTime').innerText = thoiGian;
+
+            var myModal = new bootstrap.Modal(document.getElementById('violationModal'));
+            myModal.show();
+        }
+    </script>
+}

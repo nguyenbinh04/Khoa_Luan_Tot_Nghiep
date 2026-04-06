@@ -1,0 +1,206 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\controllers\\apicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\controllers\\apicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\views\\vipham\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\views\\vipham\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\models\\lichsuvipham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\models\\lichsuvipham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\views\\vipham\\live.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\views\\vipham\\live.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\controllers\\viphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\controllers\\viphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\models\\cauhinhvung.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\models\\cauhinhvung.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|d:\\kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\kltn_service\\kltn_service\\kltn_service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{36B06CB7-86C7-4EC8-B138-E951DDD078BE}|KLTN_Service\\KLTN_Service.csproj|solutionrelative:kltn_service\\kltn_service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CauHinhVung.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\CauHinhVung.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Models\\CauHinhVung.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\CauHinhVung.cs",
+              "RelativeToolTip": "KLTN_Service\\Models\\CauHinhVung.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T10:25:29.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Live.cshtml",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\ViPham\\Live.cshtml",
+              "RelativeDocumentMoniker": "KLTN_Service\\Views\\ViPham\\Live.cshtml",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\ViPham\\Live.cshtml",
+              "RelativeToolTip": "KLTN_Service\\Views\\ViPham\\Live.cshtml",
+              "ViewState": "AgIAACAAAAAAAAAAAAAQwBoAAACNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T10:17:21.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "KLTN_Service\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "KLTN_Service\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACAAAACJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T09:54:31.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\ViPham\\Index.cshtml",
+              "RelativeDocumentMoniker": "KLTN_Service\\Views\\ViPham\\Index.cshtml",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Views\\ViPham\\Index.cshtml",
+              "RelativeToolTip": "KLTN_Service\\Views\\ViPham\\Index.cshtml",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAQwJ0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-06T09:53:33.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ViPhamController.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Controllers\\ViPhamController.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Controllers\\ViPhamController.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Controllers\\ViPhamController.cs",
+              "RelativeToolTip": "KLTN_Service\\Controllers\\ViPhamController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAADwvxwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T09:50:29.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "KLTN_Service",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\KLTN_Service.csproj",
+              "RelativeDocumentMoniker": "KLTN_Service\\KLTN_Service.csproj",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\KLTN_Service.csproj",
+              "RelativeToolTip": "KLTN_Service\\KLTN_Service.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-06T09:12:55.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Program.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Program.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Program.cs",
+              "RelativeToolTip": "KLTN_Service\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T09:27:04.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Models\\AppDbContext.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "KLTN_Service\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T09:26:09.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LichSuViPham.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\LichSuViPham.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Models\\LichSuViPham.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Models\\LichSuViPham.cs",
+              "RelativeToolTip": "KLTN_Service\\Models\\LichSuViPham.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T09:23:56.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApiController.cs",
+              "DocumentMoniker": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Controllers\\ApiController.cs",
+              "RelativeDocumentMoniker": "KLTN_Service\\Controllers\\ApiController.cs",
+              "ToolTip": "D:\\Kh\u00F3a lu\u1EADn t\u1ED1t nghi\u1EC7p\\KLTN_Service\\KLTN_Service\\Controllers\\ApiController.cs",
+              "RelativeToolTip": "KLTN_Service\\Controllers\\ApiController.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAYwJYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T09:13:43.159Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

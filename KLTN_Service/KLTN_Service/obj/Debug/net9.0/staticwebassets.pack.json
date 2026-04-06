@@ -1,0 +1,1085 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\KLTN_Service.bundle.scp.css",
+      "PackagePath": "staticwebassets\\KLTN_Service.7oa0bnjs4t.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\plates\\f6f2d3ba-3d20-4b95-a755-cb51a4718eba.jpg",
+      "PackagePath": "staticwebassets\\images\\plates\\f6f2d3ba-3d20-4b95-a755-cb51a4718eba.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\0369cc86-89ae-4b5e-8cda-9e22fe703a8d.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\0369cc86-89ae-4b5e-8cda-9e22fe703a8d.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_164144_vp_id2.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_164144_vp_id2.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_164224_vp_id12.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_164224_vp_id12.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_164228_vp_id-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_164228_vp_id-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_164321_vp_id52.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_164321_vp_id52.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_164341_vp_id76.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_164341_vp_id76.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_165956_vp_id13.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_165956_vp_id13.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_170103_vp_id15.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_170103_vp_id15.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_170113_vp_id53.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_170113_vp_id53.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173008_vp_id8.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173008_vp_id8.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173014_vp_id18.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173014_vp_id18.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173542_vp_id8.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173542_vp_id8.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173547_vp_id18.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173547_vp_id18.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173606_vp_id35.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173606_vp_id35.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173619_vp_id53.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173619_vp_id53.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173623_vp_id110.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173623_vp_id110.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173627_vp_id122.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173627_vp_id122.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173634_vp_id124.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173634_vp_id124.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173639_vp_id139.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173639_vp_id139.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173947_vp_id13.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173947_vp_id13.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173954_vp_id42.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173954_vp_id42.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_173959_vp_id55.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_173959_vp_id55.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174003_vp_id64.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174003_vp_id64.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174300_vp_id13.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174300_vp_id13.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174310_vp_id42.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174310_vp_id42.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174315_vp_id55.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174315_vp_id55.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174319_vp_id64.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174319_vp_id64.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174429_vp_id166.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174429_vp_id166.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174430_vp_id171.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174430_vp_id171.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174441_vp_id200.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174441_vp_id200.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174441_vp_id202.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174441_vp_id202.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174445_vp_id206.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174445_vp_id206.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174453_vp_id179.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174453_vp_id179.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174503_vp_id269.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174503_vp_id269.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174505_vp_id278.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174505_vp_id278.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174506_vp_id283.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174506_vp_id283.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174514_vp_id311.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174514_vp_id311.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174524_vp_id340.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174524_vp_id340.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174530_vp_id356.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174530_vp_id356.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174542_vp_id400.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174542_vp_id400.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174544_vp_id406.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174544_vp_id406.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174641_vp_id6.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174641_vp_id6.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174753_vp_id347.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174753_vp_id347.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174806_vp_id386.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174806_vp_id386.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_174951_vp_id19.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_174951_vp_id19.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175120_vp_id153.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175120_vp_id153.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175121_vp_id158.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175121_vp_id158.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175131_vp_id187.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175131_vp_id187.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175132_vp_id189.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175132_vp_id189.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175135_vp_id193.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175135_vp_id193.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175143_vp_id166.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175143_vp_id166.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175152_vp_id256.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175152_vp_id256.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175154_vp_id265.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175154_vp_id265.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175154_vp_id270.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175154_vp_id270.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175202_vp_id298.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175202_vp_id298.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175214_vp_id327.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175214_vp_id327.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175220_vp_id343.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175220_vp_id343.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175231_vp_id387.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175231_vp_id387.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_175233_vp_id393.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_175233_vp_id393.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180519_vp_id16.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180519_vp_id16.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180556_vp_id76.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180556_vp_id76.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180600_vp_id97.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180600_vp_id97.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180606_vp_id106.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180606_vp_id106.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180608_vp_id114.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180608_vp_id114.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180615_vp_id140.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180615_vp_id140.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180615_vp_id141.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180615_vp_id141.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_180627_vp_id164.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_180627_vp_id164.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181553_vp_id14.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181553_vp_id14.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181553_vp_id17.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181553_vp_id17.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181619_vp_id63.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181619_vp_id63.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181629_vp_id81.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181629_vp_id81.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181637_vp_id105.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181637_vp_id105.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181640_vp_id111.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181640_vp_id111.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181643_vp_id124.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181643_vp_id124.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181648_vp_id141.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181648_vp_id141.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181658_vp_id166.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181658_vp_id166.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181707_vp_id182.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181707_vp_id182.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181713_vp_id192.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181713_vp_id192.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181727_vp_id220.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181727_vp_id220.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181733_vp_id233.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181733_vp_id233.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181736_vp_id238.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181736_vp_id238.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181747_vp_id260.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181747_vp_id260.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181748_vp_id-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181748_vp_id-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181800_vp_id298.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181800_vp_id298.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181806_vp_id322.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181806_vp_id322.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181811_vp_id338.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181811_vp_id338.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181817_vp_id350.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181817_vp_id350.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181838_vp_id376.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181838_vp_id376.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181857_vp_id381.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181857_vp_id381.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181902_vp_id387.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181902_vp_id387.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_181942_vp_id409.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_181942_vp_id409.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182003_vp_id424.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182003_vp_id424.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182008_vp_id429.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182008_vp_id429.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182112_vp_id486.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182112_vp_id486.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182123_vp_id497.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182123_vp_id497.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182429_vp_id28.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182429_vp_id28.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182430_vp_id31.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182430_vp_id31.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182505_vp_id59.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182505_vp_id59.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182515_vp_id71.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182515_vp_id71.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182519_vp_id76.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182519_vp_id76.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182521_vp_id83.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182521_vp_id83.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182523_vp_id84.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182523_vp_id84.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182533_vp_id-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182533_vp_id-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182538_vp_id105.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182538_vp_id105.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182803_vp_id16.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182803_vp_id16.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182813_vp_id-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182813_vp_id-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182822_vp_id47.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182822_vp_id47.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182832_vp_id61.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182832_vp_id61.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182836_vp_id82.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182836_vp_id82.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182837_vp_id94.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182837_vp_id94.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182839_vp_id87.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182839_vp_id87.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182841_vp_id103.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182841_vp_id103.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182847_vp_id116.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182847_vp_id116.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_182850_vp_id127.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_182850_vp_id127.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183500_vp_id-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183500_vp_id-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183500_vp_id1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183500_vp_id1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183501_vp_id2.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183501_vp_id2.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183507_vp_id5.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183507_vp_id5.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183513_vp_id16.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183513_vp_id16.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183514_vp_id18.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183514_vp_id18.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183939_vp_id380.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183939_vp_id380.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_183951_vp_id468.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_183951_vp_id468.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_184128_vp_id3.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_184128_vp_id3.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_184147_vp_id87.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_184147_vp_id87.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_184258_vp_id361.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_184258_vp_id361.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_184310_vp_id449.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_184310_vp_id449.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_185603_vp_3.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_185603_vp_3.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_185610_vp_7.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_185610_vp_7.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_185612_vp_-1.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_185612_vp_-1.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_185639_vp_29.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_185639_vp_29.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_185642_vp_26.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_185642_vp_26.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191242_id_14.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191242_id_14.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191318_id_81.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191318_id_81.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191327_id_101.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191327_id_101.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191451_id_3.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191451_id_3.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191459_id_7.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191459_id_7.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191517_id_19.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191517_id_19.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191536_id_46.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191536_id_46.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191553_id_83.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191553_id_83.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191601_id_105.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191601_id_105.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191610_id_133.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191610_id_133.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191613_id_150.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191613_id_150.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191619_id_161.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191619_id_161.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191623_id_169.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191623_id_169.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191634_id_181.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191634_id_181.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191651_id_207.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191651_id_207.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191722_id_281.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191722_id_281.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191733_id_299.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191733_id_299.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191838_id_352.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191838_id_352.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_191954_id_392.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_191954_id_392.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_192003_id_398.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_192003_id_398.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_192004_id_400.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_192004_id_400.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_192031_id_415.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_192031_id_415.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_192038_id_426.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_192038_id_426.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_192042_id_429.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_192042_id_429.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194851_id_6.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194851_id_6.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194908_id_18.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194908_id_18.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194932_id_48.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194932_id_48.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194934_id_59.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194934_id_59.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194952_id_87.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194952_id_87.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_194953_id_101.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_194953_id_101.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195001_id_112.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195001_id_112.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195036_id_178.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195036_id_178.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195039_id_190.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195039_id_190.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195053_id_204.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195053_id_204.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195125_id_284.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195125_id_284.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195127_id_289.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195127_id_289.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195138_id_298.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195138_id_298.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195334_id_31.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195334_id_31.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195335_id_32.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195335_id_32.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195709_id_6.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195709_id_6.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195737_id_19.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195737_id_19.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195744_id_24.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195744_id_24.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\20260406_195750_id_25.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\20260406_195750_id_25.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\2560e620-8293-414c-abad-a2ba5a12f136.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\2560e620-8293-414c-abad-a2ba5a12f136.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\26af91ec-bef2-46c6-b340-be03a77d3470.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\26af91ec-bef2-46c6-b340-be03a77d3470.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\2ceed5a7-6db8-4a24-a7d6-2d14ba74caac.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\2ceed5a7-6db8-4a24-a7d6-2d14ba74caac.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\2eaeca02-591b-4fba-9eae-54c182c8b355.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\2eaeca02-591b-4fba-9eae-54c182c8b355.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\34f98af0-86d5-4669-82aa-9719df56ef22.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\34f98af0-86d5-4669-82aa-9719df56ef22.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\370a2af0-c7bd-4d3d-8a9a-0a6a4efbd4a4.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\370a2af0-c7bd-4d3d-8a9a-0a6a4efbd4a4.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\54ccdaee-ffff-4257-8116-1245fdacfeff.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\54ccdaee-ffff-4257-8116-1245fdacfeff.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\5698dba1-a104-4ba2-b6a0-9e537fc4a5d9.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\5698dba1-a104-4ba2-b6a0-9e537fc4a5d9.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\57e9ba15-2231-4dc2-93d5-421c56222ba3.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\57e9ba15-2231-4dc2-93d5-421c56222ba3.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\5b5d85fa-5734-42de-8f22-4df83c084edd.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\5b5d85fa-5734-42de-8f22-4df83c084edd.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\5d6ca292-e44f-4e13-bfe6-2094d76eb16b.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\5d6ca292-e44f-4e13-bfe6-2094d76eb16b.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\5d8ef98c-9b7f-4a44-a57e-a571a87f4193.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\5d8ef98c-9b7f-4a44-a57e-a571a87f4193.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\7b569d93-ac63-4dbf-b248-9b3b6eae86a0.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\7b569d93-ac63-4dbf-b248-9b3b6eae86a0.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\7df27f8e-d7cf-451b-9947-d79995a9069c.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\7df27f8e-d7cf-451b-9947-d79995a9069c.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\814048cd-3a80-4c69-ba70-5144fa506435.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\814048cd-3a80-4c69-ba70-5144fa506435.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\86ff81b9-0679-44ce-a13d-a8081eaf2e45.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\86ff81b9-0679-44ce-a13d-a8081eaf2e45.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\87e88c1a-b344-4c14-9378-74a711a6f649.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\87e88c1a-b344-4c14-9378-74a711a6f649.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\8a34a63d-f8d3-430b-8acf-2eba6ddd7169.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\8a34a63d-f8d3-430b-8acf-2eba6ddd7169.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\96b22551-89cf-40d3-b3ad-ec5220b2f748.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\96b22551-89cf-40d3-b3ad-ec5220b2f748.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\a5fe426c-1709-48d0-a275-1dc349cdb2ca.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\a5fe426c-1709-48d0-a275-1dc349cdb2ca.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\a97af63a-6f21-48a0-be99-f89b968ca84c.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\a97af63a-6f21-48a0-be99-f89b968ca84c.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\a9acbab0-ccec-42ac-adf8-1d6cdefa9ffc.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\a9acbab0-ccec-42ac-adf8-1d6cdefa9ffc.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\be67ee8f-b1f4-48d0-b616-197faa83de02.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\be67ee8f-b1f4-48d0-b616-197faa83de02.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\c3301c12-0081-4242-8d71-9919f8d6571f.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\c3301c12-0081-4242-8d71-9919f8d6571f.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\c4a9bdce-0831-4dff-b89f-6b752869f562.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\c4a9bdce-0831-4dff-b89f-6b752869f562.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\images\\vi_pham\\ec0c6e2a-ed33-40c6-8274-1368458c6ddd.jpg",
+      "PackagePath": "staticwebassets\\images\\vi_pham\\ec0c6e2a-ed33-40c6-8274-1368458c6ddd.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.KLTN_Service.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.KLTN_Service.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.KLTN_Service.props",
+      "PackagePath": "build\\KLTN_Service.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.KLTN_Service.props",
+      "PackagePath": "buildMultiTargeting\\KLTN_Service.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.KLTN_Service.props",
+      "PackagePath": "buildTransitive\\KLTN_Service.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

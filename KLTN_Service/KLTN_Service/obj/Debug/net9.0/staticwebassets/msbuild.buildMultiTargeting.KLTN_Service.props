@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\KLTN_Service.props" />
+</Project>

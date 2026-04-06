@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "Camera Trực Tiếp & Cấu Hình Vùng";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-8 text-center" style="padding-right: 20px;">
+            <h3 class="text-primary fw-bold mb-3"><i class="bi bi-camera-video"></i> HỆ THỐNG GIÁM SÁT REAL-TIME</h3>
+
+            <div class="card shadow-lg border-0 bg-dark">
+                <div class="card-body p-0 position-relative" style="display: inline-block; margin: 0 auto; overflow: hidden;">
+                    <img id="video-stream" src="http://localhost:5000/video_feed"
+                         class="img-fluid"
+                         alt="Đang kết nối Camera..." style="display: block; width: 100%;" />
+
+                    <canvas id="overlay-canvas" style="position: absolute; top: 0; left: 0; cursor: crosshair;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 h-100">
+                <div class="card-header bg-danger text-white fw-bold py-3">
+                    <i class="bi bi-pencil-square fs-5"></i> BẢNG ĐIỀU KHIỂN VẼ VẠCH
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small mb-4">Dùng chuột click trực tiếp vào màn hình camera bên trái để vẽ các góc tạo thành vùng cấm.</p>
+
+                    <div class="d-grid gap-2 mb-4">
+                        <button id="btn-clear" class="btn btn-warning btn-lg"><i class="bi bi-eraser"></i> Xóa Vẽ Lại</button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold fs-6">Loại vùng cảnh báo:</label>
+                        <select id="loai-vung" class="form-select form-select-lg">
+                            <option value="Vach_DenDo">Vùng Vượt Đèn Đỏ</option>
+                            <option value="Lan_XeMay">Làn Xe Máy</option>
+                            <option value="Lan_Oto">Làn Ô Tô</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-4">
+                        <button id="btn-save" class="btn btn-success btn-lg fw-bold"><i class="bi bi-save"></i> LƯU CẤU HÌNH</button>
+                    </div>
+
+                    <hr class="my-4" />
+                    <p class="fw-bold mb-2 fs-6">Dữ liệu tọa độ hiện tại (JSON):</p>
+                    <textarea id="toa-do-output" class="form-control form-control-sm text-monospace" rows="5" readonly style="font-size: 11px; background-color: #f8f9fa;"></textarea>
+                </div>
+                <div class="card-footer text-muted small py-3">
+                    <i class="bi bi-info-circle"></i> Bấm "Xóa Vẽ Lại" rồi bấm "Lưu" để hủy cấu hình cũ.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const img = document.getElementById('video-stream');
+            const canvas = document.getElementById('overlay-canvas');
+            const ctx = canvas.getContext('2d');
+            const output = document.getElementById('toa-do-output');
+
+            let points = [];
+
+            // Hàm tự động chỉnh canvas bằng với ảnh web
+            function adjustCanvasSize() {
+                canvas.width = img.clientWidth;
+                canvas.height = img.clientHeight;
+                if (points.length > 0) drawShape();
+            }
+
+            // Dùng vòng lặp kiểm tra để lấy đúng độ phân giải gốc của luồng MJPEG
+            let checkSize = setInterval(function() {
+                if (img.naturalWidth > 0) {
+                    adjustCanvasSize();
+                    clearInterval(checkSize);
+                }
+            }, 100);
+
+            $(window).resize(adjustCanvasSize);
+
+            // Khi click chuột vẽ
+            canvas.addEventListener('mousedown', function (e) {
+                if (img.naturalWidth === 0) return; // Chờ video load xong
+
+                const rect = canvas.getBoundingClientRect();
+                const displayX = e.clientX - rect.left;
+                const displayY = e.clientY - rect.top;
+
+                // TÍNH TOÁN TỶ LỆ KÍCH THƯỚC (Đây là bí quyết)
+                const ratioX = img.naturalWidth / img.clientWidth;
+                const ratioY = img.naturalHeight / img.clientHeight;
+
+                // Tọa độ thực tế (Gấp lên nhiều lần) để gửi cho Python
+                const realX = Math.round(displayX * ratioX);
+                const realY = Math.round(displayY * ratioY);
+
+                points.push({ x: realX, y: realY });
+                drawShape();
+                output.value = JSON.stringify(points);
+            });
+
+            // Hàm vẽ lên web
+            function drawShape() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (points.length === 0) return;
+
+                // Tính tỷ lệ ngược lại để vẽ hình hiển thị cho khớp với điểm click
+                const ratioX = canvas.width / img.naturalWidth;
+                const ratioY = canvas.height / img.naturalHeight;
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x * ratioX, points[0].y * ratioY);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x * ratioX, points[i].y * ratioY);
+                }
+                if (points.length >= 3) ctx.closePath();
+
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                if (points.length >= 3) ctx.fill();
+
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                points.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x * ratioX, p.y * ratioY, 5, 0, 2 * Math.PI);
+                    ctx.fillStyle = 'yellow';
+                    ctx.fill();
+                });
+            }
+
+            $('#btn-clear').click(function () {
+                points = [];
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                output.value = "";
+            });
+
+            $('#btn-save').click(function () {
+                let jsonStr = JSON.stringify(points);
+                if (points.length > 0 && points.length < 3) {
+                    alert("Vui lòng click ít nhất 3 điểm để tạo thành một vùng!");
+                    return;
+                }
+                if (points.length === 0) {
+                    if (!confirm("Bạn chưa vẽ vạch nào. Hành động này sẽ XÓA vạch hiện tại khỏi hệ thống AI. Tiếp tục?")) return;
+                    jsonStr = "[]";
+                }
+                const dataToSend = { cameraId: 1, loaiVung: $('#loai-vung').val(), toaDoJson: jsonStr };
+
+                $.ajax({
+                    url: '/api/api/config/save',
+                    type: 'POST',
+                    data: dataToSend,
+                    success: function (res) { alert("Thành công: " + res.message); },
+                    error: function (err) { alert("Lỗi kết nối API."); }
+                });
+            });
+        });
+    </script>
+}

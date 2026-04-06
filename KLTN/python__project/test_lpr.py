@@ -110,7 +110,7 @@ except Exception as e:
 
 reader = easyocr.Reader(['en'], gpu=False)
 
-image_path = "D:/Khóa luận tốt nghiệp/KLTN/datasets/anh/bs.jpg"
+image_path = "ket_qua_bien_bao.jpg"
 img = cv2.imread(image_path)
 
 if img is None:
