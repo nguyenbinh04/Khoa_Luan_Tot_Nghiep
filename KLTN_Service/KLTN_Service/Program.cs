@@ -1,5 +1,6 @@
 using KLTN_Service.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Features; // BẮT BUỘC THÊM: Để xử lý form upload dung lượng lớn
 
 namespace KLTN_Service
 {
@@ -9,10 +10,27 @@ namespace KLTN_Service
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // =========================================================
+            // CẤU HÌNH MỞ KHÓA GIỚI HẠN UPLOAD FILE LÊN 500MB
+            // =========================================================
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = 524288000; // 500 MB
+                options.MultipartHeadersLengthLimit = int.MaxValue;
+            });
+
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.Limits.MaxRequestBodySize = 524288000; // 500 MB
+            });
+            // =========================================================
+
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
             );
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 

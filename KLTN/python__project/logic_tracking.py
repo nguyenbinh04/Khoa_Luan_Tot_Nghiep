@@ -6,7 +6,7 @@ model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/runs/detect/tr
 ten_xe_custom = {0:'xe buyt', 1: 'xe container', 2: 'xe cuu hoa', 3: 'xe dap', 4: 'xe con', 5: 'xe may', 6: 'xe tai', 7: 'xe van'}
 
 #Mở video gốc
-video_path = "D:/Khóa luận tốt nghiệp/KLTN/datasets/videos/lane.mp4"
+video_path = "D:/DATA/datasets/videos/test9.mp4"
 cap = cv2.VideoCapture(video_path)
 
 # Lấy thông số của video gốc
@@ -15,7 +15,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 
 # Đường dẫn lưu file kết quả
-output_path = "D:/Khóa luận tốt nghiệp/KLTN/datasets/videos/test9_ket_qua.mp4"
+output_path = "D:/DATA/datasets/videos/test9_ket_qua.mp4"
 
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))

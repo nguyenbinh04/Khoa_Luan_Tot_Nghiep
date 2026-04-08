@@ -1,6 +1,57 @@
 [
   {
     "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "StartAI",
+    "RelativePath": "api/Api/ai/start",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "StopAI",
+    "RelativePath": "api/Api/ai/stop",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
     "Method": "ClearAllConfig",
     "RelativePath": "api/Api/config/clear-all/{cameraId}",
     "HttpMethod": "POST",
@@ -51,6 +102,27 @@
       },
       {
         "Name": "toaDoJson",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "ApproveViolation",
+    "RelativePath": "api/Api/violations/approve",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "bienSoMoi",
         "Type": "System.String",
         "IsRequired": false
       }
