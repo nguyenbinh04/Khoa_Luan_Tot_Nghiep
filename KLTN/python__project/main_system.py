@@ -16,13 +16,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # CẤU HÌNH API
 # ==========================================
 API_REPORT = "https://localhost:7114/api/api/violations/report"
-API_CONFIG = "https://localhost:7114/api/api/config/coordinates/1"
-API_CLEAR = "https://localhost:7114/api/api/config/clear-all/1"
+
+# Bỏ cấu hình cứng số 1 đi, chúng ta sẽ gọi API linh hoạt theo CAMERA_ID
+CAMERA_ID = "1"
 
 ENABLE_VEHICLE = True
-ENABLE_SIGN = True
+ENABLE_SIGN = False
 ENABLE_PLATE = True
-ENABLE_HELMET = True
+ENABLE_HELMET = False
 
 # ==========================================
 # FLASK STREAMING
@@ -32,14 +33,25 @@ output_frame = None
 lock = threading.Lock()
 
 
+# ĐÃ SỬA LỖI TREO CPU Ở ĐÂY
 def generate():
     global output_frame, lock
     while True:
+        frame_to_yield = None
         with lock:
-            if output_frame is None: continue
-            (flag, encodedImage) = cv2.imencode(".jpg", output_frame)
-            if not flag: continue
+            if output_frame is not None:
+                frame_to_yield = output_frame.copy()
+
+        if frame_to_yield is None:
+            time.sleep(0.1)  # Cho CPU nghỉ 0.1s nếu AI chưa kịp xuất ảnh
+            continue
+
+        (flag, encodedImage) = cv2.imencode(".jpg", frame_to_yield)
+        if not flag:
+            continue
+
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+        time.sleep(0.03)  # Giới hạn ~30 FPS để không làm lag trình duyệt web
 
 
 @app.route("/video_feed")
@@ -58,18 +70,11 @@ def run_flask():
     app.run(host="0.0.0.0", port=5000, debug=False, threaded=True, use_reloader=False)
 
 
-def reset_system_config():
-    try:
-        requests.post(API_CLEAR, verify=False, timeout=3)
-    except:
-        pass
-
-
 def fetch_all_zones():
-    # ĐÃ THÊM: Vung_DenGiaoThong vào từ điển để Python tải về
+    global CAMERA_ID
     zones = {"Vach_DenDo": None, "Lan_XeMay": None, "Lan_Oto": None, "Vung_DenGiaoThong": None}
     try:
-        res = requests.get(API_CONFIG, verify=False, timeout=2)
+        res = requests.get(f"https://localhost:7114/api/api/config/coordinates/{CAMERA_ID}", verify=False, timeout=2)
         if res.status_code == 200:
             for cfg in res.json().get("data", []):
                 if cfg["loaiVung"] in zones:
@@ -89,39 +94,53 @@ def detect_light_color(crop_img):
     upper_red2 = np.array([180, 255, 255])
     mask_red = cv2.add(cv2.inRange(hsv, lower_red1, upper_red1), cv2.inRange(hsv, lower_red2, upper_red2))
 
-    lower_green = np.array([40, 50, 50])
+    # Dải màu Vàng / Cam (Hue 11-35)
+    lower_yellow = np.array([11, 50, 50])
+    upper_yellow = np.array([35, 255, 255])
+    mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
+
+    lower_green = np.array([36, 50, 50])
     upper_green = np.array([90, 255, 255])
     mask_green = cv2.inRange(hsv, lower_green, upper_green)
 
     red_pixels = cv2.countNonZero(mask_red)
+    yellow_pixels = cv2.countNonZero(mask_yellow)
     green_pixels = cv2.countNonZero(mask_green)
 
-    if red_pixels > green_pixels and red_pixels > 15:
-        return "RED"
-    elif green_pixels > red_pixels and green_pixels > 15:
-        return "GREEN"
+    max_pixels = max(red_pixels, yellow_pixels, green_pixels)
+
+    if max_pixels > 15:
+        if max_pixels == red_pixels:
+            return "RED"
+        elif max_pixels == yellow_pixels:
+            return "YELLOW"
+        else:
+            return "GREEN"
+
     return "UNKNOWN"
 
 
 def main():
-    global output_frame, lock
+    global output_frame, lock, CAMERA_ID
 
-    reset_system_config()
-    threading.Thread(target=run_flask, daemon=True).start()
-
-    print("[HỆ THỐNG] Đang tải các mô hình AI...")
-    base_dir = "models/"
-    traffic_model = YOLO(os.path.join(base_dir, "traffic_model.pt"))
-    if ENABLE_SIGN:   sign_model = YOLO(os.path.join(base_dir, "sign_model.pt"))
-    if ENABLE_PLATE:  plate_model = YOLO(os.path.join(base_dir, "plate_model.pt"))
-    if ENABLE_HELMET: helmet_model = YOLO(os.path.join(base_dir, "helmet_model.pt"))
-
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
+        input_path = sys.argv[1]
+        CAMERA_ID = sys.argv[2]
+    elif len(sys.argv) > 1:
         input_path = sys.argv[1]
     else:
         return
 
     if not os.path.exists(input_path): return
+
+    threading.Thread(target=run_flask, daemon=True).start()
+
+    print(f"[HỆ THỐNG] Đang tải các mô hình AI cho CAMERA SỐ {CAMERA_ID}...")
+    base_dir = "models/"
+    traffic_model = YOLO(os.path.join(base_dir, "traffic_model.pt"))
+    if ENABLE_SIGN:   sign_model = YOLO(os.path.join(base_dir, "sign_model.pt"))
+    if ENABLE_PLATE:  plate_model = YOLO(os.path.join(base_dir, "plate_model.pt"))
+    if ENABLE_HELMET: helmet_model = YOLO(os.path.join(base_dir, "helmet_model.pt"))
 
     is_image = input_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp'))
 
@@ -166,11 +185,8 @@ def main():
         light_detected = False
 
         if zones["Vach_DenDo"] is not None:
-            # =======================================================
             # ƯU TIÊN 1: NẾU NGƯỜI DÙNG TỰ VẼ VÙNG ĐÈN -> CHỈ NHÌN VÀO ĐÓ!
-            # =======================================================
             if zones.get("Vung_DenGiaoThong") is not None:
-                # Lấy khung hình chữ nhật bao quanh đa giác người dùng đã vẽ
                 bx, by, bw, bh = cv2.boundingRect(zones["Vung_DenGiaoThong"])
                 roi_x1, roi_x2 = bx, bx + bw
                 roi_y1, roi_y2 = by, by + bh
@@ -181,15 +197,12 @@ def main():
                     detected_color = detect_light_color(crop_light)
                     if detected_color != "UNKNOWN": current_traffic_light = detected_color
 
-                    # Vẽ khung màu TÍM MỘNG MƠ báo hiệu hệ thống đang ngoan ngoãn nghe lời bạn
                     cv2.rectangle(frame, (roi_x1, roi_y1), (roi_x2, roi_y2), (255, 0, 255), 2)
                     cv2.putText(frame, f"USER SCAN: {current_traffic_light}", (roi_x1, max(20, roi_y1 - 10)), 1, 1,
                                 (255, 0, 255), 2)
-                    light_detected = True  # Đánh dấu đã thấy đèn để các AI bên dưới im lặng
+                    light_detected = True
 
-            # =======================================================
             # NẾU NGƯỜI DÙNG KHÔNG VẼ -> GIAO CHO AI TỰ XỬ
-            # =======================================================
             if not light_detected:
                 if t_results[0].boxes.id is not None:
                     for t_box in t_results[0].boxes:
@@ -200,7 +213,8 @@ def main():
                                 detected_color = detect_light_color(crop_light)
                                 if detected_color != "UNKNOWN": current_traffic_light = detected_color
 
-                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
+                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (
+                                (0, 255, 255) if current_traffic_light == "YELLOW" else (0, 255, 0))
                             cv2.rectangle(frame, (tx1, ty1), (tx2, ty2), l_color, 2)
                             cv2.putText(frame, f"Traffic Light: {current_traffic_light}", (tx1, ty1 - 10), 1, 0.8,
                                         l_color, 2)
@@ -220,7 +234,8 @@ def main():
                                 detected_color = detect_light_color(crop_light)
                                 if detected_color != "UNKNOWN": current_traffic_light = detected_color
 
-                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
+                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (
+                                (0, 255, 255) if current_traffic_light == "YELLOW" else (0, 255, 0))
                             cv2.rectangle(frame, (sx1, sy1), (sx2, sy2), l_color, 2)
                             cv2.putText(frame, f"Traffic Light: {current_traffic_light}", (sx1, sy1 - 10), 1, 0.8,
                                         l_color, 2)
@@ -236,16 +251,21 @@ def main():
                         detected_color = detect_light_color(crop_light)
                         if detected_color != "UNKNOWN": current_traffic_light = detected_color
 
-                        cv2.rectangle(frame, (roi_x1, roi_y1), (roi_x2, roi_y2), (0, 255, 255),
-                                      2)  # AUTO SCAN là màu vàng
+                        cv2.rectangle(frame, (roi_x1, roi_y1), (roi_x2, roi_y2), (0, 255, 255), 2)
                         cv2.putText(frame, f"AUTO SCAN: {current_traffic_light}", (roi_x1 + 10, roi_y1 + 30), 1, 1,
                                     (0, 255, 255), 2)
 
         # =======================================================
-        # VẼ CÁC VẠCH CẢNH BÁO
+        # VẼ VẠCH ĐÈN ĐỎ
         # =======================================================
         if zones["Vach_DenDo"] is not None:
-            zone_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
+            if current_traffic_light == "RED":
+                zone_color = (0, 0, 255)
+            elif current_traffic_light == "YELLOW":
+                zone_color = (0, 255, 255)
+            else:
+                zone_color = (0, 255, 0)
+
             cv2.polylines(frame, [zones["Vach_DenDo"]], True, zone_color, 2)
             cv2.putText(frame, f"TRANG THAI DEN: {current_traffic_light}",
                         (zones["Vach_DenDo"][0][0], zones["Vach_DenDo"][0][1] - 10), 1, 1, zone_color, 2)
@@ -287,7 +307,7 @@ def main():
                 is_turning_right = False
 
                 if class_name not in nhom_uutien:
-                    # Logic: Phân tích Vector rẽ phải
+                    # Logic: Phân tích Vector rẽ phải & CHỈ PHẠT KHI ĐÈN ĐỎ
                     if in_red_zone and current_traffic_light == "RED":
                         if len(vehicle_paths[tid]) > 5:
                             old_cx = vehicle_paths[tid][0][0]
@@ -364,8 +384,10 @@ def main():
                             f"plate_{tid}.jpg", crop_plate_bytes, "image/jpeg")
 
                         try:
+                            # ĐÃ SỬA THÊM cameraId ĐỂ DATABASE NHẬN DIỆN ĐƯỢC
                             requests.post(API_REPORT, verify=False, timeout=2,
-                                          data={"bienSo": f"ID {tid}", "loaiViPham": loi_tong_hop}, files=files)
+                                          data={"bienSo": f"ID {tid}", "loaiViPham": loi_tong_hop,
+                                                "cameraId": CAMERA_ID}, files=files)
                         except:
                             pass
 

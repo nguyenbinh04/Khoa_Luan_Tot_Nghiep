@@ -24,8 +24,11 @@ namespace KLTN_Service.Controllers
 
         [HttpPost("violations/report")]
         public async Task<IActionResult> ReportViolation(
-            [FromForm] string bienSo, [FromForm] string loaiViPham,
-            [FromForm] IFormFile anhViPham, [FromForm] IFormFile? anhBienSo)
+            [FromForm] string bienSo,
+            [FromForm] string loaiViPham,
+            [FromForm] int cameraId, // <-- ĐÃ SỬA: Thêm biến hứng CameraId từ Python
+            [FromForm] IFormFile anhViPham,
+            [FromForm] IFormFile? anhBienSo)
         {
             string fullPath = await SaveFile(anhViPham, "vi_pham");
             string platePath = "";
@@ -39,6 +42,7 @@ namespace KLTN_Service.Controllers
             {
                 BienSo = bienSo,
                 LoaiViPham = loaiViPham,
+                CameraId = cameraId, // <-- ĐÃ SỬA: Gắn CameraId vào Database
                 ThoiGian = DateTime.Now,
                 DuongDanAnh = fullPath,
                 DuongDanAnhBienSo = platePath,
@@ -65,6 +69,46 @@ namespace KLTN_Service.Controllers
             return fileName;
         }
 
+        // =========================================================
+        // API QUẢN LÝ CAMERA TỪ DATABASE
+        // =========================================================
+        [HttpGet("camera/list")]
+        public async Task<IActionResult> GetCameras()
+        {
+            try
+            {
+                var cameras = await _context.Cameras.ToListAsync();
+                return Ok(new { status = "success", data = cameras });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "error", message = ex.Message });
+            }
+        }
+
+        [HttpPost("camera/update")]
+        public async Task<IActionResult> UpdateCameraName([FromForm] int id, [FromForm] string newName)
+        {
+            try
+            {
+                var cam = await _context.Cameras.FindAsync(id);
+                if (cam == null) return NotFound(new { status = "error", message = "Không tìm thấy Camera" });
+
+                cam.TenCamera = newName;
+                _context.Cameras.Update(cam);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { status = "success", message = "Đã lưu tên Camera mới vào Database!" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "error", message = ex.Message });
+            }
+        }
+
+        // =========================================================
+        // API CẤU HÌNH VẠCH KẺ
+        // =========================================================
         [HttpGet("config/coordinates/{cameraId}")]
         public async Task<IActionResult> GetCoordinates(int cameraId)
         {
@@ -172,39 +216,69 @@ namespace KLTN_Service.Controllers
         // UPLOAD VIDEO VÀ BẬT AI CHẠY NGẦM
         // =========================================================
         [HttpPost("ai/start")]
-        public async Task<IActionResult> StartAI([FromForm] IFormFile videoFile)
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> StartAI([FromForm] IFormFile? videoFile, [FromForm] int cameraId)
         {
             try
             {
                 KillZombiePythons();
 
-                if (videoFile == null || videoFile.Length == 0)
-                {
-                    return BadRequest(new { status = "error", message = "Vui lòng chọn một file video!" });
-                }
+                // 1. Kiểm tra xem Camera có tồn tại trong Database không
+                var cam = await _context.Cameras.FindAsync(cameraId);
+                if (cam == null) return BadRequest(new { status = "error", message = "Không tìm thấy Camera trong hệ thống!" });
 
                 string uploadsFolder = Path.Combine(_env.WebRootPath, "videos");
                 if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
 
-                // ĐÃ SỬA CHỖ NÀY: Tự động lấy đuôi file gốc (.mov, .avi, .mp4...)
-                string fileExtension = Path.GetExtension(videoFile.FileName).ToLower();
-                if (string.IsNullOrEmpty(fileExtension)) fileExtension = ".mp4"; // Mặc định nếu file ko có đuôi
+                string filePath = "";
 
-                string filePath = Path.Combine(uploadsFolder, "current_test_video" + fileExtension);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                // 2. NẾU NGƯỜI DÙNG CÓ CHỌN FILE MỚI -> Lưu file và cập nhật vào DB
+                if (videoFile != null && videoFile.Length > 0)
                 {
-                    await videoFile.CopyToAsync(stream);
+                    string fileExtension = Path.GetExtension(videoFile.FileName).ToLower();
+                    if (string.IsNullOrEmpty(fileExtension)) fileExtension = ".mp4";
+
+                    // Đặt tên file mới và tránh trùng lặp
+                    string fileName = $"cam_{cameraId}_video_{DateTime.Now.Ticks}{fileExtension}";
+                    filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await videoFile.CopyToAsync(stream);
+                    }
+
+                    // Lưu tên file mới vào cột DuongDan của MySQL
+                    cam.DuongDan = fileName;
+                    cam.LoaiNguon = "Video";
+                    cam.TrangThai = 1;
+                    _context.Cameras.Update(cam);
+                    await _context.SaveChangesAsync();
+                }
+                // 3. NẾU KHÔNG CHỌN FILE -> Lấy video cũ từ DB ra chạy
+                else
+                {
+                    if (!string.IsNullOrEmpty(cam.DuongDan))
+                    {
+                        filePath = Path.Combine(uploadsFolder, cam.DuongDan);
+                        if (!System.IO.File.Exists(filePath))
+                        {
+                            return BadRequest(new { status = "error", message = $"Video '{cam.DuongDan}' không còn tồn tại trên server. Vui lòng tải lên file mới!" });
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest(new { status = "error", message = $"Bạn chưa gán video nào cho Camera này cả. Vui lòng tải lên một file!" });
+                    }
                 }
 
-                // Đường dẫn đã được giữ nguyên y như máy của bạn
+                // 4. Khởi chạy AI Python với file tương ứng
                 string pythonExePath = @"C:\Users\84339\AppData\Local\Microsoft\WindowsApps\python.exe";
                 string scriptPath = @"D:\Khóa luận tốt nghiệp\KLTN\python__project\main_system.py";
 
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = pythonExePath,
-                    Arguments = $"\"{scriptPath}\" \"{filePath}\"",
+                    Arguments = $"\"{scriptPath}\" \"{filePath}\" {cameraId}",
                     WorkingDirectory = Path.GetDirectoryName(scriptPath),
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -215,7 +289,7 @@ namespace KLTN_Service.Controllers
                 _pythonProcess = new Process { StartInfo = startInfo };
                 _pythonProcess.Start();
 
-                return Ok(new { status = "success", message = "Đã tải video và khởi động AI thành công!" });
+                return Ok(new { status = "success", message = $"Đã khởi động AI cho '{cam.TenCamera}' thành công!" });
             }
             catch (Exception ex)
             {
@@ -272,6 +346,51 @@ namespace KLTN_Service.Controllers
             }
             catch
             {
+            }
+        }
+
+        [HttpPost("camera/create")]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> CreateCamera([FromForm] string tenCamera, [FromForm] IFormFile? videoFile)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(tenCamera))
+                    return BadRequest(new { status = "error", message = "Tên Camera không được để trống!" });
+
+                // 1. Tạo Camera mới
+                var newCam = new Camera { TenCamera = tenCamera };
+
+                // 2. Nếu có gán luôn video thì lưu file và lưu đường dẫn
+                if (videoFile != null && videoFile.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(_env.WebRootPath, "videos");
+                    if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+                    string fileExtension = Path.GetExtension(videoFile.FileName).ToLower();
+                    if (string.IsNullOrEmpty(fileExtension)) fileExtension = ".mp4";
+
+                    string fileName = $"cam_new_{DateTime.Now.Ticks}{fileExtension}";
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await videoFile.CopyToAsync(stream);
+                    }
+
+                    newCam.DuongDan = fileName;
+                    newCam.LoaiNguon = "Video";
+                    newCam.TrangThai = 1;
+                }
+
+                _context.Cameras.Add(newCam);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { status = "success", message = "Đã thêm Camera mới thành công!", newId = newCam.Id });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "error", message = ex.Message });
             }
         }
     }

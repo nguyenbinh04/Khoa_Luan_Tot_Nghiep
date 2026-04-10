@@ -13,14 +13,12 @@
                     <div id="offlineMsg" class="text-secondary d-flex flex-column justify-content-center align-items-center h-100" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
                         <i class="bi bi-eye-slash-fill" style="font-size: 4rem;"></i>
                         <h5 class="mt-3">Hệ thống AI đang tắt</h5>
-                        <p class="small">Vui lòng nhập đường dẫn video và bấm Khởi động AI.</p>
+                        <p class="small">Vui lòng chọn Camera, nhập video và bấm Khởi động AI.</p>
                     </div>
 
                     <img id="video-stream" src=""
                          class="img-fluid"
-                         alt="" style="display: none; width: 100%; position: relative; z-index: 1;"
-                         onerror="this.style.display='none'; document.getElementById('offlineMsg').style.display='flex';"
-                         onload="this.style.display='block'; document.getElementById('offlineMsg').style.display='none';" />
+                         alt="" style="display: none; width: 100%; position: relative; z-index: 1;" />
 
                     <canvas id="overlay-canvas" style="position: absolute; top: 0; left: 0; cursor: crosshair; z-index: 2;"></canvas>
                 </div>
@@ -35,23 +33,38 @@
                 </div>
                 <div class="card-body bg-light">
                     <div class="mb-3">
+                        <label class="form-label fw-bold fs-6 text-dark">Lựa chọn Camera giám sát:</label>
+                        <div class="input-group shadow-sm">
+                            <select id="cameraSelect" class="form-select form-select-lg border-primary fw-bold text-primary" onchange="clearCanvasOnSwitch()">
+                                <option value="">Đang tải dữ liệu từ Database...</option>
+                            </select>
+                            <button class="btn btn-success px-3" type="button" onclick="openCreateModal()" title="Thêm Camera mới">
+                                <i class="bi bi-plus-circle-fill"></i>
+                            </button>
+                            <button class="btn btn-primary px-3" type="button" onclick="renameCamera()" title="Đổi tên Camera hiện tại">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label fw-bold fs-6">Chọn Video đầu vào:</label>
                         <input type="file" id="fileVideo" class="form-control form-control-lg border-primary" accept="video/*" />
-                        <small class="text-muted d-block mt-1"><i class="bi bi-cloud-arrow-up"></i> Hệ thống sẽ tải video này lên Server để xử lý.</small>
+                        <small class="text-muted d-block mt-1"><i class="bi bi-cloud-arrow-up"></i> Hệ thống sẽ lưu video này vào Database cho Camera hiện tại.</small>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button class="btn btn-success fw-bold flex-grow-1 shadow-sm" onclick="startAI()">
+                        <button class="btn btn-success fw-bold flex-grow-1 shadow-sm" type="button" onclick="startAI()">
                             <i class="bi bi-play-circle-fill me-1"></i> KHỞI ĐỘNG AI
                         </button>
-                        <button class="btn btn-danger fw-bold shadow-sm" onclick="stopAI()" title="Tắt hệ thống">
+                        <button class="btn btn-danger fw-bold shadow-sm" type="button" onclick="stopAI()" title="Tắt hệ thống">
                             <i class="bi bi-stop-circle-fill"></i> TẮT
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow border-0 h-100">
+            <div class="card shadow border-0">
                 <div class="card-header bg-danger text-white fw-bold py-3">
                     <i class="bi bi-pencil-square fs-5 me-2"></i> BẢNG ĐIỀU KHIỂN VẼ VẠCH
                 </div>
@@ -59,12 +72,12 @@
                     <p class="text-muted small mb-4">Dùng chuột click trực tiếp vào màn hình camera bên trái để vẽ các góc tạo thành vùng cảnh báo.</p>
 
                     <div class="d-grid gap-2 mb-4">
-                        <button id="btn-clear" class="btn btn-warning fw-bold"><i class="bi bi-eraser"></i> Xóa Vẽ Lại</button>
+                        <button id="btn-clear" type="button" class="btn btn-warning fw-bold"><i class="bi bi-eraser"></i> Xóa Vẽ Lại</button>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-bold fs-6">Loại vùng cảnh báo:</label>
-                        <select id="loai-vung" class="form-select form-select-lg border-danger">
+                        <select id="loaiVung" class="form-select form-select-lg border-danger">
                             <option value="Vach_DenDo">Vùng Vượt Đèn Đỏ</option>
                             <option value="Lan_XeMay">Làn Xe Máy</option>
                             <option value="Lan_Oto">Làn Ô Tô</option>
@@ -73,7 +86,9 @@
                     </div>
 
                     <div class="d-grid gap-2 mb-4">
-                        <button id="btn-save" class="btn btn-danger btn-lg fw-bold shadow-sm"><i class="bi bi-save me-2"></i> LƯU CẤU HÌNH</button>
+                        <button type="button" id="btn-save" class="btn btn-danger btn-lg fw-bold shadow-sm" onclick="saveConfig()">
+                            <i class="bi bi-save me-2"></i> LƯU CẤU HÌNH
+                        </button>
                     </div>
 
                     <hr class="my-4" />
@@ -85,53 +100,325 @@
     </div>
 </div>
 
+<div class="modal fade" id="createCameraModal" tabindex="-1" aria-labelledby="createCameraModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold" id="createCameraModalLabel"><i class="bi bi-camera-fill me-2"></i>Thêm Camera Giám Sát Mới</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tên Camera / Vị trí:</label>
+                    <input type="text" id="newCameraName" class="form-control" placeholder="VD: CAM 05 - Ngã Tư Sở...">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Gán Video mô phỏng (Tùy chọn):</label>
+                    <input type="file" id="newCameraVideo" class="form-control" accept="video/*">
+                    <small class="text-muted">Bạn có thể gán video sau ở màn hình điều khiển cũng được.</small>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-success fw-bold" id="btnSubmitNewCamera" onclick="submitNewCamera()">
+                    <i class="bi bi-check-circle me-1"></i> Khởi Tạo Camera
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         // ==========================================
-        // 1. CHỨC NĂNG BẬT/TẮT AI CHẠY NGẦM
+        // 0. BỘ NHỚ ĐỆM (CHỐNG RESET KHI TẢI LẠI TRANG)
+        // ==========================================
+        function saveUIState() {
+            var camId = $('#cameraSelect').val();
+            var loai = $('#loaiVung').val();
+            if (camId) localStorage.setItem('lastCameraId', camId);
+            if (loai) localStorage.setItem('lastLoaiVung', loai);
+        }
+
+        // ==========================================
+        // 1. TẢI CAMERA TỪ DATABASE MYSQL
+        // ==========================================
+        function loadCamerasFromDB(selectId = null) {
+            $.ajax({
+                url: '/api/api/camera/list',
+                type: 'GET',
+                success: function(res) {
+                    if(res.status === 'success' && res.data) {
+                        let html = '';
+                        res.data.forEach(cam => {
+                            html += `<option value="${cam.id}">${cam.tenCamera}</option>`;
+                        });
+                        $('#cameraSelect').html(html);
+
+                        // Ưu tiên phục hồi trạng thái từ LocalStorage
+                        var lastCam = localStorage.getItem('lastCameraId');
+                        var lastVung = localStorage.getItem('lastLoaiVung');
+
+                        if (selectId) {
+                            $('#cameraSelect').val(selectId);
+                            localStorage.setItem('lastCameraId', selectId);
+                        } else if (lastCam) {
+                            $('#cameraSelect').val(lastCam);
+                        }
+
+                        if (lastVung) {
+                            $('#loaiVung').val(lastVung);
+                        }
+
+                        loadZoneFromServer();
+                    }
+                },
+                error: function() {
+                    alert("Lỗi: Không thể kết nối Database để tải danh sách Camera!");
+                }
+            });
+        }
+
+        // ==========================================
+        // 2. TẢI VẠCH KẺ TỪ DATABASE
+        // ==========================================
+        function loadZoneFromServer() {
+            var cameraId = $('#cameraSelect').val();
+            var loaiVung = $('#loaiVung').val();
+
+            if(!cameraId) return;
+
+            $('#fileVideo').val(''); // Clear ô video để hiển thị dùng video cũ
+
+            $.ajax({
+                url: '/api/api/config/coordinates/' + cameraId,
+                type: 'GET',
+                success: function (res) {
+                    points = [];
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    output.value = "";
+
+                    if (res.status === 'success' && res.data) {
+                        var zone = res.data.find(x => x.loaiVung === loaiVung);
+
+                        if (zone && zone.toaDoJson && zone.toaDoJson !== '[]') {
+                            points = JSON.parse(zone.toaDoJson);
+                            output.value = zone.toaDoJson;
+
+                            if (img.naturalWidth > 0 && img.style.display !== 'none') {
+                                drawShape();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // 3. LƯU VẠCH KẺ VÀO DATABASE
+        // ==========================================
+        function saveConfig() {
+            let jsonStr = JSON.stringify(points);
+
+            if (points.length > 0 && points.length < 3) {
+                alert("Vui lòng click ít nhất 3 điểm để tạo thành một vùng!");
+                return;
+            }
+            if (points.length === 0) {
+                if (!confirm("Hành động này sẽ XÓA cấu hình của vùng hiện tại khỏi AI. Tiếp tục?")) return;
+                jsonStr = "[]";
+            }
+
+            let btn = document.getElementById('btn-save');
+            let oldText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang lưu...';
+            btn.disabled = true;
+
+            var cameraId = $('#cameraSelect').val();
+            var loaiVung = $('#loaiVung').val();
+
+            if(!cameraId) {
+                alert("Lỗi: Chưa chọn Camera!");
+                btn.innerHTML = oldText;
+                btn.disabled = false;
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append("cameraId", cameraId);
+            formData.append("loaiVung", loaiVung);
+            formData.append("toaDoJson", jsonStr);
+
+            $.ajax({
+                url: '/api/api/config/save',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    alert("Thành công: " + res.message);
+                    btn.innerHTML = oldText;
+                    btn.disabled = false;
+                    loadZoneFromServer(); // Reload lại vạch từ DB
+                },
+                error: function (err) {
+                    alert("Lỗi kết nối API. Không thể lưu cấu hình.");
+                    btn.innerHTML = oldText;
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        // ==========================================
+        // 4. CHỨC NĂNG ĐỔI TÊN CAMERA VÀ THÊM MỚI
+        // ==========================================
+        function renameCamera() {
+            var select = document.getElementById('cameraSelect');
+            var cameraId = select.value;
+            var oldName = select.options[select.selectedIndex].text;
+
+            var newName = prompt("Nhập tên mới cho Camera:", oldName);
+
+            if (newName !== null && newName.trim() !== "") {
+                var formData = new FormData();
+                formData.append("id", cameraId);
+                formData.append("newName", newName.trim());
+
+                $.ajax({
+                    url: '/api/api/camera/update',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        alert(res.message);
+                        select.options[select.selectedIndex].text = newName.trim();
+                    },
+                    error: function (err) {
+                        alert("Lỗi không thể lưu tên Camera vào Database!");
+                    }
+                });
+            }
+        }
+
+        function openCreateModal() {
+            $('#newCameraName').val('');
+            $('#newCameraVideo').val('');
+            var myModal = new bootstrap.Modal(document.getElementById('createCameraModal'));
+            myModal.show();
+        }
+
+        function submitNewCamera() {
+            var camName = $('#newCameraName').val().trim();
+            var fileInput = document.getElementById('newCameraVideo');
+            var file = fileInput.files[0];
+
+            if (!camName) {
+                alert("Vui lòng nhập tên Camera!");
+                $('#newCameraName').focus();
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append("tenCamera", camName);
+            if (file) formData.append("videoFile", file);
+
+            var btn = document.getElementById('btnSubmitNewCamera');
+            var oldHtml = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang tạo...';
+            btn.disabled = true;
+
+            $.ajax({
+                url: '/api/api/camera/create',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    alert(res.message);
+                    var modalEl = document.getElementById('createCameraModal');
+                    var modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+
+                    btn.innerHTML = oldHtml;
+                    btn.disabled = false;
+
+                    loadCamerasFromDB(res.newId); // Load lại và focus vào camera mới
+                },
+                error: function (err) {
+                    alert("Lỗi không thể tạo Camera. File video có thể quá lớn.");
+                    btn.innerHTML = oldHtml;
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        function clearCanvasOnSwitch() {
+            $('#btn-clear').click();
+            loadZoneFromServer();
+        }
+
+        // ==========================================
+        // 5. CHỨC NĂNG BẬT/TẮT AI CHẠY NGẦM
         // ==========================================
         function startAI() {
              var fileInput = document.getElementById('fileVideo');
              var file = fileInput.files[0];
+             var cameraId = $('#cameraSelect').val();
 
-             if (!file) {
-                 alert("Vui lòng chọn một file video trước khi khởi động!");
+             if (!cameraId) {
+                 alert("Vui lòng chọn Camera trước khi khởi động AI!");
                  return;
              }
 
-             // Đóng gói file thành Form Data để gửi
              var formData = new FormData();
-             formData.append("videoFile", file);
+             if (file) formData.append("videoFile", file);
+             formData.append("cameraId", cameraId);
 
-             // Vô hiệu hóa nút và hiện trạng thái Tải
              let btn = event.currentTarget;
              let oldText = btn.innerHTML;
-             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang tải video & Bật AI...';
+             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang khởi động AI...';
              btn.disabled = true;
 
              $.ajax({
                  url: '/api/api/ai/start',
                  type: 'POST',
                  data: formData,
-                 processData: false,  // Bắt buộc đối với Upload File
-                 contentType: false,  // Bắt buộc đối với Upload File
+                 processData: false,
+                 contentType: false,
                  success: function (res) {
                      alert(res.message);
-                     // Mở luồng video
-                     document.getElementById('video-stream').src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();
+
+                     // ĐÃ SỬA: CƠ CHẾ CHỜ AI KHỞI ĐỘNG XONG
+                     let img = document.getElementById('video-stream');
+                     let retryCount = 0;
+
+                     img.onload = function() {
+                         img.style.display = 'block';
+                         document.getElementById('offlineMsg').style.display = 'none';
+                     };
+
+                     img.onerror = function() {
+                         if (retryCount < 10) { // Thử lại tối đa 10 lần (chờ AI load model mất khoảng 10-15s)
+                             retryCount++;
+                             setTimeout(() => {
+                                 img.src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();
+                             }, 1500); // 1.5 giây thử tải lại 1 lần
+                         } else {
+                             img.style.display = 'none';
+                             document.getElementById('offlineMsg').style.display = 'flex';
+                         }
+                     };
+
+                     // Kích hoạt mồi lần đầu tiên
+                     img.src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();
+
                      btn.innerHTML = oldText;
                      btn.disabled = false;
                  },
                 error: function (err) {
                     let errorMsg = "Đường truyền gián đoạn hoặc file video quá lớn!";
-
-                    // Bắt lỗi an toàn hơn, tránh bị undefined
-                    if (err.responseJSON && err.responseJSON.message) {
-                        errorMsg = err.responseJSON.message;
-                    } else if (err.status === 413) {
-                        errorMsg = "File video quá lớn. Vui lòng chọn file dưới 500MB.";
-                    }
-
+                    if (err.responseJSON && err.responseJSON.message) errorMsg = err.responseJSON.message;
                     alert("Lỗi: " + errorMsg);
                     btn.innerHTML = oldText;
                     btn.disabled = false;
@@ -147,16 +434,15 @@
                 type: 'POST',
                 success: function (res) {
                     alert(res.message);
-                    // Xóa src để kích hoạt sự kiện onerror hiện thông báo ngoại tuyến
                     document.getElementById('video-stream').src = "";
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); // Xóa luôn vạch đang vẽ dở
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                 },
                 error: function() { alert("Lỗi kết nối khi tắt AI."); }
             });
         }
 
         // ==========================================
-        // 2. CHỨC NĂNG VẼ VẠCH TRÊN CANVAS
+        // 6. VẼ VẠCH TRÊN CANVAS
         // ==========================================
         const img = document.getElementById('video-stream');
         const canvas = document.getElementById('overlay-canvas');
@@ -166,18 +452,29 @@
         let points = [];
 
         $(document).ready(function () {
-            // Tự động kiểm tra và kết nối luồng video nếu AI đang chạy sẵn
+            // Tải danh sách Camera ngay khi mở trang
+            loadCamerasFromDB();
+
+            // Gắn sự kiện để lưu trạng thái chống Reset
+            $('#cameraSelect').change(function() {
+                saveUIState();
+                clearCanvasOnSwitch();
+            });
+            $('#loaiVung').change(function() {
+                saveUIState();
+                loadZoneFromServer();
+            });
+
+            // Gắn src cho img để kích hoạt onload/onerror khi có feed
             img.src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();
 
-            // Hàm tự động chỉnh canvas bằng với ảnh web
             function adjustCanvasSize() {
-                if (img.clientWidth === 0) return; // Nếu ảnh đang bị ẩn thì bỏ qua
+                if (img.clientWidth === 0) return;
                 canvas.width = img.clientWidth;
                 canvas.height = img.clientHeight;
                 if (points.length > 0) drawShape();
             }
 
-            // Theo dõi khi ảnh thay đổi kích thước
             let checkSize = setInterval(function() {
                 if (img.naturalWidth > 0 && img.style.display !== 'none') {
                     adjustCanvasSize();
@@ -186,7 +483,6 @@
 
             $(window).resize(adjustCanvasSize);
 
-            // Khi click chuột vẽ
             canvas.addEventListener('mousedown', function (e) {
                 if (img.naturalWidth === 0 || img.style.display === 'none') {
                     alert("Vui lòng khởi động AI và chờ video hiển thị trước khi vẽ!");
@@ -208,7 +504,6 @@
                 output.value = JSON.stringify(points);
             });
 
-            // Hàm vẽ lên web
             function drawShape() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 if (points.length === 0) return;
@@ -223,8 +518,7 @@
                 }
                 if (points.length >= 3) ctx.closePath();
 
-                // ĐÃ SỬA: Đổi màu fill/stroke dựa theo loại vùng đang chọn
-                let loaiVung = $('#loai-vung').val();
+                let loaiVung = $('#loaiVung').val();
 
                 if(loaiVung === 'Vach_DenDo') {
                     ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
@@ -235,7 +529,7 @@
                     ctx.strokeStyle = 'yellow';
                 }
                 else if (loaiVung === 'Vung_DenGiaoThong') {
-                    ctx.fillStyle = 'rgba(255, 0, 255, 0.3)'; // Màu tím (Magenta) cho Đèn Giao Thông
+                    ctx.fillStyle = 'rgba(255, 0, 255, 0.3)';
                     ctx.strokeStyle = 'magenta';
                 }
                 else {
@@ -257,51 +551,10 @@
                 });
             }
 
-            // Đổi màu vẽ ngay khi đổi dropdown
-            $('#loai-vung').change(function() { drawShape(); });
-
             $('#btn-clear').click(function () {
                 points = [];
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 output.value = "";
-            });
-
-            $('#btn-save').click(function () {
-                let jsonStr = JSON.stringify(points);
-                if (points.length > 0 && points.length < 3) {
-                    alert("Vui lòng click ít nhất 3 điểm để tạo thành một vùng!");
-                    return;
-                }
-                if (points.length === 0) {
-                    if (!confirm("Hành động này sẽ XÓA cấu hình của vùng hiện tại khỏi AI. Tiếp tục?")) return;
-                    jsonStr = "[]";
-                }
-
-                // Vô hiệu hóa nút khi lưu
-                let btn = this;
-                let oldText = btn.innerHTML;
-                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang lưu...';
-                btn.disabled = true;
-
-                const dataToSend = { cameraId: 1, loaiVung: $('#loai-vung').val(), toaDoJson: jsonStr };
-
-                $.ajax({
-                    url: '/api/api/config/save',
-                    type: 'POST',
-                    data: dataToSend,
-                    success: function (res) {
-                        alert("Thành công: " + res.message);
-                        btn.innerHTML = oldText;
-                        btn.disabled = false;
-                        // Tự động xóa vạch vẽ tạm đi để người dùng biết đã lưu xong
-                        $('#btn-clear').click();
-                    },
-                    error: function (err) {
-                        alert("Lỗi kết nối API.");
-                        btn.innerHTML = oldText;
-                        btn.disabled = false;
-                    }
-                });
             });
         });
     </script>
