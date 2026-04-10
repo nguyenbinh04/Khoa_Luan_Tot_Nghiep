@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KLTN_Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+986fa8fff0ecf978e2be5de19cc7640f6e80030f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c91adf38fc72d703b586b2b1073b99e4c5fc1913")]
 [assembly: System.Reflection.AssemblyProductAttribute("KLTN_Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KLTN_Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

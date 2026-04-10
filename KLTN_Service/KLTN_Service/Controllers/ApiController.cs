@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics; // BẮT BUỘC THÊM: Để C# có thể ra lệnh cho hệ điều hành chạy file Python
+using System.Diagnostics;
 
 namespace KLTN_Service.Controllers
 {
@@ -13,7 +13,7 @@ namespace KLTN_Service.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly AppDbContext _context;
 
-        // BẮT BUỘC THÊM: Biến lưu trữ tiến trình Python đang chạy ngầm
+        // Biến lưu trữ tiến trình Python đang chạy ngầm
         private static Process? _pythonProcess;
 
         public ApiController(IWebHostEnvironment env, AppDbContext context)
@@ -42,7 +42,7 @@ namespace KLTN_Service.Controllers
                 ThoiGian = DateTime.Now,
                 DuongDanAnh = fullPath,
                 DuongDanAnhBienSo = platePath,
-                TrangThaiXuLy = "Chưa xử lý" // Thêm mặc định trạng thái
+                TrangThaiXuLy = "Chưa xử lý"
             };
 
             _context.LichSuViPhams.Add(record);
@@ -168,17 +168,14 @@ namespace KLTN_Service.Controllers
             }
         }
 
-
-
         // =========================================================
-        // TÍNH NĂNG MỚI: UPLOAD VIDEO VÀ BẬT AI CHẠY NGẦM
+        // UPLOAD VIDEO VÀ BẬT AI CHẠY NGẦM
         // =========================================================
         [HttpPost("ai/start")]
         public async Task<IActionResult> StartAI([FromForm] IFormFile videoFile)
         {
             try
             {
-                // BƯỚC QUAN TRỌNG: Dọn dẹp sạch sẽ các Zombie Python từ phiên làm việc trước
                 KillZombiePythons();
 
                 if (videoFile == null || videoFile.Length == 0)
@@ -186,21 +183,24 @@ namespace KLTN_Service.Controllers
                     return BadRequest(new { status = "error", message = "Vui lòng chọn một file video!" });
                 }
 
-                // Lưu file Video
                 string uploadsFolder = Path.Combine(_env.WebRootPath, "videos");
                 if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-                string filePath = Path.Combine(uploadsFolder, "current_test_video.mp4");
+
+                // ĐÃ SỬA CHỖ NÀY: Tự động lấy đuôi file gốc (.mov, .avi, .mp4...)
+                string fileExtension = Path.GetExtension(videoFile.FileName).ToLower();
+                if (string.IsNullOrEmpty(fileExtension)) fileExtension = ".mp4"; // Mặc định nếu file ko có đuôi
+
+                string filePath = Path.Combine(uploadsFolder, "current_test_video" + fileExtension);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await videoFile.CopyToAsync(stream);
                 }
 
-                // Cấu hình đường dẫn Python
+                // Đường dẫn đã được giữ nguyên y như máy của bạn
                 string pythonExePath = @"C:\Users\84339\AppData\Local\Microsoft\WindowsApps\python.exe";
                 string scriptPath = @"D:\Khóa luận tốt nghiệp\KLTN\python__project\main_system.py";
 
-                // Khởi động AI
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = pythonExePath,
@@ -228,7 +228,6 @@ namespace KLTN_Service.Controllers
         {
             try
             {
-                // 1. BẤM NÚT TỰ HỦY: Gửi lệnh sang API của Python
                 try
                 {
                     using (var client = new HttpClient())
@@ -237,9 +236,8 @@ namespace KLTN_Service.Controllers
                         await client.PostAsync("http://127.0.0.1:5000/shutdown", null);
                     }
                 }
-                catch { } // Bỏ qua nếu Python đã tắt trước đó rồi
+                catch { }
 
-                // 2. DỌN DẸP BỘ NHỚ TRONG C#
                 if (_pythonProcess != null && !_pythonProcess.HasExited)
                 {
                     try { _pythonProcess.Kill(true); } catch { }
@@ -247,7 +245,6 @@ namespace KLTN_Service.Controllers
                     _pythonProcess = null;
                 }
 
-                // 3. QUÉT RÁC PHÒNG HỜ BẰNG LỆNH WINDOWS
                 KillZombiePythons();
 
                 return Ok(new { status = "success", message = "Đã dập tắt hoàn toàn hệ thống AI và giải phóng Camera!" });
@@ -258,31 +255,23 @@ namespace KLTN_Service.Controllers
             }
         }
 
-        // =========================================================
-        // HÀM HỖ TRỢ: ĐI SĂN ZOMBIE BẰNG LỆNH WINDOWS CMD
-        // =========================================================
         private void KillZombiePythons()
         {
             try
             {
-                // Mở CMD ngầm và chạy lệnh taskkill
-                // /F: Ép buộc tắt (Force)
-                // /IM: Tìm theo tên file (Image Name)
-                // /T: Diệt cả mẹ lẫn con (Kill Tree)
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
                     Arguments = "/c taskkill /F /IM python.exe /T",
-                    CreateNoWindow = true,     // Chạy ngầm không văng cửa sổ
+                    CreateNoWindow = true,
                     UseShellExecute = false
                 };
 
                 var process = Process.Start(psi);
-                process?.WaitForExit(); // Chờ dọn dẹp xong mới cho Web chạy tiếp
+                process?.WaitForExit();
             }
             catch
             {
-                // Bỏ qua nếu không tìm thấy tiến trình nào để tắt
             }
         }
     }

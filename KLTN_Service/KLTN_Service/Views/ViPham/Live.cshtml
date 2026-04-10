@@ -36,7 +36,7 @@
                 <div class="card-body bg-light">
                     <div class="mb-3">
                         <label class="form-label fw-bold fs-6">Chọn Video đầu vào:</label>
-                        <input type="file" id="fileVideo" class="form-control form-control-lg border-primary" accept="video/mp4,video/avi" />
+                        <input type="file" id="fileVideo" class="form-control form-control-lg border-primary" accept="video/*" />
                         <small class="text-muted d-block mt-1"><i class="bi bi-cloud-arrow-up"></i> Hệ thống sẽ tải video này lên Server để xử lý.</small>
                     </div>
 
@@ -68,6 +68,7 @@
                             <option value="Vach_DenDo">Vùng Vượt Đèn Đỏ</option>
                             <option value="Lan_XeMay">Làn Xe Máy</option>
                             <option value="Lan_Oto">Làn Ô Tô</option>
+                            <option value="Vung_DenGiaoThong">Vùng Đèn Giao Thông</option>
                         </select>
                     </div>
 
@@ -222,15 +223,28 @@
                 }
                 if (points.length >= 3) ctx.closePath();
 
-                // Đổi màu fill dựa theo loại vùng đang chọn cho trực quan
+                // ĐÃ SỬA: Đổi màu fill/stroke dựa theo loại vùng đang chọn
                 let loaiVung = $('#loai-vung').val();
-                if(loaiVung === 'Vach_DenDo') ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-                else if (loaiVung === 'Lan_XeMay') ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
-                else ctx.fillStyle = 'rgba(0, 0, 255, 0.3)';
+
+                if(loaiVung === 'Vach_DenDo') {
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                    ctx.strokeStyle = 'red';
+                }
+                else if (loaiVung === 'Lan_XeMay') {
+                    ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+                    ctx.strokeStyle = 'yellow';
+                }
+                else if (loaiVung === 'Vung_DenGiaoThong') {
+                    ctx.fillStyle = 'rgba(255, 0, 255, 0.3)'; // Màu tím (Magenta) cho Đèn Giao Thông
+                    ctx.strokeStyle = 'magenta';
+                }
+                else {
+                    ctx.fillStyle = 'rgba(0, 0, 255, 0.3)';
+                    ctx.strokeStyle = 'blue';
+                }
 
                 if (points.length >= 3) ctx.fill();
 
-                ctx.strokeStyle = (loaiVung === 'Vach_DenDo') ? 'red' : ((loaiVung === 'Lan_XeMay') ? 'yellow' : 'blue');
                 ctx.lineWidth = 2;
                 ctx.stroke();
 

@@ -20,12 +20,12 @@ API_CONFIG = "https://localhost:7114/api/api/config/coordinates/1"
 API_CLEAR = "https://localhost:7114/api/api/config/clear-all/1"
 
 ENABLE_VEHICLE = True
-ENABLE_SIGN = True  # Bật để nhận diện đèn giao thông
-ENABLE_PLATE = True  # Bật để cắt biển số
-ENABLE_HELMET = True  # Bật để soi mũ bảo hiểm
+ENABLE_SIGN = True
+ENABLE_PLATE = True
+ENABLE_HELMET = True
 
 # ==========================================
-# FLASK STREAMING (PHÁT LUỒNG LÊN WEB)
+# FLASK STREAMING
 # ==========================================
 app = Flask(__name__)
 output_frame = None
@@ -58,9 +58,6 @@ def run_flask():
     app.run(host="0.0.0.0", port=5000, debug=False, threaded=True, use_reloader=False)
 
 
-# ==========================================
-# HÀM HỖ TRỢ XỬ LÝ ẢNH & DATABASE
-# ==========================================
 def reset_system_config():
     try:
         requests.post(API_CLEAR, verify=False, timeout=3)
@@ -69,7 +66,8 @@ def reset_system_config():
 
 
 def fetch_all_zones():
-    zones = {"Vach_DenDo": None, "Lan_XeMay": None, "Lan_Oto": None}
+    # ĐÃ THÊM: Vung_DenGiaoThong vào từ điển để Python tải về
+    zones = {"Vach_DenDo": None, "Lan_XeMay": None, "Lan_Oto": None, "Vung_DenGiaoThong": None}
     try:
         res = requests.get(API_CONFIG, verify=False, timeout=2)
         if res.status_code == 200:
@@ -84,8 +82,11 @@ def fetch_all_zones():
 
 def detect_light_color(crop_img):
     hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
-    lower_red1, upper_red1 = np.array([0, 100, 100]), np.array([10, 255, 255])
-    lower_red2, upper_red2 = np.array([160, 100, 100]), np.array([179, 255, 255])
+
+    lower_red1 = np.array([0, 50, 50])
+    upper_red1 = np.array([10, 255, 255])
+    lower_red2 = np.array([160, 50, 50])
+    upper_red2 = np.array([180, 255, 255])
     mask_red = cv2.add(cv2.inRange(hsv, lower_red1, upper_red1), cv2.inRange(hsv, lower_red2, upper_red2))
 
     lower_green = np.array([40, 50, 50])
@@ -102,9 +103,6 @@ def detect_light_color(crop_img):
     return "UNKNOWN"
 
 
-# ==========================================
-# HÀM CHÍNH
-# ==========================================
 def main():
     global output_frame, lock
 
@@ -121,42 +119,39 @@ def main():
     if len(sys.argv) > 1:
         input_path = sys.argv[1]
     else:
-        print("[LỖI] Không nhận được đường dẫn video từ C#! Vui lòng chạy qua Web.")
         return
 
-    if not os.path.exists(input_path):
-        print(f"[LỖI] File video không tồn tại: {input_path}")
-        return
+    if not os.path.exists(input_path): return
+
+    is_image = input_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp'))
 
     cap = cv2.VideoCapture(input_path)
     success, first_frame = cap.read()
     if not success: return
 
     zones = fetch_all_zones()
-    print("[HỆ THỐNG] Đang chờ cấu hình vạch từ Web...")
     while all(v is None for v in zones.values()):
         temp = first_frame.copy()
         cv2.putText(temp, "DANG CHO CAU HINH TU WEB...", (50, temp.shape[0] // 2), 2, 1.2, (0, 255, 255), 3)
-        with lock:
-            output_frame = temp
+        with lock: output_frame = temp
         zones = fetch_all_zones()
         time.sleep(0.5)
 
     violation_ids = []
     frame_counter = 0
-
-    # =======================================================
-    # BIẾN CẤU HÌNH THỜI GIAN CHỜ (DELAY CONFIRMATION)
-    # =======================================================
-    tracker_frames = {}  # Dictionary lưu số frame vi phạm của từng xe
-    FRAMES_TO_CONFIRM = 15  # Số frame chờ trước khi chụp (Tăng lên nếu muốn xe đi sâu hơn, Vd: 30)
+    tracker_frames = {}
+    FRAMES_TO_CONFIRM = 15
+    vehicle_paths = {}
 
     while True:
-        if frame_counter == 0:
-            frame = first_frame
+        if is_image:
+            frame = first_frame.copy()
         else:
-            success, frame = cap.read()
-            if not success: break
+            if frame_counter == 0:
+                frame = first_frame
+            else:
+                success, frame = cap.read()
+                if not success: break
 
         frame_counter += 1
         h, w = frame.shape[:2]
@@ -165,28 +160,90 @@ def main():
             new_zones = fetch_all_zones()
             if any(v is not None for v in new_zones.values()): zones = new_zones
 
+        t_results = traffic_model.track(frame, persist=True, tracker="bytetrack.yaml", verbose=False)
+
         current_traffic_light = "GREEN"
+        light_detected = False
 
-        if ENABLE_SIGN:
-            s_results = sign_model.predict(frame, conf=0.4, verbose=False)
-            for s_box in s_results[0].boxes:
-                sx1, sy1, sx2, sy2 = map(int, s_box.xyxy[0])
-                s_cls = int(s_box.cls[0])
-                s_name = sign_model.names[s_cls].lower()
+        if zones["Vach_DenDo"] is not None:
+            # =======================================================
+            # ƯU TIÊN 1: NẾU NGƯỜI DÙNG TỰ VẼ VÙNG ĐÈN -> CHỈ NHÌN VÀO ĐÓ!
+            # =======================================================
+            if zones.get("Vung_DenGiaoThong") is not None:
+                # Lấy khung hình chữ nhật bao quanh đa giác người dùng đã vẽ
+                bx, by, bw, bh = cv2.boundingRect(zones["Vung_DenGiaoThong"])
+                roi_x1, roi_x2 = bx, bx + bw
+                roi_y1, roi_y2 = by, by + bh
 
-                if "light" in s_name or "den" in s_name or "đèn" in s_name or s_cls == 9:
-                    crop_light = frame[max(0, sy1):min(h, sy2), max(0, sx1):min(w, sx2)]
+                crop_light = frame[max(0, roi_y1):min(h, roi_y2), max(0, roi_x1):min(w, roi_x2)]
+
+                if crop_light.size > 0:
+                    detected_color = detect_light_color(crop_light)
+                    if detected_color != "UNKNOWN": current_traffic_light = detected_color
+
+                    # Vẽ khung màu TÍM MỘNG MƠ báo hiệu hệ thống đang ngoan ngoãn nghe lời bạn
+                    cv2.rectangle(frame, (roi_x1, roi_y1), (roi_x2, roi_y2), (255, 0, 255), 2)
+                    cv2.putText(frame, f"USER SCAN: {current_traffic_light}", (roi_x1, max(20, roi_y1 - 10)), 1, 1,
+                                (255, 0, 255), 2)
+                    light_detected = True  # Đánh dấu đã thấy đèn để các AI bên dưới im lặng
+
+            # =======================================================
+            # NẾU NGƯỜI DÙNG KHÔNG VẼ -> GIAO CHO AI TỰ XỬ
+            # =======================================================
+            if not light_detected:
+                if t_results[0].boxes.id is not None:
+                    for t_box in t_results[0].boxes:
+                        if int(t_box.cls[0]) == 9:
+                            tx1, ty1, tx2, ty2 = map(int, t_box.xyxy[0])
+                            crop_light = frame[max(0, ty1):min(h, ty2), max(0, tx1):min(w, tx2)]
+                            if crop_light.size > 0:
+                                detected_color = detect_light_color(crop_light)
+                                if detected_color != "UNKNOWN": current_traffic_light = detected_color
+
+                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
+                            cv2.rectangle(frame, (tx1, ty1), (tx2, ty2), l_color, 2)
+                            cv2.putText(frame, f"Traffic Light: {current_traffic_light}", (tx1, ty1 - 10), 1, 0.8,
+                                        l_color, 2)
+                            light_detected = True
+                            break
+
+                if not light_detected and ENABLE_SIGN:
+                    s_results = sign_model.predict(frame, conf=0.1, imgsz=1024, verbose=False)
+                    for s_box in s_results[0].boxes:
+                        sx1, sy1, sx2, sy2 = map(int, s_box.xyxy[0])
+                        s_cls = int(s_box.cls[0])
+                        s_name = sign_model.names[s_cls].lower()
+
+                        if "light" in s_name or "den" in s_name or "đèn" in s_name or s_cls == 9:
+                            crop_light = frame[max(0, sy1):min(h, sy2), max(0, sx1):min(w, sx2)]
+                            if crop_light.size > 0:
+                                detected_color = detect_light_color(crop_light)
+                                if detected_color != "UNKNOWN": current_traffic_light = detected_color
+
+                            l_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
+                            cv2.rectangle(frame, (sx1, sy1), (sx2, sy2), l_color, 2)
+                            cv2.putText(frame, f"Traffic Light: {current_traffic_light}", (sx1, sy1 - 10), 1, 0.8,
+                                        l_color, 2)
+                            light_detected = True
+                            break
+
+                if not light_detected:
+                    roi_x1, roi_x2 = int(w * 0.75), w
+                    roi_y1, roi_y2 = 0, int(h * 0.45)
+                    crop_light = frame[roi_y1:roi_y2, roi_x1:roi_x2]
+
                     if crop_light.size > 0:
                         detected_color = detect_light_color(crop_light)
                         if detected_color != "UNKNOWN": current_traffic_light = detected_color
 
-                    l_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
-                    cv2.rectangle(frame, (sx1, sy1), (sx2, sy2), l_color, 2)
-                    cv2.putText(frame, f"Traffic Light: {current_traffic_light}", (sx1, sy1 - 10), 1, 0.8, l_color, 2)
-                else:
-                    cv2.rectangle(frame, (sx1, sy1), (sx2, sy2), (0, 165, 255), 2)
-                    cv2.putText(frame, s_name.upper(), (sx1, sy1 - 5), 1, 0.6, (0, 165, 255), 2)
+                        cv2.rectangle(frame, (roi_x1, roi_y1), (roi_x2, roi_y2), (0, 255, 255),
+                                      2)  # AUTO SCAN là màu vàng
+                        cv2.putText(frame, f"AUTO SCAN: {current_traffic_light}", (roi_x1 + 10, roi_y1 + 30), 1, 1,
+                                    (0, 255, 255), 2)
 
+        # =======================================================
+        # VẼ CÁC VẠCH CẢNH BÁO
+        # =======================================================
         if zones["Vach_DenDo"] is not None:
             zone_color = (0, 0, 255) if current_traffic_light == "RED" else (0, 255, 0)
             cv2.polylines(frame, [zones["Vach_DenDo"]], True, zone_color, 2)
@@ -196,8 +253,6 @@ def main():
         if zones["Lan_XeMay"] is not None: cv2.polylines(frame, [zones["Lan_XeMay"]], True, (0, 255, 255), 2)
         if zones["Lan_Oto"] is not None: cv2.polylines(frame, [zones["Lan_Oto"]], True, (255, 0, 0), 2)
 
-        t_results = traffic_model.track(frame, persist=True, tracker="bytetrack.yaml", verbose=False)
-
         if t_results[0].boxes.id is not None:
             boxes = t_results[0].boxes.xyxy.cpu().numpy()
             tids = t_results[0].boxes.id.int().cpu().tolist()
@@ -206,6 +261,12 @@ def main():
             for box, tid, cid in zip(boxes, tids, cids):
                 x1, y1, x2, y2 = map(int, box)
                 cx, cy = (x1 + x2) // 2, y2
+
+                if tid not in vehicle_paths:
+                    vehicle_paths[tid] = []
+                vehicle_paths[tid].append((cx, cy))
+                if len(vehicle_paths[tid]) > 30:
+                    vehicle_paths[tid].pop(0)
 
                 class_name = traffic_model.names[cid].lower()
                 nhom_oto = ['xe buyt', 'xe container', 'xe con', 'xe tai', 'xe van']
@@ -223,10 +284,22 @@ def main():
                 in_any_zone = in_red_zone or in_moto_zone or in_car_zone
 
                 danh_sach_loi = []
+                is_turning_right = False
 
                 if class_name not in nhom_uutien:
+                    # Logic: Phân tích Vector rẽ phải
                     if in_red_zone and current_traffic_light == "RED":
-                        danh_sach_loi.append("Vuot Den Do")
+                        if len(vehicle_paths[tid]) > 5:
+                            old_cx = vehicle_paths[tid][0][0]
+                            dx = cx - old_cx
+
+                            if dx > 15 and cx > (w * 0.5):
+                                is_turning_right = True
+                                cv2.putText(frame, "RE PHAI", (x1, y1 - 25), 1, 0.8, (255, 255, 0), 2)
+
+                        if not is_turning_right:
+                            danh_sach_loi.append("Vuot Den Do")
+
                     elif class_name in nhom_oto and in_moto_zone:
                         danh_sach_loi.append(f"Sai Lan ({class_name})")
                     elif class_name in nhom_xemay and in_car_zone:
@@ -253,22 +326,22 @@ def main():
 
                     if has_no_helmet and class_name not in nhom_uutien: danh_sach_loi.append("Khong Mu Bao Hiem")
 
-                # =======================================================
-                # LOGIC XÁC NHẬN VI PHẠM (TRÌ HOÃN TRƯỚC KHI CHỤP)
-                # =======================================================
+                # Logic: Bộ đệm xác nhận lỗi
                 if len(danh_sach_loi) > 0 and tid not in violation_ids:
-                    # Tăng biến đếm số frame chiếc xe này đã vi phạm
                     tracker_frames[tid] = tracker_frames.get(tid, 0) + 1
-
-                    # Vẽ phần trăm xác nhận lên màn hình
                     progress = min(int((tracker_frames[tid] / FRAMES_TO_CONFIRM) * 100), 100)
                     cv2.putText(frame, f"XAC NHAN... {progress}%", (x1, max(y1 - 25, 20)), 1, 0.8, (0, 165, 255), 2)
 
-                    # NẾU ĐÃ ĐỦ THỜI GIAN (ĐÃ ĐI SÂU VÀO VÙNG) => MỚI CHỤP ẢNH PHẠT
                     if tracker_frames[tid] >= FRAMES_TO_CONFIRM:
                         violation_ids.append(tid)
                         loi_tong_hop = " + ".join(danh_sach_loi)
                         print(f"\n[!] TÓM ĐƯỢC XE ID {tid} VI PHẠM: {loi_tong_hop}!")
+
+                        # Tạo Snapshot vi phạm có đóng khung đỏ
+                        snapshot = frame.copy()
+                        cv2.rectangle(snapshot, (x1, y1), (x2, y2), (0, 0, 255), 3)
+                        cv2.putText(snapshot, f"VI PHAM: {loi_tong_hop.upper()}", (x1, max(y1 - 10, 20)), 1, 1,
+                                    (0, 0, 255), 2)
 
                         crop_veh = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
                         crop_plate_bytes = None
@@ -285,10 +358,10 @@ def main():
                                         crop_plate_bytes = p_enc.tobytes()
                                         break
 
-                        _, img_enc = cv2.imencode('.jpg', frame)
+                        _, img_enc = cv2.imencode('.jpg', snapshot)
                         files = {"anhViPham": (f"full_{tid}.jpg", img_enc.tobytes(), "image/jpeg")}
                         if crop_plate_bytes is not None: files["anhBienSo"] = (
-                        f"plate_{tid}.jpg", crop_plate_bytes, "image/jpeg")
+                            f"plate_{tid}.jpg", crop_plate_bytes, "image/jpeg")
 
                         try:
                             requests.post(API_REPORT, verify=False, timeout=2,
@@ -296,30 +369,28 @@ def main():
                         except:
                             pass
 
-                # Nếu không có lỗi (xe lùi lại, ra khỏi vùng) nhưng vẫn đang bị theo dõi -> Reset đếm
                 elif len(danh_sach_loi) == 0 and tid in tracker_frames and tid not in violation_ids:
                     tracker_frames[tid] = 0
 
-                # =======================================================
-                # TÔ MÀU KHUNG XE THEO TRẠNG THÁI MỚI
-                # =======================================================
                 if class_name in nhom_uutien:
-                    color = (0, 255, 255)  # Ưu tiên: Vàng
+                    color = (0, 255, 255)
                 else:
                     if tid in violation_ids:
-                        color = (0, 0, 255)  # Đã chụp lỗi: Đỏ
+                        color = (0, 0, 255)
                     elif tid in tracker_frames and tracker_frames[tid] > 0:
-                        color = (0, 165, 255)  # Đang chờ xác nhận: Cam
+                        color = (0, 165, 255)
                     else:
-                        color = (0, 255, 0)  # Bình thường: Xanh
+                        color = (0, 255, 0)
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-                cv2.putText(frame, f"{class_name.upper()} ID:{tid}", (x1, y1 - 10), 1, 0.8, color, 1)
+
+                if not is_turning_right:
+                    cv2.putText(frame, f"{class_name.upper()} ID:{tid}", (x1, y1 - 10), 1, 0.8, color, 1)
 
         with lock:
             output_frame = frame.copy()
 
-        time.sleep(0.01)
+        time.sleep(0.05 if is_image else 0.01)
 
     cap.release()
 
