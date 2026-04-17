@@ -8,36 +8,6 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ContentType",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ContentDisposition",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Headers",
-        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
-        "IsRequired": false
-      },
-      {
-        "Name": "Length",
-        "Type": "System.Int64",
-        "IsRequired": false
-      },
-      {
-        "Name": "Name",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "FileName",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "cameraId",
         "Type": "System.Int32",
         "IsRequired": false
@@ -69,6 +39,11 @@
         "IsRequired": false
       },
       {
+        "Name": "duongDan",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "ContentType",
         "Type": "System.String",
         "IsRequired": false
@@ -97,6 +72,27 @@
         "Name": "FileName",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "customFileName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "DeleteCamera",
+    "RelativePath": "api/Api/camera/delete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -113,7 +109,7 @@
   },
   {
     "ContainingType": "KLTN_Service.Controllers.ApiController",
-    "Method": "UpdateCameraName",
+    "Method": "UpdateCamera",
     "RelativePath": "api/Api/camera/update",
     "HttpMethod": "POST",
     "IsController": true,
@@ -128,22 +124,46 @@
         "Name": "newName",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "KLTN_Service.Controllers.ApiController",
-    "Method": "ClearAllConfig",
-    "RelativePath": "api/Api/config/clear-all/{cameraId}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+      },
       {
-        "Name": "cameraId",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Name": "newPath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "customFileName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

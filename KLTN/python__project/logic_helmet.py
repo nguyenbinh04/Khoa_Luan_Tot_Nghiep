@@ -4,8 +4,8 @@ from ultralytics import YOLO
 
 def main():
     #TẢI CÁC MÔ HÌNH
-    traffic_model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/runs/detect/traffic_results/run_01/weights/traffic_model.pt")  # Mô hình Hutech (xe máy là số 5)
-    helmet_model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/runs/detect/KLTN_Helmet/model_helmet/weights/helmet_model.pt")  # Mô hình Mũ bảo hiểm (0: Mũ, 1: Không mũ)
+    traffic_model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/models/traffic_model.pt")  # Mô hình Hutech (xe máy là số 5)
+    helmet_model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/models/helmet_model.pt")  # Mô hình Mũ bảo hiểm (0: Mũ, 1: Không mũ)
 
     # VIDEO ĐẦU VÀO VÀ ĐẦU RA
     video_path = "D:/Khóa luận tốt nghiệp/KLTN/datasets/videos/test13.mp4"
