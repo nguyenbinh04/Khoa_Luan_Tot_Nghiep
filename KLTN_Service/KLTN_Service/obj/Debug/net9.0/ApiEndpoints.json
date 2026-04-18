@@ -27,6 +27,22 @@
   },
   {
     "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "TakeSnapshot",
+    "RelativePath": "api/Api/ai/take-snapshot/{cameraId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cameraId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
     "Method": "CreateCamera",
     "RelativePath": "api/Api/camera/create",
     "HttpMethod": "POST",
@@ -206,6 +222,38 @@
         "Name": "toaDoJson",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "GetPlateImage",
+    "RelativePath": "api/Api/images/plates/{fileName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fileName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KLTN_Service.Controllers.ApiController",
+    "Method": "GetViPhamImage",
+    "RelativePath": "api/Api/images/vi_pham/{fileName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fileName",
+        "Type": "System.String",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

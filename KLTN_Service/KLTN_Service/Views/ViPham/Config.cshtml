@@ -1,0 +1,264 @@
+﻿@{
+    ViewData["Title"] = "Cấu Hình Thiết Bị & Vùng AI";
+}
+
+<style>
+    .container {
+        max-width: 98% !important;
+        padding: 0 !important;
+    }
+
+    #offlineMsg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: rgba(0,0,0,0.8);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-xl-2 col-lg-3 col-md-4 mb-4">
+            <div class="card shadow border-0 h-100">
+                <div class="card-header bg-primary text-white fw-bold py-3">
+                    <i class="bi bi-cpu-fill fs-5 me-2"></i> QUẢN LÝ THIẾT BỊ
+                </div>
+                <div class="card-body bg-light">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold fs-6 text-dark">Lựa chọn Camera:</label>
+                        <select id="cameraSelect" class="form-select border-primary fw-bold text-primary mb-3" onchange="takeSnapshot()">
+                            <option value="">Đang tải dữ liệu...</option>
+                        </select>
+
+                        <div class="mb-3 p-2 bg-white border rounded small shadow-sm text-break">
+                            <span class="fw-bold text-dark"><i class="bi bi-link-45deg text-primary"></i> Nguồn:</span>
+                            <span id="currentVideoName" class="text-danger fw-bold ms-1">Chưa có dữ liệu</span>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            <button class="btn btn-success btn-sm fw-bold flex-grow-1" onclick="openCreateModal()"><i class="bi bi-plus-circle"></i> Thêm</button>
+                            <button id="btn-edit" class="btn btn-primary btn-sm fw-bold flex-grow-1" onclick="openEditModal()"><i class="bi bi-pencil-square"></i> Sửa</button>
+                            <button id="btn-delete" class="btn btn-danger btn-sm fw-bold flex-grow-1" onclick="deleteCamera()"><i class="bi bi-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto border-top pt-3 text-center">
+                        <button class="btn btn-dark btn-sm w-100 fw-bold shadow-sm mb-2" onclick="takeSnapshot()">
+                            <i class="bi bi-camera-fill me-1"></i> CHỤP ẢNH NỀN MỚI
+                        </button>
+                        <small class="text-muted" style="font-size: 0.7rem;">Ảnh tĩnh độc lập, không ảnh hưởng luồng Trực tiếp.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-6 col-md-8 text-center mb-4">
+            <h3 class="text-primary fw-bold mb-3"><i class="bi bi-bounding-box"></i> VẼ VÙNG CẢNH BÁO (DỮ LIỆU TĨNH)</h3>
+            <div class="card shadow-lg border-0 bg-dark overflow-hidden">
+                <div id="video-container" class="card-body p-0 position-relative" style="min-height: 500px;">
+
+                    <div id="offlineMsg" class="text-secondary">
+                        <i class="bi bi-camera-reels mb-3" style="font-size: 4rem;"></i>
+                        <h5 id="statusText">Chưa có ảnh nền</h5>
+                        <p class="small px-3">Hệ thống đang trích xuất hình ảnh độc lập...</p>
+                    </div>
+
+                    <img id="snapshot-img" src="" class="img-fluid" style="display: none; width: 100%; position: relative; z-index: 1;" />
+                    <canvas id="overlay-canvas" style="position: absolute; top: 0; left: 0; cursor: crosshair; z-index: 5;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-3 col-md-12 mb-4">
+            <div class="card shadow border-0 h-100">
+                <div class="card-header bg-danger text-white fw-bold py-3">
+                    <i class="bi bi-pencil-square fs-5 me-2"></i> THIẾT LẬP VÙNG
+                </div>
+                <div class="card-body text-center">
+                    <button id="btn-clear" class="btn btn-warning btn-sm w-100 fw-bold mb-4 shadow-sm"><i class="bi bi-eraser"></i> Xóa Vẽ Lại</button>
+
+                    <label class="form-label fw-bold fs-6">Loại vùng:</label>
+                    <select id="loaiVung" class="form-select border-danger mb-4 shadow-sm">
+                        <option value="Vach_DenDo">Vùng Vượt Đèn Đỏ</option>
+                        <option value="Lan_XeMay">Làn Xe Máy</option>
+                        <option value="Lan_Oto">Làn Ô Tô</option>
+                        <option value="Vung_DenGiaoThong">Vùng Đèn Giao Thông</option>
+                    </select>
+
+                    <button class="btn btn-danger w-100 fw-bold shadow-sm py-2 mb-4" onclick="saveConfig()"><i class="bi bi-save me-2"></i> LƯU VÙNG</button>
+
+                    <p class="fw-bold small text-secondary mb-1">Tọa độ JSON:</p>
+                    <textarea id="toa-do-output" class="form-control form-control-sm" rows="3" readonly style="font-size: 10px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let points = []; let allCameras = [];
+        const img = document.getElementById('snapshot-img');
+        const canvas = document.getElementById('overlay-canvas');
+        const ctx = canvas.getContext('2d');
+        const output = document.getElementById('toa-do-output');
+
+        function saveUIState() {
+            var camId = $('#cameraSelect').val();
+            var loai = $('#loaiVung').val();
+            // Đã đổi sang configCameraId để độc lập với trang Live
+            if (camId) localStorage.setItem('configCameraId', camId);
+            if (loai) localStorage.setItem('lastConfigLoaiVung', loai);
+        }
+
+        function updateVideoFileNameDisplay() {
+            let selectedId = $('#cameraSelect').val();
+            if (!selectedId) return;
+            let selectedCam = allCameras.find(c => c.id == selectedId);
+            if (selectedCam && selectedCam.duongDan) {
+                $('#currentVideoName').text(selectedCam.duongDan).attr('class', selectedCam.duongDan.startsWith('http') ? 'text-primary fw-bold' : 'text-success fw-bold');
+            }
+        }
+
+        function loadCamerasFromDB() {
+            $.ajax({
+                url: '/api/api/camera/list', type: 'GET',
+                success: function(res) {
+                    if(res.status === 'success' && res.data) {
+                        allCameras = res.data; let html = '';
+                        allCameras.forEach(cam => { html += `<option value="${cam.id}">${cam.tenCamera}</option>`; });
+                        $('#cameraSelect').html(html);
+
+                        // Lấy cam từ configCameraId (riêng tư cho trang này)
+                        var lastCam = localStorage.getItem('configCameraId');
+                        if (lastCam && $(`#cameraSelect option[value='${lastCam}']`).length > 0) {
+                            $('#cameraSelect').val(lastCam);
+                        }
+                        updateVideoFileNameDisplay();
+                        takeSnapshot();
+                    }
+                }
+            });
+        }
+
+        function takeSnapshot() {
+            let cameraId = $('#cameraSelect').val();
+            if (!cameraId) return;
+
+            saveUIState();
+            updateVideoFileNameDisplay();
+
+            points = []; ctx.clearRect(0, 0, canvas.width, canvas.height); output.value = "";
+
+            $(img).hide();
+            $('#offlineMsg').show();
+            $('#statusText').html('<div class="spinner-border text-primary mb-2"></div><br/>Đang chụp ảnh màn hình...');
+
+            // GỌI API CHỤP ẢNH ĐỘC LẬP (Không dùng chung Start/Stop AI chính)
+            $.ajax({
+                url: '/api/api/ai/take-snapshot/' + cameraId,
+                type: 'GET',
+                success: function (res) {
+                    if (res.status === 'success') {
+                        img.onload = function() {
+                            $(img).show();
+                            $('#offlineMsg').hide();
+                            loadZoneFromServer();
+                        };
+                        img.src = res.imageUrl + "?t=" + new Date().getTime();
+                    } else {
+                        $('#statusText').text("Lỗi trích xuất hình ảnh");
+                    }
+                },
+                error: function() {
+                    $('#statusText').text("Không thể kết nối API Snapshot");
+                }
+            });
+        }
+
+        function loadZoneFromServer() {
+            var cameraId = $('#cameraSelect').val(); var loaiVung = $('#loaiVung').val();
+            if(!cameraId) return;
+            $.ajax({
+                url: '/api/api/config/coordinates/' + cameraId, type: 'GET',
+                success: function (res) {
+                    points = []; ctx.clearRect(0, 0, canvas.width, canvas.height); output.value = "";
+                    if (res.status === 'success' && res.data) {
+                        var zone = res.data.find(x => x.loaiVung === loaiVung);
+                        if (zone && zone.toaDoJson && zone.toaDoJson !== '[]') {
+                            points = JSON.parse(zone.toaDoJson); output.value = zone.toaDoJson;
+                            drawShape();
+                        }
+                    }
+                }
+            });
+        }
+
+        function saveConfig() {
+            let jsonStr = JSON.stringify(points);
+            if (points.length > 0 && points.length < 3) { alert("Vui lòng vẽ ít nhất 3 điểm!"); return; }
+            $.post('/api/api/config/save', { cameraId: $('#cameraSelect').val(), loaiVung: $('#loaiVung').val(), toaDoJson: jsonStr }, function(res) {
+                alert("Đã lưu tọa độ vùng thành công!"); loadZoneFromServer();
+            });
+        }
+
+        // JS MODAL (CƠ BẢN)
+        function openCreateModal() { $('#newCameraName, #newCameraPath, #newCameraVideo').val(''); new bootstrap.Modal(document.getElementById('createCameraModal')).show(); }
+        function submitNewCamera() {
+            var f = new FormData(); f.append("tenCamera", $('#newCameraName').val()); f.append("duongDan", $('#newCameraPath').val()); f.append("videoFile", $('#newCameraVideo')[0].files[0]);
+            $.ajax({ url: '/api/api/camera/create', type: 'POST', data: f, processData: false, contentType: false, success: function(res) { bootstrap.Modal.getInstance(document.getElementById('createCameraModal')).hide(); loadCamerasFromDB(); }});
+        }
+        function openEditModal() {
+            let c = allCameras.find(x => x.id == $('#cameraSelect').val()); if(!c) return;
+            $('#editCameraId').val(c.id); $('#editCameraName').val(c.tenCamera); new bootstrap.Modal(document.getElementById('editCameraModal')).show();
+        }
+        function submitEditCamera() {
+            var f = new FormData(); f.append("id", $('#editCameraId').val()); f.append("newName", $('#editCameraName').val()); f.append("newPath", $('#editCameraPath').val()); f.append("newVideo", $('#editCameraVideo')[0].files[0]);
+            $.ajax({ url: '/api/api/camera/update', type: 'POST', data: f, processData: false, contentType: false, success: function() { bootstrap.Modal.getInstance(document.getElementById('editCameraModal')).hide(); loadCamerasFromDB(); }});
+        }
+        function deleteCamera() { if(confirm("Xóa camera này?")) $.post('/api/api/camera/delete', { id: $('#cameraSelect').val() }, function() { loadCamerasFromDB(); }); }
+
+        $(document).ready(function () {
+            loadCamerasFromDB();
+            $('#loaiVung').change(function() { saveUIState(); loadZoneFromServer(); });
+
+            function adjustCanvasSize() {
+                if (img.clientWidth === 0) return;
+                canvas.width = img.clientWidth; canvas.height = img.clientHeight;
+                if (points.length > 0) drawShape();
+            }
+            setInterval(() => { if (img.naturalWidth > 0 && $(img).is(':visible')) adjustCanvasSize(); }, 800);
+
+            canvas.addEventListener('mousedown', function (e) {
+                if ($(img).is(':hidden')) { alert("Hãy chờ ảnh cấu hình tải xong!"); return; }
+                const rect = canvas.getBoundingClientRect();
+                const ratioX = img.naturalWidth / img.clientWidth;
+                const ratioY = img.naturalHeight / img.clientHeight;
+                points.push({ x: Math.round((e.clientX - rect.left) * ratioX), y: Math.round((e.clientY - rect.top) * ratioY) });
+                drawShape(); output.value = JSON.stringify(points);
+            });
+
+            function drawShape() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); if (points.length === 0) return;
+                const rX = canvas.width / img.naturalWidth; const rY = canvas.height / img.naturalHeight;
+                ctx.beginPath(); ctx.moveTo(points[0].x * rX, points[0].y * rY);
+                for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x * rX, points[i].y * rY);
+                if (points.length >= 3) ctx.closePath();
+                let loai = $('#loaiVung').val();
+                ctx.fillStyle = loai === 'Vach_DenDo' ? 'rgba(255, 0, 0, 0.3)' : loai === 'Lan_XeMay' ? 'rgba(255, 255, 0, 0.3)' : loai === 'Vung_DenGiaoThong' ? 'rgba(255, 0, 255, 0.3)' : 'rgba(0, 0, 255, 0.3)';
+                ctx.strokeStyle = loai === 'Vach_DenDo' ? 'red' : loai === 'Lan_XeMay' ? 'yellow' : loai === 'Vung_DenGiaoThong' ? 'magenta' : 'blue';
+                if (points.length >= 3) ctx.fill();
+                ctx.lineWidth = 2; ctx.stroke();
+                points.forEach(p => { ctx.beginPath(); ctx.arc(p.x * rX, p.y * rY, 5, 0, 2 * Math.PI); ctx.fillStyle = 'white'; ctx.fill(); ctx.stroke(); });
+            }
+            $('#btn-clear').click(() => { points = []; ctx.clearRect(0, 0, canvas.width, canvas.height); output.value = ""; });
+        });
+    </script>
+}

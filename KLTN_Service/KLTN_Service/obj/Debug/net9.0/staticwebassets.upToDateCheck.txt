@@ -123,3 +123,10 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\temp\snapshot_10.jpg
+wwwroot\temp\snapshot_11.jpg
+wwwroot\temp\snapshot_12.jpg
+wwwroot\temp\snapshot_14.jpg
+wwwroot\temp\snapshot_7.jpg
+wwwroot\temp\snapshot_8.jpg
+wwwroot\temp\snapshot_9.jpg

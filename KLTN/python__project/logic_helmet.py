@@ -8,14 +8,14 @@ def main():
     helmet_model = YOLO("D:/Khóa luận tốt nghiệp/KLTN/python__project/models/helmet_model.pt")  # Mô hình Mũ bảo hiểm (0: Mũ, 1: Không mũ)
 
     # VIDEO ĐẦU VÀO VÀ ĐẦU RA
-    video_path = "D:/Khóa luận tốt nghiệp/KLTN/datasets/videos/test13.mp4"
+    video_path = "D:/DATA/datasets/videos/vd xịn/KhacTam0039.MP4"
     cap = cv2.VideoCapture(video_path)
 
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = int(cap.get(cv2.CAP_PROP_FPS))
 
-    out = cv2.VideoWriter("D:/Khóa luận tốt nghiệp/KLTN/datasets/videos/ket_qua_mu_bao_hiem.mp4",
+    out = cv2.VideoWriter("D:/DATA/datasets/videos/vd xịn/ket_qua_mu_bao_hiem.mp4",
                           cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
     print("Đang xử lý video... Vui lòng đợi...")

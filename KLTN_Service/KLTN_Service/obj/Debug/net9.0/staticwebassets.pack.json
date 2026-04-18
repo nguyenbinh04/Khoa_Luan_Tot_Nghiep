@@ -257,6 +257,34 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
     },
     {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_10.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_10.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_11.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_11.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_12.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_12.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_14.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_14.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_7.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_7.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_8.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_8.jpg"
+    },
+    {
+      "Id": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_9.jpg",
+      "PackagePath": "staticwebassets\\temp\\snapshot_9.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.KLTN_Service.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

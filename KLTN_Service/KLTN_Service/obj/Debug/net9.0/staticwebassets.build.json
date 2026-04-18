@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IKtnKLSHlFEb8doTT8gSXuFB+k4MDPw5mlrvQEEMnuM=",
+  "Hash": "jaNWAjW98NjH9i/b+pds7mKNbHIZpMtD+k2UV2RZehU=",
   "Source": "KLTN_Service",
   "BasePath": "_content/KLTN_Service",
   "Mode": "Default",
@@ -2724,6 +2724,153 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_10.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_10#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y7ulgckh44",
+      "Integrity": "wjOz0xJgflb+mD1tdHHgTs+/gKikjsOvkrxiMBPOct0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_10.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_11.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_11#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qdu2hof05c",
+      "Integrity": "svgDOBato/uxBZuKwtGDpYL/GLb6IRQwDGTjnrwpshM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_11.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_12.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_12#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "iwswpl576u",
+      "Integrity": "rmjrzB9UOiS2eIuI4xqD3w+0rZp7rBv49/jg3LEKJ+E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_12.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_14.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_14#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cmjqrfvrkj",
+      "Integrity": "LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_14.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_7.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_7#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gqn1yue3er",
+      "Integrity": "mJdgQZCfQpGiMhwosA86bQ9e3+Cx9NMhyZPk6BtV7Yc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_7.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_8.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_8#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "uupcsh3oca",
+      "Integrity": "5r0CBjwrraAoG/1u9RyaZuYVxd51pRthnVky/mU4BJE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_8.jpg"
+    },
+    {
+      "Identity": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_9.jpg",
+      "SourceId": "KLTN_Service",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\",
+      "BasePath": "_content/KLTN_Service",
+      "RelativePath": "temp/snapshot_9#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2qdaey62b9",
+      "Integrity": "BiaShycBxe3oqo4HM7ylHI0RKLjoM45iRDNudyE/cvA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\temp\\snapshot_9.jpg"
     }
   ],
   "Endpoints": [
@@ -21878,6 +22025,580 @@
         {
           "Name": "integrity",
           "Value": "sha256-1HkjQSVuV0/ji/X/lGeDTHeagBS0BwopMrHDQuwqgtU="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_10.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_10.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2740058"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjOz0xJgflb+mD1tdHHgTs+/gKikjsOvkrxiMBPOct0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:39:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjOz0xJgflb+mD1tdHHgTs+/gKikjsOvkrxiMBPOct0="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_10.y7ulgckh44.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_10.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2740058"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjOz0xJgflb+mD1tdHHgTs+/gKikjsOvkrxiMBPOct0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:39:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y7ulgckh44"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_10.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjOz0xJgflb+mD1tdHHgTs+/gKikjsOvkrxiMBPOct0="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_11.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_11.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2549998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"svgDOBato/uxBZuKwtGDpYL/GLb6IRQwDGTjnrwpshM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:46:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-svgDOBato/uxBZuKwtGDpYL/GLb6IRQwDGTjnrwpshM="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_11.qdu2hof05c.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_11.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2549998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"svgDOBato/uxBZuKwtGDpYL/GLb6IRQwDGTjnrwpshM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:46:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qdu2hof05c"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_11.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-svgDOBato/uxBZuKwtGDpYL/GLb6IRQwDGTjnrwpshM="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_12.iwswpl576u.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_12.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2839466"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rmjrzB9UOiS2eIuI4xqD3w+0rZp7rBv49/jg3LEKJ+E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:40:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "iwswpl576u"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_12.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-rmjrzB9UOiS2eIuI4xqD3w+0rZp7rBv49/jg3LEKJ+E="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_12.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_12.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2839466"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rmjrzB9UOiS2eIuI4xqD3w+0rZp7rBv49/jg3LEKJ+E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:40:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-rmjrzB9UOiS2eIuI4xqD3w+0rZp7rBv49/jg3LEKJ+E="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_14.cmjqrfvrkj.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_14.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2679514"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:51:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cmjqrfvrkj"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_14.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_14.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_14.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2679514"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:51:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_7.gqn1yue3er.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "543955"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mJdgQZCfQpGiMhwosA86bQ9e3+Cx9NMhyZPk6BtV7Yc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:46:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gqn1yue3er"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_7.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-mJdgQZCfQpGiMhwosA86bQ9e3+Cx9NMhyZPk6BtV7Yc="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_7.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "543955"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mJdgQZCfQpGiMhwosA86bQ9e3+Cx9NMhyZPk6BtV7Yc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:46:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-mJdgQZCfQpGiMhwosA86bQ9e3+Cx9NMhyZPk6BtV7Yc="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_8.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_8.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "593632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5r0CBjwrraAoG/1u9RyaZuYVxd51pRthnVky/mU4BJE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:38:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5r0CBjwrraAoG/1u9RyaZuYVxd51pRthnVky/mU4BJE="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_8.uupcsh3oca.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_8.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "593632"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5r0CBjwrraAoG/1u9RyaZuYVxd51pRthnVky/mU4BJE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 15:38:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "uupcsh3oca"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_8.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5r0CBjwrraAoG/1u9RyaZuYVxd51pRthnVky/mU4BJE="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_9.2qdaey62b9.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_9.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1630973"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BiaShycBxe3oqo4HM7ylHI0RKLjoM45iRDNudyE/cvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 16:10:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2qdaey62b9"
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_9.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BiaShycBxe3oqo4HM7ylHI0RKLjoM45iRDNudyE/cvA="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_9.jpg",
+      "AssetFile": "D:\\Khóa luận tốt nghiệp\\KLTN_Service\\KLTN_Service\\wwwroot\\temp\\snapshot_9.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1630973"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BiaShycBxe3oqo4HM7ylHI0RKLjoM45iRDNudyE/cvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 18 Apr 2026 16:10:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-BiaShycBxe3oqo4HM7ylHI0RKLjoM45iRDNudyE/cvA="
         }
       ]
     }

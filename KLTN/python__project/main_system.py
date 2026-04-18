@@ -22,7 +22,7 @@ CAMERA_ID = "1"
 
 ENABLE_VEHICLE = True
 ENABLE_SIGN = False
-ENABLE_PLATE = False
+ENABLE_PLATE = True
 ENABLE_HELMET = False
 
 # ==========================================
@@ -117,14 +117,11 @@ def detect_light_color(crop_img):
 
     max_color = max(r_count, y_count, g_count)
 
-    # NẾU CÓ ĐỦ MÀU (> 15 PIXELS ĐỂ CHỐNG NHIỄU RÁC)
     if max_color > 15:
-        # ĐÃ XÓA LUẬT ÉP ĐỎ: Cứ màu nào đếm được nhiều Pixel sáng nhất thì chốt luôn màu đó!
         if max_color == g_count: return "GREEN"
         if max_color == y_count: return "YELLOW"
         if max_color == r_count: return "RED"
 
-    # NẾU ĐÈN BỊ CHÁY SÁNG TRẮNG TINH KHÔNG CÒN MÀU -> BẮT THEO VỊ TRÍ (Trên-Giữa-Dưới)
     h, w = crop_img.shape[:2]
     if h > w and h > 20:
         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
@@ -202,9 +199,6 @@ def main():
                 frame = first_frame
             else:
                 success, frame = cap.read()
-                # =======================================================
-                # CHỐNG TẮT AI KHI HẾT VIDEO: LẶP VÔ HẠN
-                # =======================================================
                 if not success:
                     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                     continue
@@ -335,17 +329,21 @@ def main():
                     elif class_name in nhom_xemay and in_car_zone:
                         danh_sach_loi.append(f"Sai Lan ({class_name})")
 
-                if ENABLE_HELMET and class_name in nhom_xemay and in_any_zone:
+                # =======================================================
+                # ĐÃ SỬA LOGIC NHẬN DIỆN MŨ BẢO HIỂM: Quét TOÀN MÀN HÌNH
+                # =======================================================
+                if ENABLE_HELMET and class_name in nhom_xemay:
                     crop_veh = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
                     has_no_helmet = False
                     if crop_veh.size > 0:
-                        h_results = helmet_model.predict(crop_veh, conf=0.4, verbose=False)
+                        h_results = helmet_model.predict(crop_veh, conf=0.2, verbose=False)
                         if len(h_results[0].boxes) > 0:
                             for h_box in h_results[0].boxes:
                                 hx1, hy1, hx2, hy2 = map(int, h_box.xyxy[0])
                                 h_cls = int(h_box.cls[0])
                                 h_name = helmet_model.names[h_cls].lower()
-                                if h_cls == 1 or "no" in h_name or "khong" in h_name:
+
+                                if "no" in h_name or "khong" in h_name or "without" in h_name or "head" in h_name or h_cls == 1:
                                     has_no_helmet = True
                                     cv2.rectangle(frame, (x1 + hx1, y1 + hy1), (x1 + hx2, y1 + hy2), (0, 0, 255), 2)
                                     cv2.putText(frame, "NO HELMET", (x1 + hx1, y1 + hy1 - 5), 1, 0.5, (0, 0, 255), 2)
@@ -370,7 +368,7 @@ def main():
 
                         crop_veh = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
                         crop_plate_bytes = None
-                        bien_so_text = "Không nhận diện được"  # Mặc định nếu không đọc ra
+                        bien_so_text = "Không nhận diện được"
 
                         if ENABLE_PLATE and crop_veh.size > 0:
                             p_results = plate_model.predict(crop_veh, conf=0.2, verbose=False)
@@ -384,14 +382,10 @@ def main():
                                         _, p_enc = cv2.imencode('.jpg', plate_img)
                                         crop_plate_bytes = p_enc.tobytes()
 
-                                        # ===============================================
-                                        # TÍCH HỢP EASYOCR - ĐỌC VÀ LỌC BIỂN SỐ
-                                        # ===============================================
                                         try:
                                             ocr_results = ocr_reader.readtext(plate_img, detail=0)
                                             if len(ocr_results) > 0:
                                                 raw_text = "".join(ocr_results).upper()
-                                                # Chỉ giữ lại Chữ cái và Số
                                                 clean_text = re.sub(r'[^A-Z0-9]', '', raw_text)
                                                 if len(clean_text) >= 4:
                                                     bien_so_text = clean_text

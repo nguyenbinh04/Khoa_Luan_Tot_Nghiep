@@ -30,5 +30,9 @@ namespace KLTN_Service.Controllers
         {
             return View();
         }
+        public IActionResult Config()
+        {
+            return View();
+        }
     }
 }

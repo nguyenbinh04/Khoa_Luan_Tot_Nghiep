@@ -49,7 +49,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>Biển Số</th>
+                            <th>Biển Số Cận Cảnh</th>
                             <th>Lỗi Vi Phạm</th>
                             <th>Thời Gian</th>
                             <th>Trạng Thái</th>
@@ -61,7 +61,32 @@
                         {
                             <tr>
                                 <td class="fw-bold text-muted">#@item.Id</td>
-                                <td><span class="badge bg-primary px-3 py-2 fs-6 shadow-sm">@item.BienSo</span></td>
+
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.DuongDanAnhBienSo))
+                                    {
+                                        <div class="d-inline-block text-center">
+                                            <img src="/api/api/images/plates/@item.DuongDanAnhBienSo"
+                                                 class="rounded border border-dark shadow-sm d-block mx-auto mb-1"
+                                                 style="width: 90px; height: 35px; object-fit: contain; background: #222;"
+                                                 onerror="this.src='https://placehold.co/90x35?text=Lỗi+Ảnh'" />
+
+                                            @if (item.BienSo.Contains("Không nhận diện") || item.BienSo.Contains("Khong xac") || item.BienSo.StartsWith("Xe"))
+                                            {
+                                                <span class="badge bg-secondary" style="font-size: 0.7rem;">@item.BienSo</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-primary fw-bold" style="font-size: 0.85rem;">@item.BienSo</span>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary px-3 py-2 shadow-sm">@item.BienSo</span>
+                                    }
+                                </td>
+
                                 <td class="text-danger fw-bold">@item.LoaiViPham</td>
                                 <td>@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")</td>
                                 <td>
@@ -76,12 +101,12 @@
                                          onmouseout="this.style.transform='scale(1)'"
                                          onclick="showViolationDetail(@item.Id, '@item.DuongDanAnh', '@item.DuongDanAnhBienSo', '@item.BienSo', '@item.LoaiViPham', '@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")')">
 
-                                        <img src="/images/vi_pham/@item.DuongDanAnh" class="img-fluid" style="width: 150px; height: 85px; object-fit: cover;" />
+                                        <img src="/api/api/images/vi_pham/@item.DuongDanAnh" class="img-fluid" style="width: 150px; height: 85px; object-fit: cover;" onerror="this.src='https://placehold.co/150x85?text=No+Image'" />
 
                                         @if (!string.IsNullOrEmpty(item.DuongDanAnhBienSo))
                                         {
                                             <div style="position: absolute; bottom: 0; right: 0; background: rgba(220, 53, 69, 0.8); padding: 2px;">
-                                                <img src="/images/plates/@item.DuongDanAnhBienSo" style="width: 50px; height: auto; border: 1px solid white;" />
+                                                <img src="/api/api/images/plates/@item.DuongDanAnhBienSo" style="width: 50px; height: auto; border: 1px solid white;" onerror="this.style.display='none'" />
                                             </div>
                                         }
                                     </div>
@@ -120,8 +145,8 @@
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-header bg-white fw-bold text-secondary"><i class="bi bi-search"></i> Cận cảnh biển số</div>
                             <div class="card-body p-3 text-center bg-dark rounded-bottom">
-                                <div id="plateContainer" class="p-1 border border-danger border-2 rounded bg-dark" style="overflow: hidden;">
-                                    <img id="modalPlateImg" src="" class="rounded" style="width: 100%; height: 120px; object-fit: contain; image-rendering: crisp-edges; cursor: zoom-in;" />
+                                <div id="plateContainer" class="p-2 border border-danger border-2 rounded bg-dark d-flex justify-content-center align-items-center" style="overflow: hidden; min-height: 110px;">
+                                    <img id="modalPlateImg" src="" class="rounded shadow" style="max-width: 100%; max-height: 85px; object-fit: contain; image-rendering: crisp-edges; cursor: zoom-in;" />
                                 </div>
                                 <div id="noPlateMsg" class="text-white small mt-2 d-none">Không có ảnh biển số cận cảnh</div>
                             </div>
@@ -178,7 +203,6 @@
                 table.column(2).search(keyword).draw();
             });
 
-            // KHỞI TẠO TÍNH NĂNG ZOOM CHO ẢNH TOÀN CẢNH VÀ ẢNH BIỂN SỐ
             enableZoomAndPan('modalFullImg', 'fullImgContainer');
             enableZoomAndPan('modalPlateImg', 'plateContainer');
         });
@@ -197,7 +221,6 @@
             img.style.transition = "transform 0.1s ease";
             img.style.transformOrigin = "center center";
 
-            // Khôi phục mặc định (sẽ gọi khi mở popup mới)
             img.resetZoom = function () {
                 scale = 1;
                 translateX = 0;
@@ -206,39 +229,33 @@
                 img.style.cursor = 'zoom-in';
             };
 
-            // Sự kiện lăn chuột (Cuộn)
             container.addEventListener('wheel', function (e) {
-                e.preventDefault(); // Chặn cuộn trang web
-
+                e.preventDefault();
                 const zoomSpeed = 0.15;
-                if (e.deltaY < 0) scale += zoomSpeed; // Lăn lên -> Phóng to
-                else scale -= zoomSpeed; // Lăn xuống -> Thu nhỏ
+                if (e.deltaY < 0) scale += zoomSpeed;
+                else scale -= zoomSpeed;
 
-                scale = Math.max(1, Math.min(scale, 6)); // Giới hạn zoom từ 1x đến 6x
+                scale = Math.max(1, Math.min(scale, 6));
 
                 if (scale === 1) {
-                    translateX = 0;
-                    translateY = 0;
+                    translateX = 0; translateY = 0;
                     img.style.cursor = 'zoom-in';
                 } else {
                     img.style.cursor = 'grab';
                 }
-
                 img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
             });
 
-            // Sự kiện nhấp chuột để bắt đầu kéo
             img.addEventListener('mousedown', function (e) {
                 if (scale > 1) {
                     isDragging = true;
                     startX = e.clientX - translateX;
                     startY = e.clientY - translateY;
                     img.style.cursor = 'grabbing';
-                    img.style.transition = "none"; // Tắt mượt để kéo không bị trễ nhịp
+                    img.style.transition = "none";
                 }
             });
 
-            // Sự kiện di chuột để kéo ảnh
             window.addEventListener('mousemove', function (e) {
                 if (!isDragging) return;
                 e.preventDefault();
@@ -247,12 +264,11 @@
                 img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
             });
 
-            // Sự kiện nhả chuột
             window.addEventListener('mouseup', function () {
                 if (isDragging) {
                     isDragging = false;
                     img.style.cursor = scale > 1 ? 'grab' : 'zoom-in';
-                    img.style.transition = "transform 0.1s ease"; // Bật lại độ mượt
+                    img.style.transition = "transform 0.1s ease";
                 }
             });
         }
@@ -265,17 +281,18 @@
             let fullImgTag = document.getElementById('modalFullImg');
             let plateImgTag = document.getElementById('modalPlateImg');
 
-            // Reset trạng thái Zoom về 1x trước khi load ảnh mới
             if (fullImgTag.resetZoom) fullImgTag.resetZoom();
             if (plateImgTag.resetZoom) plateImgTag.resetZoom();
 
-            fullImgTag.src = "/images/vi_pham/" + fullImg;
+            // ĐÃ SỬA API LẤY TỪ Ổ D
+            fullImgTag.src = "/api/api/images/vi_pham/" + fullImg;
 
             const plateContainer = document.getElementById('plateContainer');
             const noPlateMsg = document.getElementById('noPlateMsg');
 
             if (plateImg && plateImg.trim() !== '' && plateImg !== 'null') {
-                plateImgTag.src = "/images/plates/" + plateImg;
+                // ĐÃ SỬA API LẤY TỪ Ổ D
+                plateImgTag.src = "/api/api/images/plates/" + plateImg;
                 plateContainer.classList.remove('d-none');
                 noPlateMsg.classList.add('d-none');
             } else {
@@ -287,7 +304,9 @@
             document.getElementById('modalTime').innerText = thoiGian;
 
             let autoPlate = bienSo.replace('ID ', '').replace('Xe ', '').trim();
-            if(!isNaN(autoPlate)) autoPlate = "";
+            if(!isNaN(autoPlate) || autoPlate.includes("Không nhận diện") || autoPlate.includes("Khong xac")) {
+                autoPlate = "";
+            }
             document.getElementById('modalBienSoInput').value = autoPlate;
 
             var myModal = new bootstrap.Modal(document.getElementById('violationModal'));
