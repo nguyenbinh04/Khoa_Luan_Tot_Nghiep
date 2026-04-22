@@ -18885,7 +18885,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:39:39 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:46 GMT"
         }
       ],
       "EndpointProperties": [
@@ -18922,7 +18922,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:39:39 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:46 GMT"
         }
       ],
       "EndpointProperties": [
@@ -18967,7 +18967,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:46:12 GMT"
+          "Value": "Sun, 19 Apr 2026 14:21:59 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19004,7 +19004,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:46:12 GMT"
+          "Value": "Sun, 19 Apr 2026 14:21:59 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19049,7 +19049,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:40:21 GMT"
+          "Value": "Sun, 19 Apr 2026 14:50:00 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19094,7 +19094,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:40:21 GMT"
+          "Value": "Sun, 19 Apr 2026 14:50:00 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19105,7 +19105,89 @@
       ]
     },
     {
-      "Route": "temp/snapshot_14.cmjqrfvrkj.jpg",
+      "Route": "temp/snapshot_13.i99xj5p074.jpg",
+      "AssetFile": "temp/snapshot_13.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2402848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JmTjBGnUJMVrr3EppY8FkQzPoHDeyTiNdU7JL4EmBCE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 19 Apr 2026 14:49:54 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i99xj5p074"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JmTjBGnUJMVrr3EppY8FkQzPoHDeyTiNdU7JL4EmBCE="
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_13.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_13.jpg",
+      "AssetFile": "temp/snapshot_13.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2402848"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JmTjBGnUJMVrr3EppY8FkQzPoHDeyTiNdU7JL4EmBCE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 19 Apr 2026 14:49:54 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JmTjBGnUJMVrr3EppY8FkQzPoHDeyTiNdU7JL4EmBCE="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_14.0moi62mhc1.jpg",
       "AssetFile": "temp/snapshot_14.jpg",
       "Selectors": [],
       "ResponseHeaders": [
@@ -19119,7 +19201,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2679514"
+          "Value": "2040249"
         },
         {
           "Name": "Content-Type",
@@ -19127,21 +19209,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE=\""
+          "Value": "\"6AQGDccUZazi3TAOGHvK+vbcfMELTN+RrIelWsYQRVk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:51:08 GMT"
+          "Value": "Sun, 19 Apr 2026 09:22:35 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmjqrfvrkj"
+          "Value": "0moi62mhc1"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE="
+          "Value": "sha256-6AQGDccUZazi3TAOGHvK+vbcfMELTN+RrIelWsYQRVk="
         },
         {
           "Name": "label",
@@ -19164,7 +19246,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2679514"
+          "Value": "2040249"
         },
         {
           "Name": "Content-Type",
@@ -19172,17 +19254,99 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE=\""
+          "Value": "\"6AQGDccUZazi3TAOGHvK+vbcfMELTN+RrIelWsYQRVk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:51:08 GMT"
+          "Value": "Sun, 19 Apr 2026 09:22:35 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-LNO1e0N19g/U68mxXXMczj9T8dpqLqvcNhXkOBdeWDE="
+          "Value": "sha256-6AQGDccUZazi3TAOGHvK+vbcfMELTN+RrIelWsYQRVk="
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_15.c6eonlqaeo.jpg",
+      "AssetFile": "temp/snapshot_15.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2218573"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xGgynpA42X9kpPLPC6Z2SyrKGGQQBpNqtk3ZTwPuGvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 19 Apr 2026 10:42:18 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c6eonlqaeo"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xGgynpA42X9kpPLPC6Z2SyrKGGQQBpNqtk3ZTwPuGvw="
+        },
+        {
+          "Name": "label",
+          "Value": "temp/snapshot_15.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "temp/snapshot_15.jpg",
+      "AssetFile": "temp/snapshot_15.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2218573"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xGgynpA42X9kpPLPC6Z2SyrKGGQQBpNqtk3ZTwPuGvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 19 Apr 2026 10:42:18 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xGgynpA42X9kpPLPC6Z2SyrKGGQQBpNqtk3ZTwPuGvw="
         }
       ]
     },
@@ -19213,7 +19377,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:46:33 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:41 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19258,7 +19422,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 15:46:33 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:41 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19377,7 +19541,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 16:10:24 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:43 GMT"
         }
       ],
       "EndpointProperties": [
@@ -19422,7 +19586,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 18 Apr 2026 16:10:24 GMT"
+          "Value": "Sun, 19 Apr 2026 14:20:43 GMT"
         }
       ],
       "EndpointProperties": [

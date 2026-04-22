@@ -81,16 +81,46 @@ namespace KLTN_Service.Controllers
             _context.Cameras.Update(cam); await _context.SaveChangesAsync();
             return Ok(new { status = "success", message = "Đã cập nhật!" });
         }
-
         [HttpPost("camera/delete")]
         public async Task<IActionResult> DeleteCamera([FromForm] int id)
         {
             var cam = await _context.Cameras.FindAsync(id);
-            if (cam == null) return NotFound();
-            var configs = _context.CauHinhVungs.Where(x => x.CameraId == id);
-            _context.CauHinhVungs.RemoveRange(configs);
-            _context.Cameras.Remove(cam); await _context.SaveChangesAsync();
-            return Ok(new { status = "success" });
+            if (cam == null) return NotFound(new { status = "error", message = "Không tìm thấy Camera." });
+
+            try
+            {
+                // 1. Xóa các cấu hình vùng liên quan đến Camera này
+                var configs = _context.CauHinhVungs.Where(x => x.CameraId == id);
+                if (configs.Any())
+                {
+                    _context.CauHinhVungs.RemoveRange(configs);
+                }
+
+                // 2. Xóa các lịch sử vi phạm liên quan đến Camera này (Đây là nguyên nhân gây lỗi)
+                var viPhams = _context.LichSuViPhams.Where(x => x.CameraId == id);
+                if (viPhams.Any())
+                {
+                    _context.LichSuViPhams.RemoveRange(viPhams);
+                }
+
+                // Lưu lại các thay đổi xóa bảng con (configs, viPhams) trước
+                await _context.SaveChangesAsync();
+
+                // 3. Cuối cùng mới xóa Camera
+                _context.Cameras.Remove(cam);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { status = "success", message = "Đã xóa Camera và dữ liệu liên quan thành công!" });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Xử lý dự phòng nếu EF Core vẫn bị kẹt tracking (Hiếm khi xảy ra nếu đã gọi SaveChangesAsync cho bảng con trước)
+                return StatusCode(500, new { status = "error", message = "Lỗi đồng bộ dữ liệu. Không thể xóa Camera ngay lúc này.", details = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "error", message = "Lỗi Server khi xóa Camera.", details = ex.Message });
+            }
         }
 
         [HttpPost("camera/create")]

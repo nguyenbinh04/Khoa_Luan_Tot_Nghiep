@@ -48,12 +48,12 @@
                 <table class="table table-hover align-middle text-center" id="violationTable">
                     <thead class="table-dark">
                         <tr>
-                            <th>ID</th>
-                            <th>Biển Số Cận Cảnh</th>
-                            <th>Lỗi Vi Phạm</th>
-                            <th>Thời Gian</th>
-                            <th>Trạng Thái</th>
-                            <th style="width: 180px;">Ảnh Bằng Chứng</th>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Biển Số Cận Cảnh</th>
+                            <th class="text-center">Lỗi Vi Phạm</th>
+                            <th class="text-center">Thời Gian</th>
+                            <th class="text-center">Trạng Thái</th>
+                            <th class="text-center" style="width: 180px;">Ảnh Bằng Chứng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,11 +71,8 @@
                                                  style="width: 90px; height: 35px; object-fit: contain; background: #222;"
                                                  onerror="this.src='https://placehold.co/90x35?text=Lỗi+Ảnh'" />
 
-                                            @if (item.BienSo.Contains("Không nhận diện") || item.BienSo.Contains("Khong xac") || item.BienSo.StartsWith("Xe"))
-                                            {
-                                                <span class="badge bg-secondary" style="font-size: 0.7rem;">@item.BienSo</span>
-                                            }
-                                            else
+                                            @* CHỈ HIỆN BIỂN SỐ NẾU ĐÃ ĐƯỢC NGƯỜI QUẢN TRỊ DUYỆT (ẨN CHỮ KHÔNG NHẬN DIỆN) *@
+                                            @if (!item.BienSo.Contains("Không nhận diện") && !item.BienSo.Contains("Khong xac"))
                                             {
                                                 <span class="badge bg-primary fw-bold" style="font-size: 0.85rem;">@item.BienSo</span>
                                             }
@@ -83,7 +80,14 @@
                                     }
                                     else
                                     {
-                                        <span class="badge bg-secondary px-3 py-2 shadow-sm">@item.BienSo</span>
+                                        @if (!item.BienSo.Contains("Không nhận diện") && !item.BienSo.Contains("Khong xac"))
+                                        {
+                                            <span class="badge bg-primary px-3 py-2 shadow-sm">@item.BienSo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary px-3 py-2 shadow-sm" style="opacity: 0.5;">Không có ảnh</span>
+                                        }
                                     }
                                 </td>
 
@@ -284,14 +288,12 @@
             if (fullImgTag.resetZoom) fullImgTag.resetZoom();
             if (plateImgTag.resetZoom) plateImgTag.resetZoom();
 
-            // ĐÃ SỬA API LẤY TỪ Ổ D
             fullImgTag.src = "/api/api/images/vi_pham/" + fullImg;
 
             const plateContainer = document.getElementById('plateContainer');
             const noPlateMsg = document.getElementById('noPlateMsg');
 
             if (plateImg && plateImg.trim() !== '' && plateImg !== 'null') {
-                // ĐÃ SỬA API LẤY TỪ Ổ D
                 plateImgTag.src = "/api/api/images/plates/" + plateImg;
                 plateContainer.classList.remove('d-none');
                 noPlateMsg.classList.add('d-none');

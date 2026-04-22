@@ -38,8 +38,8 @@
                         </select>
 
                         <div class="mb-3 p-2 bg-white border rounded small shadow-sm text-break">
-                            <span class="fw-bold text-dark"><i class="bi bi-link-45deg text-primary"></i> Nguồn:</span>
-                            <span id="currentVideoName" class="text-danger fw-bold ms-1">Chưa có dữ liệu</span>
+                            <span class="fw-bold text-dark"><i class="bi bi-link-45deg text-primary"></i> Nguồn:</span><br />
+                            <span id="currentVideoName" class="text-danger fw-bold">Chưa có dữ liệu</span>
                         </div>
 
                         <div class="d-flex flex-wrap gap-2 mb-4">
@@ -62,12 +62,12 @@
         <div class="col-xl-8 col-lg-6 col-md-8 text-center mb-4">
             <h3 class="text-primary fw-bold mb-3"><i class="bi bi-bounding-box"></i> VẼ VÙNG CẢNH BÁO (DỮ LIỆU TĨNH)</h3>
             <div class="card shadow-lg border-0 bg-dark overflow-hidden">
-                <div id="video-container" class="card-body p-0 position-relative" style="min-height: 500px;">
+                <div id="video-container" class="card-body p-0 position-relative d-flex justify-content-center align-items-center" style="width: 100%; min-height: 500px; overflow: hidden;">
 
-                    <div id="offlineMsg" class="text-secondary">
+                    <div id="offlineMsg" class="text-secondary text-center">
                         <i class="bi bi-camera-reels mb-3" style="font-size: 4rem;"></i>
-                        <h5 id="statusText">Chưa có ảnh nền</h5>
-                        <p class="small px-3">Hệ thống đang trích xuất hình ảnh độc lập...</p>
+                        <h5 id="statusText" class="text-light">Chưa có ảnh nền</h5>
+                        <p class="small px-3 text-light opacity-75">Hệ thống đang trích xuất hình ảnh độc lập...</p>
                     </div>
 
                     <img id="snapshot-img" src="" class="img-fluid" style="display: none; width: 100%; position: relative; z-index: 1;" />
@@ -102,6 +102,65 @@
     </div>
 </div>
 
+<div class="modal fade" id="createCameraModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold"><i class="bi bi-camera me-2"></i>Thêm Camera Mới</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="fw-bold">Tên Camera:</label>
+                    <input type="text" id="newCameraName" class="form-control" placeholder="VD: Cam Ngã Tư Sở">
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold">Đường dẫn (RTSP/HTTP):</label>
+                    <input type="text" id="newCameraPath" class="form-control" placeholder="Để trống nếu tải video lên">
+                </div>
+                <div class="mb-3 bg-light p-2 border rounded">
+                    <label class="text-success fw-bold"><i class="bi bi-upload me-1"></i>Video Offline (File mp4):</label>
+                    <input type="file" id="newCameraVideo" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-success fw-bold" id="btnSubmitNewCamera" onclick="submitNewCamera()">Khởi Tạo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCameraModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square me-2"></i>Sửa Camera</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editCameraId">
+                <div class="mb-3">
+                    <label class="fw-bold">Tên Camera:</label>
+                    <input type="text" id="editCameraName" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold">Đường dẫn (RTSP/HTTP):</label>
+                    <input type="text" id="editCameraPath" class="form-control">
+                </div>
+                <div class="mb-3 bg-light p-2 border rounded">
+                    <label class="text-primary fw-bold"><i class="bi bi-upload me-1"></i>Video mới (Thay thế):</label>
+                    <input type="file" id="editCameraVideo" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary fw-bold" id="btnSubmitEditCamera" onclick="submitEditCamera()">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         let points = []; let allCameras = [];
@@ -113,17 +172,19 @@
         function saveUIState() {
             var camId = $('#cameraSelect').val();
             var loai = $('#loaiVung').val();
-            // Đã đổi sang configCameraId để độc lập với trang Live
             if (camId) localStorage.setItem('configCameraId', camId);
             if (loai) localStorage.setItem('lastConfigLoaiVung', loai);
         }
 
         function updateVideoFileNameDisplay() {
             let selectedId = $('#cameraSelect').val();
-            if (!selectedId) return;
+            if (!selectedId) {
+                $('#currentVideoName').text("Chưa có dữ liệu").removeClass('text-success text-primary').addClass('text-danger');
+                return;
+            }
             let selectedCam = allCameras.find(c => c.id == selectedId);
             if (selectedCam && selectedCam.duongDan) {
-                $('#currentVideoName').text(selectedCam.duongDan).attr('class', selectedCam.duongDan.startsWith('http') ? 'text-primary fw-bold' : 'text-success fw-bold');
+                $('#currentVideoName').text(selectedCam.duongDan).removeClass('text-danger').addClass(selectedCam.duongDan.startsWith('http') ? 'text-primary' : 'text-success');
             }
         }
 
@@ -134,9 +195,8 @@
                     if(res.status === 'success' && res.data) {
                         allCameras = res.data; let html = '';
                         allCameras.forEach(cam => { html += `<option value="${cam.id}">${cam.tenCamera}</option>`; });
-                        $('#cameraSelect').html(html);
+                        $('#cameraSelect').html(html || '<option value="">Chưa có dữ liệu...</option>');
 
-                        // Lấy cam từ configCameraId (riêng tư cho trang này)
                         var lastCam = localStorage.getItem('configCameraId');
                         if (lastCam && $(`#cameraSelect option[value='${lastCam}']`).length > 0) {
                             $('#cameraSelect').val(lastCam);
@@ -161,7 +221,6 @@
             $('#offlineMsg').show();
             $('#statusText').html('<div class="spinner-border text-primary mb-2"></div><br/>Đang chụp ảnh màn hình...');
 
-            // GỌI API CHỤP ẢNH ĐỘC LẬP (Không dùng chung Start/Stop AI chính)
             $.ajax({
                 url: '/api/api/ai/take-snapshot/' + cameraId,
                 type: 'GET',
@@ -209,22 +268,106 @@
             });
         }
 
-        // JS MODAL (CƠ BẢN)
-        function openCreateModal() { $('#newCameraName, #newCameraPath, #newCameraVideo').val(''); new bootstrap.Modal(document.getElementById('createCameraModal')).show(); }
-        function submitNewCamera() {
-            var f = new FormData(); f.append("tenCamera", $('#newCameraName').val()); f.append("duongDan", $('#newCameraPath').val()); f.append("videoFile", $('#newCameraVideo')[0].files[0]);
-            $.ajax({ url: '/api/api/camera/create', type: 'POST', data: f, processData: false, contentType: false, success: function(res) { bootstrap.Modal.getInstance(document.getElementById('createCameraModal')).hide(); loadCamerasFromDB(); }});
+        // ==============================================
+        // SỬA LỖI MODAL: THÊM TRẠNG THÁI LOADING & BẮT LỖI SERVER
+        // ==============================================
+        function openCreateModal() {
+            $('#newCameraName, #newCameraPath, #newCameraVideo').val('');
+            var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('createCameraModal'));
+            myModal.show();
         }
-        function openEditModal() {
-            let c = allCameras.find(x => x.id == $('#cameraSelect').val()); if(!c) return;
-            $('#editCameraId').val(c.id); $('#editCameraName').val(c.tenCamera); new bootstrap.Modal(document.getElementById('editCameraModal')).show();
-        }
-        function submitEditCamera() {
-            var f = new FormData(); f.append("id", $('#editCameraId').val()); f.append("newName", $('#editCameraName').val()); f.append("newPath", $('#editCameraPath').val()); f.append("newVideo", $('#editCameraVideo')[0].files[0]);
-            $.ajax({ url: '/api/api/camera/update', type: 'POST', data: f, processData: false, contentType: false, success: function() { bootstrap.Modal.getInstance(document.getElementById('editCameraModal')).hide(); loadCamerasFromDB(); }});
-        }
-        function deleteCamera() { if(confirm("Xóa camera này?")) $.post('/api/api/camera/delete', { id: $('#cameraSelect').val() }, function() { loadCamerasFromDB(); }); }
 
+        function submitNewCamera() {
+            var btn = $('#btnSubmitNewCamera');
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Đang tải lên...');
+
+            var f = new FormData();
+            f.append("tenCamera", $('#newCameraName').val());
+            f.append("duongDan", $('#newCameraPath').val());
+
+            var videoFile = $('#newCameraVideo')[0].files[0];
+            if (videoFile) {
+                f.append("videoFile", videoFile);
+            }
+
+            $.ajax({
+                url: '/api/api/camera/create',
+                type: 'POST',
+                data: f,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    btn.prop('disabled', false).text('Khởi Tạo');
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('createCameraModal')).hide();
+                    loadCamerasFromDB();
+                    alert("Thêm camera thành công!");
+                },
+                error: function(err) {
+                    btn.prop('disabled', false).text('Khởi Tạo');
+                    alert("Lỗi Server! Vui lòng kiểm tra lại: File video tải lên có thể đã vượt quá giới hạn 30MB của hệ thống.");
+                }
+            });
+        }
+
+        function openEditModal() {
+            let c = allCameras.find(x => x.id == $('#cameraSelect').val());
+            if(!c) {
+                alert("Vui lòng chọn 1 Camera bên trái để sửa!");
+                return;
+            }
+            $('#editCameraId').val(c.id);
+            $('#editCameraName').val(c.tenCamera);
+            $('#editCameraPath').val(c.duongDan && c.duongDan.includes('://') ? c.duongDan : '');
+            $('#editCameraVideo').val('');
+
+            var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editCameraModal'));
+            myModal.show();
+        }
+
+        function submitEditCamera() {
+            var btn = $('#btnSubmitEditCamera');
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Đang tải lên...');
+
+            var f = new FormData();
+            f.append("id", $('#editCameraId').val());
+            f.append("newName", $('#editCameraName').val());
+            f.append("newPath", $('#editCameraPath').val());
+
+            var videoFile = $('#editCameraVideo')[0].files[0];
+            if (videoFile) {
+                f.append("newVideo", videoFile);
+            }
+
+            $.ajax({
+                url: '/api/api/camera/update',
+                type: 'POST',
+                data: f,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    btn.prop('disabled', false).text('Cập Nhật');
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('editCameraModal')).hide();
+                    loadCamerasFromDB();
+                    alert("Cập nhật camera thành công!");
+                },
+                error: function(err) {
+                    btn.prop('disabled', false).text('Cập Nhật');
+                    alert("Lỗi Server! Vui lòng kiểm tra lại: File video tải lên có thể đã vượt quá giới hạn 30MB của hệ thống.");
+                }
+            });
+        }
+
+        function deleteCamera() {
+            if(confirm("Bạn có chắc chắn muốn xóa camera này? Tất cả các cấu hình vùng liên quan cũng sẽ bị xóa!")) {
+                $.post('/api/api/camera/delete', { id: $('#cameraSelect').val() }, function() {
+                    loadCamerasFromDB();
+                });
+            }
+        }
+
+        // ==============================================
+        // CANVAS VÀ VẼ VÙNG
+        // ==============================================
         $(document).ready(function () {
             loadCamerasFromDB();
             $('#loaiVung').change(function() { saveUIState(); loadZoneFromServer(); });

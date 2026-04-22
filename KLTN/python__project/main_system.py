@@ -10,7 +10,6 @@ import json
 import sys
 import time
 import re
-import easyocr  # BẮT BUỘC CÓ ĐỂ ĐỌC BIỂN SỐ
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -23,7 +22,7 @@ CAMERA_ID = "1"
 ENABLE_VEHICLE = True
 ENABLE_SIGN = False
 ENABLE_PLATE = True
-ENABLE_HELMET = False
+ENABLE_HELMET = True
 
 # ==========================================
 # FLASK STREAMING (CHỐNG TREO CPU)
@@ -84,30 +83,27 @@ def fetch_all_zones():
                     if len(pts) >= 3:
                         zones[lv] = np.array([[p.get("x", p.get("X")), p.get("y", p.get("Y"))] for p in pts], np.int32)
     except Exception as e:
-        print(f"[!] Lỗi kết nối C# Web: {e}")
+        pass
     return zones
 
 
 # =======================================================
-# THUẬT TOÁN ĐỌC MÀU (CHỐNG LÓA NẮNG/CHÁY SÁNG ĐÈN)
+# THUẬT TOÁN ĐỌC MÀU
 # =======================================================
 def detect_light_color(crop_img):
     hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
 
-    # 1. MÀU ĐỎ: Siết CỰC CHẶT Hue từ 0-5 (chỉ lấy Đỏ rực, loại bỏ hoàn toàn vùng Cam 6-15)
-    lower_red1 = np.array([0, 40, 150]);
+    lower_red1 = np.array([0, 40, 150])
     upper_red1 = np.array([5, 255, 255])
-    lower_red2 = np.array([170, 40, 150]);
+    lower_red2 = np.array([170, 40, 150])
     upper_red2 = np.array([180, 255, 255])
     mask_red = cv2.add(cv2.inRange(hsv, lower_red1, upper_red1), cv2.inRange(hsv, lower_red2, upper_red2))
 
-    # 2. MÀU VÀNG/CAM: Mở rộng để ôm trọn vẹn ánh sáng Vàng và quầng Cam xung quanh (Hue 12-35)
-    lower_yellow = np.array([12, 40, 150]);
+    lower_yellow = np.array([12, 40, 150])
     upper_yellow = np.array([35, 255, 255])
     mask_yellow = cv2.inRange(hsv, lower_yellow, upper_yellow)
 
-    # 3. MÀU XANH: Giữ nguyên để bắt màu Xanh Lá và Xanh Lơ (Cyan)
-    lower_green = np.array([36, 30, 150]);
+    lower_green = np.array([36, 30, 150])
     upper_green = np.array([100, 255, 255])
     mask_green = cv2.inRange(hsv, lower_green, upper_green)
 
@@ -167,10 +163,8 @@ def main():
 
     if ENABLE_PLATE:
         plate_model = YOLO(os.path.join(base_dir, "plate_model.pt"))
-        print("[HỆ THỐNG] Đang khởi tạo AI đọc chữ (OCR)...")
-        ocr_reader = easyocr.Reader(['en'], gpu=True)
 
-    if ENABLE_HELMET: helmet_model = YOLO(os.path.join(base_dir, "helmet_model.pt"))
+    if ENABLE_HELMET: helmet_model = YOLO(os.path.join(base_dir, "helmet_model1.pt"))
 
     is_image = input_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp'))
     cap = cv2.VideoCapture(input_path)
@@ -188,7 +182,7 @@ def main():
     violation_ids = []
     frame_counter = 0
     tracker_frames = {}
-    FRAMES_TO_CONFIRM = 15
+    FRAMES_TO_CONFIRM = 8
     vehicle_paths = {}
 
     while True:
@@ -217,7 +211,7 @@ def main():
         if zones["Vach_DenDo"] is not None:
             if zones.get("Vung_DenGiaoThong") is not None:
                 bx, by, bw, bh = cv2.boundingRect(zones["Vung_DenGiaoThong"])
-                roi_x1, roi_x2 = bx, bx + bw;
+                roi_x1, roi_x2 = bx, bx + bw
                 roi_y1, roi_y2 = by, by + bh
                 crop_light = frame[max(0, roi_y1):min(h, roi_y2), max(0, roi_x1):min(w, roi_x2)]
                 if crop_light.size > 0:
@@ -290,6 +284,64 @@ def main():
             tids = t_results[0].boxes.id.int().cpu().tolist()
             cids = t_results[0].boxes.cls.int().cpu().tolist()
 
+            # =================================================================
+            # BƯỚC 1: BATCH INFERENCE MŨ BẢO HIỂM
+            # =================================================================
+            helmet_status_dict = {}
+            if ENABLE_HELMET:
+                moto_crops = []
+                moto_tids = []
+                moto_offsets = []
+
+                for box, tid, cid in zip(boxes, tids, cids):
+                    class_name = traffic_model.names[cid].lower()
+                    if class_name in ['xe may', 'xe dap']:
+                        x1, y1, x2, y2 = map(int, box)
+
+                        box_h = y2 - y1
+                        box_w = x2 - x1
+
+                        crop_y1 = max(0, int(y1 - 1.7 * box_h))
+                        crop_y2 = min(h, int(y2 + 0.1 * box_h))
+
+                        crop_x1 = max(0, int(x1 - 0.1 * box_w))
+                        crop_x2 = min(w, int(x2 + 0.1 * box_w))
+
+                        crop_veh = frame[crop_y1:crop_y2, crop_x1:crop_x2]
+
+                        if crop_veh.size > 0:
+                            moto_crops.append(crop_veh)
+                            moto_tids.append(tid)
+                            moto_offsets.append((crop_x1, crop_y1, crop_veh.shape[0]))
+
+
+
+                if moto_crops:
+                    h_batch_results = helmet_model.predict(moto_crops, conf=0.50, verbose=False)
+
+                    for tid, h_res, (ox, oy, crop_h) in zip(moto_tids, h_batch_results, moto_offsets):
+                        has_no_helmet = False
+                        draw_boxes = []
+
+                        for h_box in h_res.boxes:
+                            hx1, hy1, hx2, hy2 = map(int, h_box.xyxy[0])
+                            h_cls = int(h_box.cls[0])
+                            h_name = helmet_model.names[h_cls].lower()
+
+                            if hy1 > crop_h * 0.85:
+                                continue
+
+                            if "no" in h_name or "khong" in h_name or "without" in h_name or "head" in h_name or h_cls == 1:
+                                has_no_helmet = True
+                                draw_boxes.append((ox + hx1, oy + hy1, ox + hx2, oy + hy2, "NO HELMET", (0, 0, 255)))
+                            else:
+                                draw_boxes.append((ox + hx1, oy + hy1, ox + hx2, oy + hy2, "", (0, 255, 0)))
+
+                        helmet_status_dict[tid] = {"violation": has_no_helmet, "draw": draw_boxes}
+
+            # =================================================================
+            # BƯỚC 2: XỬ LÝ VI PHẠM TỔNG HỢP VÀ VẼ LÊN KHUNG HÌNH CHÍNH
+            # =================================================================
             for box, tid, cid in zip(boxes, tids, cids):
                 x1, y1, x2, y2 = map(int, box)
                 cx, cy = (x1 + x2) // 2, y2
@@ -311,7 +363,6 @@ def main():
                                                                                        False) >= 0
                 in_car_zone = zones["Lan_Oto"] is not None and cv2.pointPolygonTest(zones["Lan_Oto"],
                                                                                     (float(cx), float(cy)), False) >= 0
-                in_any_zone = in_red_zone or in_moto_zone or in_car_zone
 
                 danh_sach_loi = []
                 is_turning_right = False
@@ -324,32 +375,22 @@ def main():
                                 is_turning_right = True
                                 cv2.putText(frame, "RE PHAI", (x1, y1 - 25), 1, 0.8, (255, 255, 0), 2)
                         if not is_turning_right: danh_sach_loi.append("Vuot Den Do")
+
                     elif class_name in nhom_oto and in_moto_zone:
                         danh_sach_loi.append(f"Sai Lan ({class_name})")
                     elif class_name in nhom_xemay and in_car_zone:
                         danh_sach_loi.append(f"Sai Lan ({class_name})")
 
-                # =======================================================
-                # ĐÃ SỬA LOGIC NHẬN DIỆN MŨ BẢO HIỂM: Quét TOÀN MÀN HÌNH
-                # =======================================================
                 if ENABLE_HELMET and class_name in nhom_xemay:
-                    crop_veh = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
-                    has_no_helmet = False
-                    if crop_veh.size > 0:
-                        h_results = helmet_model.predict(crop_veh, conf=0.2, verbose=False)
-                        if len(h_results[0].boxes) > 0:
-                            for h_box in h_results[0].boxes:
-                                hx1, hy1, hx2, hy2 = map(int, h_box.xyxy[0])
-                                h_cls = int(h_box.cls[0])
-                                h_name = helmet_model.names[h_cls].lower()
+                    h_info = helmet_status_dict.get(tid)
+                    if h_info:
+                        for (bx1, by1, bx2, by2, label, color) in h_info["draw"]:
+                            cv2.rectangle(frame, (bx1, by1), (bx2, by2), color, 2)
+                            if label:
+                                cv2.putText(frame, label, (bx1, max(by1 - 5, 10)), 1, 0.6, color, 2)
 
-                                if "no" in h_name or "khong" in h_name or "without" in h_name or "head" in h_name or h_cls == 1:
-                                    has_no_helmet = True
-                                    cv2.rectangle(frame, (x1 + hx1, y1 + hy1), (x1 + hx2, y1 + hy2), (0, 0, 255), 2)
-                                    cv2.putText(frame, "NO HELMET", (x1 + hx1, y1 + hy1 - 5), 1, 0.5, (0, 0, 255), 2)
-                                else:
-                                    cv2.rectangle(frame, (x1 + hx1, y1 + hy1), (x1 + hx2, y1 + hy2), (0, 255, 0), 2)
-                    if has_no_helmet and class_name not in nhom_uutien: danh_sach_loi.append("Khong Mu Bao Hiem")
+                        if h_info["violation"] and class_name not in nhom_uutien:
+                            danh_sach_loi.append("Khong Mu Bao Hiem")
 
                 if len(danh_sach_loi) > 0 and tid not in violation_ids:
                     tracker_frames[tid] = tracker_frames.get(tid, 0) + 1
@@ -368,7 +409,7 @@ def main():
 
                         crop_veh = frame[max(0, y1):min(h, y2), max(0, x1):min(w, x2)]
                         crop_plate_bytes = None
-                        bien_so_text = "Không nhận diện được"
+                        bien_so_text = "Không nhận diện"
 
                         if ENABLE_PLATE and crop_veh.size > 0:
                             p_results = plate_model.predict(crop_veh, conf=0.2, verbose=False)
@@ -381,16 +422,6 @@ def main():
                                     if plate_img.size > 0:
                                         _, p_enc = cv2.imencode('.jpg', plate_img)
                                         crop_plate_bytes = p_enc.tobytes()
-
-                                        try:
-                                            ocr_results = ocr_reader.readtext(plate_img, detail=0)
-                                            if len(ocr_results) > 0:
-                                                raw_text = "".join(ocr_results).upper()
-                                                clean_text = re.sub(r'[^A-Z0-9]', '', raw_text)
-                                                if len(clean_text) >= 4:
-                                                    bien_so_text = clean_text
-                                        except Exception as e:
-                                            pass
                                         break
 
                         _, img_enc = cv2.imencode('.jpg', snapshot)

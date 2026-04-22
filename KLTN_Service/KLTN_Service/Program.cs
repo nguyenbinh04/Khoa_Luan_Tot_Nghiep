@@ -2,6 +2,7 @@ using KLTN_Service.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Features; // BẮT BUỘC THÊM: Để xử lý form upload dung lượng lớn
 using Microsoft.Extensions.FileProviders; // BẮT BUỘC THÊM: Để đọc file từ ổ đĩa ngoài (D:, E:...)
+using Microsoft.AspNetCore.Server.IIS;    // Thêm thư viện này cho IIS
 
 namespace KLTN_Service
 {
@@ -12,18 +13,28 @@ namespace KLTN_Service
             var builder = WebApplication.CreateBuilder(args);
 
             // =========================================================
-            // CẤU HÌNH MỞ KHÓA GIỚI HẠN UPLOAD FILE LÊN 500MB
+            // CẤU HÌNH MỞ KHÓA GIỚI HẠN UPLOAD FILE LÊN 2GB
+            // (2GB = 2147483648 bytes. Thêm 'L' để chỉ định kiểu số Long)
             // =========================================================
+
+            // 1. Mở khóa cho Form Data
             builder.Services.Configure<FormOptions>(options =>
             {
                 options.ValueLengthLimit = int.MaxValue;
-                options.MultipartBodyLengthLimit = 524288000; // 500 MB
+                options.MultipartBodyLengthLimit = 2147483648L; // 2 GB
                 options.MultipartHeadersLengthLimit = int.MaxValue;
             });
 
+            // 2. Mở khóa cho Kestrel Server
             builder.WebHost.ConfigureKestrel(serverOptions =>
             {
-                serverOptions.Limits.MaxRequestBodySize = 524288000; // 500 MB
+                serverOptions.Limits.MaxRequestBodySize = 2147483648L; // 2 GB
+            });
+
+            // 3. Mở khóa cho IIS Express (Khi chạy bằng Visual Studio)
+            builder.Services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = 2147483648L; // 2 GB
             });
             // =========================================================
 
