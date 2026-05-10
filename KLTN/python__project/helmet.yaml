@@ -1,8 +1,0 @@
-
-path: D:/Khóa luận tốt nghiệp/KLTN/datasets/train_helmet
-
-train: train/images
-val: valid/images
-
-nc: 2
-names: ['Helmet', 'No_Helmet']

@@ -10,6 +10,7 @@ import json
 import sys
 import time
 import re
+import datetime
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -88,7 +89,7 @@ def fetch_all_zones():
 
 
 # =======================================================
-# THUẬT TOÁN ĐỌC MÀU
+# THUẬT TOÁN ĐỌC MÀU ĐÈN
 # =======================================================
 def detect_light_color(crop_img):
     hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
@@ -158,13 +159,17 @@ def main():
 
     print(f"[HỆ THỐNG] Đang tải mô hình AI cho CAMERA {CAMERA_ID} tại {API_BASE} ...")
     base_dir = "models/"
-    traffic_model = YOLO(os.path.join(base_dir, "traffic_model.pt"))
-    if ENABLE_SIGN:   sign_model = YOLO(os.path.join(base_dir, "sign_model.pt"))
+
+    traffic_model = YOLO(os.path.join(base_dir, "traffic_model_openvino_model"))
+
+    if ENABLE_SIGN:
+        sign_model = YOLO(os.path.join(base_dir, "sign_model_openvino_model"))
 
     if ENABLE_PLATE:
-        plate_model = YOLO(os.path.join(base_dir, "plate_model.pt"))
+        plate_model = YOLO(os.path.join(base_dir, "plate_model_openvino_model"))
 
-    if ENABLE_HELMET: helmet_model = YOLO(os.path.join(base_dir, "helmet_model1.pt"))
+    if ENABLE_HELMET:
+        helmet_model = YOLO(os.path.join(base_dir, "helmet_model1_openvino_model"))
 
     is_image = input_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp'))
     cap = cv2.VideoCapture(input_path)
@@ -182,8 +187,11 @@ def main():
     violation_ids = []
     frame_counter = 0
     tracker_frames = {}
-    FRAMES_TO_CONFIRM = 8
+    FRAMES_TO_CONFIRM = 7
     vehicle_paths = {}
+
+    # KHO LƯU TRỮ BỘ NHỚ ĐỆM (CACHE) CỦA MŨ BẢO HIỂM
+    helmet_memory = {}
 
     while True:
         if is_image:
@@ -198,6 +206,11 @@ def main():
                     continue
 
         frame_counter += 1
+
+        # NHẢY CÓC KHUNG HÌNH (Bỏ qua khung hình chẵn)
+        if not is_image and frame_counter % 2 != 0:
+            continue
+
         h, w = frame.shape[:2]
 
         if frame_counter % 100 == 0:
@@ -205,6 +218,7 @@ def main():
             if any(v is not None for v in new_zones.values()): zones = new_zones
 
         t_results = traffic_model.track(frame, persist=True, tracker="bytetrack.yaml", verbose=False)
+
         current_traffic_light = "GREEN"
         light_detected = False
 
@@ -240,7 +254,7 @@ def main():
                             break
 
                 if not light_detected and ENABLE_SIGN:
-                    s_results = sign_model.predict(frame, conf=0.1, imgsz=1024, verbose=False)
+                    s_results = sign_model.predict(frame, conf=0.1, verbose=False)
                     for s_box in s_results[0].boxes:
                         sx1, sy1, sx2, sy2 = map(int, s_box.xyxy[0])
                         s_cls = int(s_box.cls[0])
@@ -284,64 +298,57 @@ def main():
             tids = t_results[0].boxes.id.int().cpu().tolist()
             cids = t_results[0].boxes.cls.int().cpu().tolist()
 
-            # =================================================================
-            # BƯỚC 1: BATCH INFERENCE MŨ BẢO HIỂM
-            # =================================================================
             helmet_status_dict = {}
             if ENABLE_HELMET:
-                moto_crops = []
-                moto_tids = []
-                moto_offsets = []
-
                 for box, tid, cid in zip(boxes, tids, cids):
                     class_name = traffic_model.names[cid].lower()
                     if class_name in ['xe may', 'xe dap']:
-                        x1, y1, x2, y2 = map(int, box)
 
-                        box_h = y2 - y1
-                        box_w = x2 - x1
+                        # --- THUẬT TOÁN MEMORY CHỐNG LAG ---
+                        if tid not in helmet_memory or (frame_counter - helmet_memory[tid]["last_scan"]) > 8:
 
-                        crop_y1 = max(0, int(y1 - 1.7 * box_h))
-                        crop_y2 = min(h, int(y2 + 0.1 * box_h))
+                            x1, y1, x2, y2 = map(int, box)
 
-                        crop_x1 = max(0, int(x1 - 0.1 * box_w))
-                        crop_x2 = min(w, int(x2 + 0.1 * box_w))
+                            box_h = y2 - y1
+                            box_w = x2 - x1
 
-                        crop_veh = frame[crop_y1:crop_y2, crop_x1:crop_x2]
+                            crop_y1 = max(0, int(y1 - 1.7 * box_h))
+                            crop_y2 = min(h, int(y2 + 0.1 * box_h))
+                            crop_x1 = max(0, int(x1 - 0.1 * box_w))
+                            crop_x2 = min(w, int(x2 + 0.1 * box_w))
 
-                        if crop_veh.size > 0:
-                            moto_crops.append(crop_veh)
-                            moto_tids.append(tid)
-                            moto_offsets.append((crop_x1, crop_y1, crop_veh.shape[0]))
+                            crop_veh = frame[crop_y1:crop_y2, crop_x1:crop_x2]
 
+                            if crop_veh.size > 0:
+                                h_batch_results = helmet_model.predict(crop_veh, conf=0.70, verbose=False)
+                                h_res = h_batch_results[0]
 
+                                has_no_helmet = False
+                                draw_boxes = []
 
-                if moto_crops:
-                    h_batch_results = helmet_model.predict(moto_crops, conf=0.50, verbose=False)
+                                for h_box in h_res.boxes:
+                                    hx1, hy1, hx2, hy2 = map(int, h_box.xyxy[0])
+                                    h_cls = int(h_box.cls[0])
+                                    h_name = helmet_model.names[h_cls].lower()
 
-                    for tid, h_res, (ox, oy, crop_h) in zip(moto_tids, h_batch_results, moto_offsets):
-                        has_no_helmet = False
-                        draw_boxes = []
+                                    if hy1 > crop_veh.shape[0] * 0.85:
+                                        continue
 
-                        for h_box in h_res.boxes:
-                            hx1, hy1, hx2, hy2 = map(int, h_box.xyxy[0])
-                            h_cls = int(h_box.cls[0])
-                            h_name = helmet_model.names[h_cls].lower()
+                                    if "no" in h_name or "khong" in h_name or "without" in h_name or "head" in h_name or h_cls == 1:
+                                        has_no_helmet = True
+                                        draw_boxes.append((crop_x1 + hx1, crop_y1 + hy1, crop_x1 + hx2, crop_y1 + hy2,
+                                                           "NO HELMET", (0, 0, 255)))
+                                    else:
+                                        draw_boxes.append((crop_x1 + hx1, crop_y1 + hy1, crop_x1 + hx2, crop_y1 + hy2,
+                                                           "", (0, 255, 0)))
 
-                            if hy1 > crop_h * 0.85:
-                                continue
+                                # LƯU VÀO BỘ NHỚ
+                                helmet_memory[tid] = {"violation": has_no_helmet, "last_scan": frame_counter}
+                                helmet_status_dict[tid] = {"violation": has_no_helmet, "draw": draw_boxes}
 
-                            if "no" in h_name or "khong" in h_name or "without" in h_name or "head" in h_name or h_cls == 1:
-                                has_no_helmet = True
-                                draw_boxes.append((ox + hx1, oy + hy1, ox + hx2, oy + hy2, "NO HELMET", (0, 0, 255)))
-                            else:
-                                draw_boxes.append((ox + hx1, oy + hy1, ox + hx2, oy + hy2, "", (0, 255, 0)))
+                        else:
+                            helmet_status_dict[tid] = {"violation": helmet_memory[tid]["violation"], "draw": []}
 
-                        helmet_status_dict[tid] = {"violation": has_no_helmet, "draw": draw_boxes}
-
-            # =================================================================
-            # BƯỚC 2: XỬ LÝ VI PHẠM TỔNG HỢP VÀ VẼ LÊN KHUNG HÌNH CHÍNH
-            # =================================================================
             for box, tid, cid in zip(boxes, tids, cids):
                 x1, y1, x2, y2 = map(int, box)
                 cx, cy = (x1 + x2) // 2, y2
@@ -416,18 +423,41 @@ def main():
                             if len(p_results[0].boxes) > 0:
                                 for p_box in p_results[0].boxes:
                                     px1, py1, px2, py2 = map(int, p_box.xyxy[0])
-                                    plate_img = crop_veh[max(0, py1):min(crop_veh.shape[0], py2),
-                                                max(0, px1):min(crop_veh.shape[1], px2)]
+
+                                    pad = 8
+                                    px1 = max(0, px1 - pad)
+                                    py1 = max(0, py1 - pad)
+                                    px2 = min(crop_veh.shape[1], px2 + pad)
+                                    py2 = min(crop_veh.shape[0], py2 + pad)
+
+                                    plate_img = crop_veh[py1:py2, px1:px2]
 
                                     if plate_img.size > 0:
-                                        _, p_enc = cv2.imencode('.jpg', plate_img)
+                                        if plate_img.shape[1] > 0 and plate_img.shape[1] < 200:
+                                            plate_img = cv2.resize(plate_img, None, fx=2.5, fy=2.5,
+                                                                   interpolation=cv2.INTER_CUBIC)
+
+                                        kernel = np.array([[0, -1, 0],
+                                                           [-1, 5, -1],
+                                                           [0, -1, 0]])
+                                        plate_img = cv2.filter2D(plate_img, -1, kernel)
+
+                                        _, p_enc = cv2.imencode('.jpg', plate_img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
                                         crop_plate_bytes = p_enc.tobytes()
                                         break
 
-                        _, img_enc = cv2.imencode('.jpg', snapshot)
-                        files = {"anhViPham": (f"full_{tid}.jpg", img_enc.tobytes(), "image/jpeg")}
+                        # --- TẠO TÊN FILE THÔNG MINH ---
+                        time_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                        loi_format = loi_tong_hop.replace(" ", "").replace("(", "_").replace(")", "").replace("+", "_")
+
+                        ten_file_full = f"Cam{CAMERA_ID}_{time_str}_{loi_format}.jpg"
+                        ten_file_plate = f"Cam{CAMERA_ID}_{time_str}_{loi_format}_Plate.jpg"
+
+                        _, img_enc = cv2.imencode('.jpg', snapshot, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+
+                        files = {"anhViPham": (ten_file_full, img_enc.tobytes(), "image/jpeg")}
                         if crop_plate_bytes is not None:
-                            files["anhBienSo"] = (f"plate_{tid}.jpg", crop_plate_bytes, "image/jpeg")
+                            files["anhBienSo"] = (ten_file_plate, crop_plate_bytes, "image/jpeg")
 
                         try:
                             api_url = f"{API_BASE}/api/api/violations/report"
@@ -449,9 +479,10 @@ def main():
                 if not is_turning_right: cv2.putText(frame, f"{class_name.upper()} ID:{tid}", (x1, y1 - 10), 1, 0.8,
                                                      color, 1)
 
+        # Cập nhật khung hình đã vẽ hoàn chỉnh lên Web
         with lock:
             output_frame = frame.copy()
-        time.sleep(0.05 if is_image else 0.01)
+        time.sleep(0.01)
     cap.release()
 
 

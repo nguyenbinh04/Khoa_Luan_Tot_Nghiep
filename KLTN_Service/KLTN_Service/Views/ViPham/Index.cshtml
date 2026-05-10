@@ -1,13 +1,11 @@
-﻿@model IEnumerable<KLTN_Service.Models.LichSuViPham>
-
-@{
+﻿@{
     ViewData["Title"] = "Quản lý vi phạm";
 }
 
 <div class="container-fluid mt-4 px-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="text-danger fw-bold m-0"><i class="bi bi-shield-lock-fill me-2"></i>HỆ THỐNG GIÁM SÁT VI PHẠM</h2>
-        <span class="badge bg-secondary fs-6 shadow-sm">Tổng số: @Model.Count() vụ việc</span>
+        <span id="totalBadge" class="badge bg-secondary fs-6 shadow-sm">Tổng số: Đang tải...</span>
     </div>
 
     <div class="card shadow-sm border-0 mb-4 bg-white">
@@ -45,7 +43,7 @@
     <div class="card shadow border-0">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover align-middle text-center" id="violationTable">
+                <table class="table table-hover align-middle text-center" id="violationTable" style="width:100%">
                     <thead class="table-dark">
                         <tr>
                             <th class="text-center">ID</th>
@@ -57,66 +55,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="fw-bold text-muted">#@item.Id</td>
-
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.DuongDanAnhBienSo))
-                                    {
-                                        <div class="d-inline-block text-center">
-                                            <img src="/api/api/images/plates/@item.DuongDanAnhBienSo"
-                                                 class="rounded border border-dark shadow-sm d-block mx-auto mb-1"
-                                                 style="width: 90px; height: 35px; object-fit: contain; background: #222;"
-                                                 onerror="this.src='https://placehold.co/90x35?text=Lỗi+Ảnh'" />
-
-                                            @* CHỈ HIỆN BIỂN SỐ NẾU ĐÃ ĐƯỢC NGƯỜI QUẢN TRỊ DUYỆT (ẨN CHỮ KHÔNG NHẬN DIỆN) *@
-                                            @if (!item.BienSo.Contains("Không nhận diện") && !item.BienSo.Contains("Khong xac"))
-                                            {
-                                                <span class="badge bg-primary fw-bold" style="font-size: 0.85rem;">@item.BienSo</span>
-                                            }
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        @if (!item.BienSo.Contains("Không nhận diện") && !item.BienSo.Contains("Khong xac"))
-                                        {
-                                            <span class="badge bg-primary px-3 py-2 shadow-sm">@item.BienSo</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary px-3 py-2 shadow-sm" style="opacity: 0.5;">Không có ảnh</span>
-                                        }
-                                    }
-                                </td>
-
-                                <td class="text-danger fw-bold">@item.LoaiViPham</td>
-                                <td>@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                                <td>
-                                    <span class="badge rounded-pill @(item.TrangThaiXuLy == "Chưa xử lý" ? "bg-warning text-dark" : "bg-success")">
-                                        @item.TrangThaiXuLy
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="position-relative d-inline-block shadow-sm rounded overflow-hidden"
-                                         style="cursor: pointer; transition: transform 0.2s;"
-                                         onmouseover="this.style.transform='scale(1.05)'"
-                                         onmouseout="this.style.transform='scale(1)'"
-                                         onclick="showViolationDetail(@item.Id, '@item.DuongDanAnh', '@item.DuongDanAnhBienSo', '@item.BienSo', '@item.LoaiViPham', '@item.ThoiGian.ToString("dd/MM/yyyy HH:mm:ss")')">
-
-                                        <img src="/api/api/images/vi_pham/@item.DuongDanAnh" class="img-fluid" style="width: 150px; height: 85px; object-fit: cover;" onerror="this.src='https://placehold.co/150x85?text=No+Image'" />
-
-                                        @if (!string.IsNullOrEmpty(item.DuongDanAnhBienSo))
-                                        {
-                                            <div style="position: absolute; bottom: 0; right: 0; background: rgba(220, 53, 69, 0.8); padding: 2px;">
-                                                <img src="/api/api/images/plates/@item.DuongDanAnhBienSo" style="width: 50px; height: auto; border: 1px solid white;" onerror="this.style.display='none'" />
-                                            </div>
-                                        }
-                                    </div>
-                                </td>
-                            </tr>
-                        }
                     </tbody>
                 </table>
             </div>
@@ -165,7 +103,7 @@
                                 <div class="mb-3">
                                     <label class="form-label fw-bold small text-muted mb-1">Nhập biển số chính xác:</label>
                                     <input type="text" id="modalBienSoInput" class="form-control text-uppercase fw-bold text-danger border-danger" placeholder="VD: 43A-403.61" />
-                                    <small class="text-muted" style="font-size: 0.75rem;">*Nhìn vào ảnh cận cảnh để gõ lại</small>
+                                   
                                 </div>
 
                                 <p class="mb-2"><strong>Hành vi:</strong> <span id="modalLoi" class="text-danger fw-bold"></span></p>
@@ -193,18 +131,124 @@
 
     <script>
         $(document).ready(function () {
+            // ===============================================================
+            // CẤU HÌNH DATATABLES SERVER-SIDE (PHIÊN BẢN TỐI ƯU BIG DATA)
+            // ===============================================================
             var table = $('#violationTable').DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    "url": "/ViPham/LoadData", // Đường dẫn gọi hàm C# LoadData
+                    "type": "POST"
+                },
                 "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" },
                 "order": [[ 0, "desc" ]],
-                "columnDefs": [{ "orderable": false, "targets": 5 }]
+                "drawCallback": function( settings ) {
+                    // Cập nhật thẻ Tổng số mỗi khi bảng load xong dữ liệu
+                    $('#totalBadge').html(`Tổng số: ${settings._iRecordsTotal} vụ việc`);
+                },
+                "columns": [
+                    // CỘT 0: ID
+                    {
+                        "data": "id",
+                        "render": function(data) { return `<span class="fw-bold text-muted">#${data}</span>`; }
+                    },
+                    // CỘT 1: BIỂN SỐ CẬN CẢNH
+                    {
+                        "data": null,
+                        "orderable": false,
+                        "render": function(data, type, row) {
+                            let bienSo = row.bienSo || "";
+                            let isValidBS = !bienSo.includes("Không nhận diện") && !bienSo.includes("Khong xac");
+                            let badgeHtml = isValidBS ? `<span class="badge bg-primary fw-bold" style="font-size: 0.85rem;">${bienSo}</span>` : '';
+
+                            if (row.duongDanAnhBienSo) {
+                                return `
+                                <div class="d-inline-block text-center">
+                                    <img src="/api/api/images/plates/${row.duongDanAnhBienSo}"
+                                         class="rounded border border-dark shadow-sm d-block mx-auto mb-1"
+                                         style="width: 90px; height: 35px; object-fit: contain; background: #222;"
+                                         onerror="this.src='https://placehold.co/90x35?text=Lỗi+Ảnh'" />
+                                    ${badgeHtml}
+                                </div>`;
+                            } else {
+                                if (isValidBS) {
+                                    return `<span class="badge bg-primary px-3 py-2 shadow-sm">${bienSo}</span>`;
+                                } else {
+                                    return `<span class="badge bg-secondary px-3 py-2 shadow-sm" style="opacity: 0.5;">Không có ảnh</span>`;
+                                }
+                            }
+                        }
+                    },
+                    // CỘT 2: LỖI VI PHẠM
+                    {
+                        "data": "loaiViPham",
+                        "className": "text-danger fw-bold"
+                    },
+                    // CỘT 3: THỜI GIAN
+                    {
+                        "data": "thoiGian",
+                        "render": function(data) {
+                            if(!data) return "";
+                            let d = new Date(data);
+                            let dd = String(d.getDate()).padStart(2, '0');
+                            let mm = String(d.getMonth() + 1).padStart(2, '0');
+                            let yyyy = d.getFullYear();
+                            let hh = String(d.getHours()).padStart(2, '0');
+                            let mins = String(d.getMinutes()).padStart(2, '0');
+                            let ss = String(d.getSeconds()).padStart(2, '0');
+                            return `${dd}/${mm}/${yyyy} ${hh}:${mins}:${ss}`;
+                        }
+                    },
+                    // CỘT 4: TRẠNG THÁI
+                    {
+                        "data": "trangThaiXuLy",
+                        "render": function(data) {
+                            let bgClass = (data === "Chưa xử lý") ? "bg-warning text-dark" : "bg-success";
+                            return `<span class="badge rounded-pill ${bgClass}">${data}</span>`;
+                        }
+                    },
+                    // CỘT 5: ẢNH BẰNG CHỨNG
+                    {
+                        "data": null,
+                        "orderable": false,
+                        "render": function(data, type, row) {
+                            let d = new Date(row.thoiGian);
+                            let timeStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
+                            let bs = row.bienSo || "";
+
+                            let plateOverlay = "";
+                            if (row.duongDanAnhBienSo) {
+                                plateOverlay = `
+                                <div style="position: absolute; bottom: 0; right: 0; background: rgba(220, 53, 69, 0.8); padding: 2px;">
+                                    <img src="/api/api/images/plates/${row.duongDanAnhBienSo}" style="width: 50px; height: auto; border: 1px solid white;" onerror="this.style.display='none'" />
+                                </div>`;
+                            }
+
+                            return `
+                            <div class="position-relative d-inline-block shadow-sm rounded overflow-hidden"
+                                 style="cursor: pointer; transition: transform 0.2s;"
+                                 onmouseover="this.style.transform='scale(1.05)'"
+                                 onmouseout="this.style.transform='scale(1)'"
+                                 onclick="showViolationDetail(${row.id}, '${row.duongDanAnh}', '${row.duongDanAnhBienSo || ''}', '${bs}', '${row.loaiViPham}', '${timeStr}')">
+
+                                <img src="/api/api/images/vi_pham/${row.duongDanAnh}" class="img-fluid" style="width: 150px; height: 85px; object-fit: cover;" onerror="this.src='https://placehold.co/150x85?text=No+Image'" />
+                                ${plateOverlay}
+                            </div>`;
+                        }
+                    }
+                ]
             });
 
+            // Tùy chỉnh Nút Lọc (Gửi thẳng từ khóa vào ô Search tổng của DataTables)
             $('.filter-tab').on('click', function (e) {
                 e.preventDefault();
                 $('.filter-tab').removeClass('active bg-danger text-white').addClass('text-dark');
                 $(this).removeClass('text-dark').addClass('active bg-danger text-white');
                 var keyword = $(this).attr('data-filter');
-                table.column(2).search(keyword).draw();
+
+                // Sử dụng global search thay vì column search để tương thích API C#
+                table.search(keyword).draw();
             });
 
             enableZoomAndPan('modalFullImg', 'fullImgContainer');
@@ -336,7 +380,11 @@
                 data: { id: id, bienSoMoi: bienSoMoi },
                 success: function (res) {
                     if (res.status === 'success') {
-                        location.reload();
+                        // Tải lại bảng hiện tại (giữ nguyên trang đang xem) thay vì reload toàn bộ trình duyệt
+                        $('#violationTable').DataTable().ajax.reload(null, false);
+                        bootstrap.Modal.getInstance(document.getElementById('violationModal')).hide();
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
                     } else {
                         alert("Lỗi: " + res.message);
                         btn.innerHTML = originalText;

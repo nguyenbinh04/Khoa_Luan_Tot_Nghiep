@@ -38,19 +38,43 @@ namespace KLTN_Service.Controllers
         [HttpPost("violations/report")]
         public async Task<IActionResult> ReportViolation([FromForm] string bienSo, [FromForm] string loaiViPham, [FromForm] int cameraId, [FromForm] IFormFile anhViPham, [FromForm] IFormFile? anhBienSo)
         {
-            string fullPath = await SaveFile(anhViPham, "vi_pham");
-            string platePath = anhBienSo != null ? await SaveFile(anhBienSo, "plates") : "";
+            // 1. CHÌA KHÓA LÀ ĐÂY: Truy vấn Database để lấy đúng Tên Camera
+            var cam = await _context.Cameras.FindAsync(cameraId);
+            string tenCamera = cam != null ? cam.TenCamera : $"Cam_{cameraId}";
+
+            // 2. Làm sạch tên Camera để an toàn khi làm tên file (Xóa khoảng trắng, chuyển ngoặc thành gạch dưới)
+            // Ví dụ: "Cam 1(Đèn đỏ)" -> "Cam_1_Đèn_đỏ"
+            string safeCamName = tenCamera.Replace(" ", "_").Replace("(", "_").Replace(")", "");
+            var invalidChars = Path.GetInvalidFileNameChars();
+            safeCamName = new string(safeCamName.Where(ch => !invalidChars.Contains(ch)).ToArray());
+
+            // 3. Lấy thời gian thực và làm sạch tên lỗi
+            string timeStr = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string safeLoi = loaiViPham.Replace(" ", "").Replace("(", "_").Replace(")", "").Replace("+", "_");
+
+            // 4. Ghép thành siêu phẩm tên file: [Tên Camera]_[Thời Gian]_[Lỗi].jpg
+            string fullFileName = $"{safeCamName}_{timeStr}_{safeLoi}.jpg";
+            string plateFileName = $"{safeCamName}_{timeStr}_{safeLoi}_Plate.jpg";
+
+            // 5. Lưu file với tên mới tự tạo
+            string fullPath = await SaveFile(anhViPham, "vi_pham", fullFileName);
+            string platePath = anhBienSo != null ? await SaveFile(anhBienSo, "plates", plateFileName) : "";
+
             var record = new LichSuViPham { BienSo = bienSo, LoaiViPham = loaiViPham, CameraId = cameraId, ThoiGian = DateTime.Now, DuongDanAnh = fullPath, DuongDanAnhBienSo = platePath, TrangThaiXuLy = "Chưa xử lý" };
             _context.LichSuViPhams.Add(record);
             await _context.SaveChangesAsync();
             return Ok(new { status = "success" });
         }
 
-        private async Task<string> SaveFile(IFormFile file, string folder)
+        // Cập nhật hàm SaveFile để nó nhận tên file tùy chỉnh
+        private async Task<string> SaveFile(IFormFile file, string folder, string customFileName = "")
         {
             string path = Path.Combine(_storageFolder, "images", folder);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            string fileName = Guid.NewGuid().ToString() + ".jpg";
+
+            // Ưu tiên dùng tên customFileName do C# tự sinh ra
+            string fileName = string.IsNullOrEmpty(customFileName) ? Path.GetFileName(file.FileName) : customFileName;
+
             using (var stream = new FileStream(Path.Combine(path, fileName), FileMode.Create)) { await file.CopyToAsync(stream); }
             return fileName;
         }
@@ -81,6 +105,7 @@ namespace KLTN_Service.Controllers
             _context.Cameras.Update(cam); await _context.SaveChangesAsync();
             return Ok(new { status = "success", message = "Đã cập nhật!" });
         }
+
         [HttpPost("camera/delete")]
         public async Task<IActionResult> DeleteCamera([FromForm] int id)
         {
@@ -96,14 +121,13 @@ namespace KLTN_Service.Controllers
                     _context.CauHinhVungs.RemoveRange(configs);
                 }
 
-                // 2. Xóa các lịch sử vi phạm liên quan đến Camera này (Đây là nguyên nhân gây lỗi)
+                // 2. Xóa các lịch sử vi phạm liên quan đến Camera này
                 var viPhams = _context.LichSuViPhams.Where(x => x.CameraId == id);
                 if (viPhams.Any())
                 {
                     _context.LichSuViPhams.RemoveRange(viPhams);
                 }
 
-                // Lưu lại các thay đổi xóa bảng con (configs, viPhams) trước
                 await _context.SaveChangesAsync();
 
                 // 3. Cuối cùng mới xóa Camera
@@ -114,7 +138,6 @@ namespace KLTN_Service.Controllers
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                // Xử lý dự phòng nếu EF Core vẫn bị kẹt tracking (Hiếm khi xảy ra nếu đã gọi SaveChangesAsync cho bảng con trước)
                 return StatusCode(500, new { status = "error", message = "Lỗi đồng bộ dữ liệu. Không thể xóa Camera ngay lúc này.", details = ex.Message });
             }
             catch (Exception ex)
@@ -256,12 +279,9 @@ namespace KLTN_Service.Controllers
                 if (!filePath.StartsWith("http") && !filePath.Contains("://"))
                     filePath = Path.Combine(_storageFolder, "videos", filePath);
 
-                // Script python này chỉ mở camera, chụp 1 frame rồi thoát ngay lập tức
-                // Nó KHÔNG dùng chung biến _pythonProcess nên không làm sập trang Live
                 string pythonExePath = @"C:\Users\84339\AppData\Local\Microsoft\WindowsApps\python.exe";
                 string snapshotScript = @"D:\Khóa luận tốt nghiệp\KLTN\python__project\get_snapshot.py";
 
-                // Thư mục lưu ảnh tạm cho Web hiển thị (lưu vào wwwroot/temp)
                 string tempFolder = Path.Combine(_env.WebRootPath, "temp");
                 if (!Directory.Exists(tempFolder)) Directory.CreateDirectory(tempFolder);
                 string outputImg = Path.Combine(tempFolder, $"snapshot_{cameraId}.jpg");
@@ -276,7 +296,6 @@ namespace KLTN_Service.Controllers
 
                 using (Process? proc = Process.Start(startInfo))
                 {
-                    // Chờ tối đa 10 giây để nó chụp xong ảnh
                     if (proc != null) proc.WaitForExit(10000);
                 }
 
