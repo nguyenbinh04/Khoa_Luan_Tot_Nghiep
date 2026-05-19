@@ -14,7 +14,7 @@ namespace KLTN_Service.Controllers
     {
         private readonly IWebHostEnvironment _env;
         private readonly AppDbContext _context;
-        // Tiến trình chạy chính cho trang Live
+
         private static Process? _pythonProcess;
 
         private readonly string _storageFolder = @"D:\DuLieu_GiaoThong_KLTN";
@@ -38,25 +38,22 @@ namespace KLTN_Service.Controllers
         [HttpPost("violations/report")]
         public async Task<IActionResult> ReportViolation([FromForm] string bienSo, [FromForm] string loaiViPham, [FromForm] int cameraId, [FromForm] IFormFile anhViPham, [FromForm] IFormFile? anhBienSo)
         {
-            // 1. CHÌA KHÓA LÀ ĐÂY: Truy vấn Database để lấy đúng Tên Camera
             var cam = await _context.Cameras.FindAsync(cameraId);
             string tenCamera = cam != null ? cam.TenCamera : $"Cam_{cameraId}";
 
-            // 2. Làm sạch tên Camera để an toàn khi làm tên file (Xóa khoảng trắng, chuyển ngoặc thành gạch dưới)
-            // Ví dụ: "Cam 1(Đèn đỏ)" -> "Cam_1_Đèn_đỏ"
+
             string safeCamName = tenCamera.Replace(" ", "_").Replace("(", "_").Replace(")", "");
             var invalidChars = Path.GetInvalidFileNameChars();
             safeCamName = new string(safeCamName.Where(ch => !invalidChars.Contains(ch)).ToArray());
 
-            // 3. Lấy thời gian thực và làm sạch tên lỗi
+
             string timeStr = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string safeLoi = loaiViPham.Replace(" ", "").Replace("(", "_").Replace(")", "").Replace("+", "_");
 
-            // 4. Ghép thành siêu phẩm tên file: [Tên Camera]_[Thời Gian]_[Lỗi].jpg
             string fullFileName = $"{safeCamName}_{timeStr}_{safeLoi}.jpg";
             string plateFileName = $"{safeCamName}_{timeStr}_{safeLoi}_Plate.jpg";
 
-            // 5. Lưu file với tên mới tự tạo
+
             string fullPath = await SaveFile(anhViPham, "vi_pham", fullFileName);
             string platePath = anhBienSo != null ? await SaveFile(anhBienSo, "plates", plateFileName) : "";
 
@@ -66,13 +63,13 @@ namespace KLTN_Service.Controllers
             return Ok(new { status = "success" });
         }
 
-        // Cập nhật hàm SaveFile để nó nhận tên file tùy chỉnh
+
         private async Task<string> SaveFile(IFormFile file, string folder, string customFileName = "")
         {
             string path = Path.Combine(_storageFolder, "images", folder);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
-            // Ưu tiên dùng tên customFileName do C# tự sinh ra
+     
             string fileName = string.IsNullOrEmpty(customFileName) ? Path.GetFileName(file.FileName) : customFileName;
 
             using (var stream = new FileStream(Path.Combine(path, fileName), FileMode.Create)) { await file.CopyToAsync(stream); }
@@ -114,14 +111,14 @@ namespace KLTN_Service.Controllers
 
             try
             {
-                // 1. Xóa các cấu hình vùng liên quan đến Camera này
+           
                 var configs = _context.CauHinhVungs.Where(x => x.CameraId == id);
                 if (configs.Any())
                 {
                     _context.CauHinhVungs.RemoveRange(configs);
                 }
 
-                // 2. Xóa các lịch sử vi phạm liên quan đến Camera này
+                
                 var viPhams = _context.LichSuViPhams.Where(x => x.CameraId == id);
                 if (viPhams.Any())
                 {
@@ -130,7 +127,7 @@ namespace KLTN_Service.Controllers
 
                 await _context.SaveChangesAsync();
 
-                // 3. Cuối cùng mới xóa Camera
+                
                 _context.Cameras.Remove(cam);
                 await _context.SaveChangesAsync();
 
@@ -264,9 +261,7 @@ namespace KLTN_Service.Controllers
             return PhysicalFile(path, "image/jpeg");
         }
 
-        // =========================================================
-        // CHỨC NĂNG CHỤP ẢNH TĨNH ĐỘC LẬP CHO TRANG CẤU HÌNH
-        // =========================================================
+
         [HttpGet("ai/take-snapshot/{cameraId}")]
         public async Task<IActionResult> TakeSnapshot(int cameraId)
         {

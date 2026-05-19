@@ -1,5 +1,5 @@
 ﻿@{
-    // C# lấy đường dẫn hiện tại để tự động làm sáng Menu
+
     var currentPath = Context.Request.Path.ToString().ToLower();
 }
 <!DOCTYPE html>
@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
-        /* ========================================= */
-        /* CẤU TRÚC GIAO DIỆN CHÍNH (SIDEBAR)        */
-        /* ========================================= */
         body {
             background-color: #f4f6f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -129,7 +126,6 @@
             flex-grow: 1;
         }
 
-        /* Xóa khoảng trắng thừa của Container gốc để Camera được tràn viền */
         .container {
             max-width: 100% !important;
             padding: 0 !important;

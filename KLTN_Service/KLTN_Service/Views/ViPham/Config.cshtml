@@ -268,9 +268,7 @@
             });
         }
 
-        // ==============================================
-        // SỬA LỖI MODAL: THÊM TRẠNG THÁI LOADING & BẮT LỖI SERVER
-        // ==============================================
+
         function openCreateModal() {
             $('#newCameraName, #newCameraPath, #newCameraVideo').val('');
             var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('createCameraModal'));
@@ -365,9 +363,6 @@
             }
         }
 
-        // ==============================================
-        // CANVAS VÀ VẼ VÙNG
-        // ==============================================
         $(document).ready(function () {
             loadCamerasFromDB();
             $('#loaiVung').change(function() { saveUIState(); loadZoneFromServer(); });

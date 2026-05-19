@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5tcRKDAa1wzqc2O/jkFvorvcjJzC8HD9fjweoGTB5ak=",
+  "Hash": "05fgC3jf8QYuddQBgBCCJcyTbTefbCZBz6WU+6d+AH8=",
   "Source": "KLTN_Service",
   "BasePath": "_content/KLTN_Service",
   "Mode": "Default",
@@ -22585,7 +22585,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 May 2026 08:58:33 GMT"
+          "Value": "Mon, 11 May 2026 04:04:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22622,7 +22622,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 May 2026 08:58:33 GMT"
+          "Value": "Mon, 11 May 2026 04:04:56 GMT"
         },
         {
           "Name": "Cache-Control",

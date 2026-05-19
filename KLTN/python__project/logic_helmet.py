@@ -35,7 +35,6 @@ def main():
         if frame_count % 30 == 0:
             print(f"Đã xử lý được {frame_count} frames...")
 
-        # --- BƯỚC A: TÌM VÀ THEO DÕI XE TRONG TOÀN BỘ FRAME ---
         results = traffic_model.track(frame, persist=True, tracker="bytetrack.yaml", verbose=False)
 
         if results[0].boxes.id is not None:
@@ -43,7 +42,6 @@ def main():
             track_ids = results[0].boxes.id.int().cpu().tolist()
             class_ids = results[0].boxes.cls.int().cpu().tolist()
 
-            # Chuẩn bị danh sách để xử lý Mũ bảo hiểm theo Lô (Batch)
             motorcycle_crops = []
             crop_coords = []
             track_infos = []
@@ -51,32 +49,28 @@ def main():
             for box, track_id, class_id in zip(boxes, track_ids, class_ids):
                 x1_xe, y1_xe, x2_xe, y2_xe = [int(i) for i in box]
 
-                if class_id == 5: # Nếu là xe máy
-                    # Vẽ khung xe máy màu Cyan nhạt
+                if class_id == 5:
                     cv2.rectangle(frame, (x1_xe, y1_xe), (x2_xe, y2_xe), (255, 255, 0), 2)
 
-                    # CẮT ẢNH XE MÁY RA
+
                     y1_crop, y2_crop = max(0, y1_xe), min(height, y2_xe)
                     x1_crop, x2_crop = max(0, x1_xe), min(width, x2_xe)
                     crop_img = frame[y1_crop:y2_crop, x1_crop:x2_crop]
 
                     if crop_img.size > 0:
                         motorcycle_crops.append(crop_img)
-                        crop_coords.append((x1_crop, y1_crop)) # Lưu lại tọa độ góc trái trên để bù trừ
-                        track_infos.append((track_id, x1_xe, y1_xe)) # Lưu ID và tọa độ để ghi chữ
+                        crop_coords.append((x1_crop, y1_crop))
+                        track_infos.append((track_id, x1_xe, y1_xe))
 
-            # --- BƯỚC B: NHẬN DIỆN MŨ BẢO HIỂM BẰNG BATCH INFERENCE ---
-            # Chỉ gọi hàm predict 1 LẦN cho TẤT CẢ các xe máy trong frame
             if motorcycle_crops:
                 helmet_results = helmet_model.predict(motorcycle_crops, verbose=False, conf=0.4)
 
-                # Duyệt qua kết quả trả về tương ứng với từng xe máy
                 for idx, h_res in enumerate(helmet_results):
                     offset_x, offset_y = crop_coords[idx]
                     t_id, txt_x, txt_y = track_infos[idx]
 
                     status_text = "OK"
-                    color_status = (0, 255, 0) # Xanh lá mặc định
+                    color_status = (0, 255, 0)
 
                     for h_box in h_res.boxes:
                         h_class = int(h_box.cls[0])

@@ -109,7 +109,7 @@
             });
         }
 
-        // HÀM TỰ ĐỘNG CHUYỂN ĐỔI: TẮT CŨ -> BẬT MỚI
+
         async function switchCamera() {
             let cameraId = $('#cameraSelect').val();
             if (!cameraId) return;
@@ -117,15 +117,14 @@
             saveUIState();
             updateVideoFileNameDisplay();
 
-            // 1. Hiển thị trạng thái đang chuyển đổi
+
             $('#video-stream').hide();
             $('#offlineMsg').show();
             $('#statusText').html('<div class="spinner-border text-primary mb-3"></div><br/>Đang chuyển kết nối...');
 
-            // 2. Gửi lệnh tắt AI cũ ngầm (không hiện confirm)
             await $.post('/api/api/ai/stop');
 
-            // 3. Tự động gửi lệnh bật AI mới
+
             var formData = new FormData();
             formData.append("cameraId", cameraId);
 
@@ -157,10 +156,10 @@
                         }
                     };
 
-                    // Chờ 1 giây cho Python khởi động rồi mới gán src
+
                     setTimeout(() => {
                         img.src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();
-                    }, 1000);
+                    }, 3000);
                 },
                 error: function () {
                     $('#statusText').text("Lỗi khởi động hệ thống AI");
@@ -184,7 +183,6 @@
         $(document).ready(function () {
             loadCamerasFromDB();
 
-            // Tự động kết nối lại nếu AI đang chạy sẵn khi load trang
             let img = document.getElementById('video-stream');
             img.onload = function() { $(img).show(); $('#offlineMsg').hide(); };
             img.src = "http://127.0.0.1:5000/video_feed?t=" + new Date().getTime();

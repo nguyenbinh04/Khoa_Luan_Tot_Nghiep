@@ -14,16 +14,12 @@ namespace KLTN_Service.Controllers
         {
             _context = context;
         }
-
-        // Trả về giao diện trang chủ (Index.cshtml)
         public IActionResult Index()
         {
             return View();
         }
 
-        // ========================================================
-        // API TRẢ VỀ DỮ LIỆU THẬT TỪ MYSQL DATABASE CHO DASHBOARD
-        // ========================================================
+
         [HttpGet]
         public IActionResult GetDashboardData()
         {
@@ -51,7 +47,7 @@ namespace KLTN_Service.Controllers
                 data7Days.Add(_context.LichSuViPhams.Count(v => v.ThoiGian.Date == day));
             }
 
-            // 4. DANH SÁCH 5 VI PHẠM MỚI NHẤT
+
             var recentViolations = (from v in _context.LichSuViPhams
                                     join c in _context.Cameras on v.CameraId equals c.Id
                                     orderby v.ThoiGian descending
@@ -59,7 +55,7 @@ namespace KLTN_Service.Controllers
                                     {
                                         id = v.Id,
                                         hinhAnh = v.DuongDanAnh,
-                                        hinhAnhBienSo = v.DuongDanAnhBienSo, // <-- THÊM DÒNG NÀY
+                                        hinhAnhBienSo = v.DuongDanAnhBienSo,
                                         bienSo = v.BienSo,
                                         loaiViPham = v.LoaiViPham,
                                         tenCamera = c.TenCamera,
@@ -67,7 +63,6 @@ namespace KLTN_Service.Controllers
                                         trangThai = v.TrangThaiXuLy
                                     }).Take(5).ToList();
 
-            // Trả về một khối JSON tổng hợp tất cả
             return Json(new
             {
                 today = new { total = totalToday, denDo = vuotDenDo, saiLan = saiLan, khongMu = khongMu },

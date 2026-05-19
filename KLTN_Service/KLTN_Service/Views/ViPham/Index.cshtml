@@ -131,20 +131,18 @@
 
     <script>
         $(document).ready(function () {
-            // ===============================================================
-            // CẤU HÌNH DATATABLES SERVER-SIDE (PHIÊN BẢN TỐI ƯU BIG DATA)
-            // ===============================================================
+
             var table = $('#violationTable').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
-                    "url": "/ViPham/LoadData", // Đường dẫn gọi hàm C# LoadData
+                    "url": "/ViPham/LoadData", 
                     "type": "POST"
                 },
                 "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" },
                 "order": [[ 0, "desc" ]],
                 "drawCallback": function( settings ) {
-                    // Cập nhật thẻ Tổng số mỗi khi bảng load xong dữ liệu
+
                     $('#totalBadge').html(`Tổng số: ${settings._iRecordsTotal} vụ việc`);
                 },
                 "columns": [
@@ -240,14 +238,14 @@
                 ]
             });
 
-            // Tùy chỉnh Nút Lọc (Gửi thẳng từ khóa vào ô Search tổng của DataTables)
+
             $('.filter-tab').on('click', function (e) {
                 e.preventDefault();
                 $('.filter-tab').removeClass('active bg-danger text-white').addClass('text-dark');
                 $(this).removeClass('text-dark').addClass('active bg-danger text-white');
                 var keyword = $(this).attr('data-filter');
 
-                // Sử dụng global search thay vì column search để tương thích API C#
+
                 table.search(keyword).draw();
             });
 
@@ -255,9 +253,7 @@
             enableZoomAndPan('modalPlateImg', 'plateContainer');
         });
 
-        // ================================================================
-        // HÀM HỖ TRỢ ZOOM VÀ KÉO THẢ ẢNH BẰNG CHUỘT
-        // ================================================================
+
         function enableZoomAndPan(imgId, containerId) {
             const img = document.getElementById(imgId);
             const container = document.getElementById(containerId);
@@ -380,7 +376,6 @@
                 data: { id: id, bienSoMoi: bienSoMoi },
                 success: function (res) {
                     if (res.status === 'success') {
-                        // Tải lại bảng hiện tại (giữ nguyên trang đang xem) thay vì reload toàn bộ trình duyệt
                         $('#violationTable').DataTable().ajax.reload(null, false);
                         bootstrap.Modal.getInstance(document.getElementById('violationModal')).hide();
                         btn.innerHTML = originalText;

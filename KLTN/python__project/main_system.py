@@ -14,9 +14,8 @@ import datetime
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# ==========================================
+
 # CẤU HÌNH API TOÀN CỤC
-# ==========================================
 API_BASE = "https://localhost:7114"
 CAMERA_ID = "1"
 
@@ -25,9 +24,7 @@ ENABLE_SIGN = False
 ENABLE_PLATE = True
 ENABLE_HELMET = True
 
-# ==========================================
-# FLASK STREAMING (CHỐNG TREO CPU)
-# ==========================================
+
 app = Flask(__name__)
 output_frame = None
 lock = threading.Lock()
@@ -88,9 +85,7 @@ def fetch_all_zones():
     return zones
 
 
-# =======================================================
 # THUẬT TOÁN ĐỌC MÀU ĐÈN
-# =======================================================
 def detect_light_color(crop_img):
     hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
 
@@ -190,7 +185,6 @@ def main():
     FRAMES_TO_CONFIRM = 7
     vehicle_paths = {}
 
-    # KHO LƯU TRỮ BỘ NHỚ ĐỆM (CACHE) CỦA MŨ BẢO HIỂM
     helmet_memory = {}
 
     while True:

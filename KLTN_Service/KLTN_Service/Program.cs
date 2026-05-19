@@ -1,8 +1,8 @@
 using KLTN_Service.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.Features; // BẮT BUỘC THÊM: Để xử lý form upload dung lượng lớn
-using Microsoft.Extensions.FileProviders; // BẮT BUỘC THÊM: Để đọc file từ ổ đĩa ngoài (D:, E:...)
-using Microsoft.AspNetCore.Server.IIS;    // Thêm thư viện này cho IIS
+using Microsoft.AspNetCore.Http.Features; 
+using Microsoft.Extensions.FileProviders; 
+using Microsoft.AspNetCore.Server.IIS;   
 
 namespace KLTN_Service
 {
@@ -12,31 +12,25 @@ namespace KLTN_Service
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // =========================================================
-            // CẤU HÌNH MỞ KHÓA GIỚI HẠN UPLOAD FILE LÊN 2GB
-            // (2GB = 2147483648 bytes. Thêm 'L' để chỉ định kiểu số Long)
-            // =========================================================
-
-            // 1. Mở khóa cho Form Data
             builder.Services.Configure<FormOptions>(options =>
             {
                 options.ValueLengthLimit = int.MaxValue;
-                options.MultipartBodyLengthLimit = 2147483648L; // 2 GB
+                options.MultipartBodyLengthLimit = 2147483648L; 
                 options.MultipartHeadersLengthLimit = int.MaxValue;
             });
 
-            // 2. Mở khóa cho Kestrel Server
+
             builder.WebHost.ConfigureKestrel(serverOptions =>
             {
-                serverOptions.Limits.MaxRequestBodySize = 2147483648L; // 2 GB
+                serverOptions.Limits.MaxRequestBodySize = 2147483648L;
             });
 
-            // 3. Mở khóa cho IIS Express (Khi chạy bằng Visual Studio)
+
             builder.Services.Configure<IISServerOptions>(options =>
             {
-                options.MaxRequestBodySize = 2147483648L; // 2 GB
+                options.MaxRequestBodySize = 2147483648L;
             });
-            // =========================================================
+
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -61,9 +55,7 @@ namespace KLTN_Service
 
             app.UseAuthorization();
 
-            // =========================================================
-            // CẤU HÌNH MAP THƯ MỤC Ổ ĐĨA NGOÀI VÀO WEB (ẢO HÓA ĐƯỜNG DẪN)
-            // =========================================================
+
             string storageFolder = @"D:\DuLieu_GiaoThong_KLTN";
 
             // 1. Map thư mục ảnh vi phạm
@@ -72,7 +64,7 @@ namespace KLTN_Service
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(imagesPath),
-                RequestPath = "/images" // Khi web gọi /images/... nó sẽ tự động chui vào ổ D tìm
+                RequestPath = "/images" 
             });
 
             // 2. Map thư mục Video
@@ -81,11 +73,9 @@ namespace KLTN_Service
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(videosPath),
-                RequestPath = "/videos" // Khi web gọi /videos/... nó sẽ tự động chui vào ổ D tìm
+                RequestPath = "/videos" 
             });
-            // =========================================================
 
-            // Map các file tĩnh mặc định trong wwwroot (CSS, JS...)
             app.MapStaticAssets();
 
             app.MapControllerRoute(
